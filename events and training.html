@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Training | AgriClimate Connect</title>
+    <meta name="description" content="Join global agricultural events, training programs, webinars, and workshops to enhance your farming knowledge and connect with experts.">
+   
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Liquid Glass Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+       
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+       
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+       
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+       
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+       
+        /* Animated Background */
+        .bg-mesh {
+            background:
+                radial-gradient(at 0% 0%, hsla(120,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(140,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(160,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(100,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+       
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+       
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+       
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-radius: 5px;
+        }
+       
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+       
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+       
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+       
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+       
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+       
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+       
+        .large-text {
+            font-size: 120%;
+        }
+       
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+       
+        /* Event Card Hover */
+        .event-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+       
+        /* Timeline */
+        .timeline-line {
+            background: linear-gradient(to bottom, #22c55e, #16a34a);
+        }
+       
+        /* Tab Animation */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+       
+        /* Calendar Grid */
+        .calendar-day {
+            transition: all 0.2s ease;
+        }
+        .calendar-day:hover:not(.empty) {
+            background: rgba(34, 197, 94, 0.1);
+            transform: scale(1.1);
+        }
+        .calendar-day.has-event {
+            position: relative;
+        }
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+       
+        /* Filter Button Active State */
+        .filter-btn.active {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            color: white;
+        }
+       
+        /* Workshop Card */
+        .workshop-card {
+            transition: all 0.3s ease;
+        }
+        .workshop-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(0,0,0,0.1);
+        }
+       
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+       
+        /* Video Play Button */
+        .play-button {
+            transition: all 0.3s ease;
+        }
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.5);
+        }
+       
+        /* Certificate Badge */
+        .certificate-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+        }
+       
+        /* Live Indicator */
+        .live-indicator {
+            animation: pulse-live 2s infinite;
+        }
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+       
+        /* Speaker Card */
+        .speaker-card {
+            transition: all 0.3s ease;
+        }
+        .speaker-card:hover {
+            transform: translateY(-5px);
+        }
+        .speaker-card:hover .speaker-image {
+            transform: scale(1.05);
+        }
+       
+        /* Category Tag */
+        .category-tag {
+            transition: all 0.2s ease;
+        }
+        .category-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+   
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+               
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+                   
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="ai crop advisory.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="livestock management.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="market intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="soil analysis.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="ai powered tools.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="ai_powered">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Top-tier agricultural AI</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                   
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="discussion forum.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="knowledge center.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="expert network.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <a href="events and training.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="events_training">Events & Training</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Webinars & workshops</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                   
+                    <a href="about us.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_about">About Us</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+               
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                   
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+               
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+       
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+               
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="hidden pl-4 space-y-1">
+                        <a href="weather intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="ai crop advisory.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="livestock management.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="livestock">Livestock Management</a>
+                        <a href="market intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="soil analysis.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                        <a href="ai powered tools.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="ai_powered">AI-Powered Tools</a>
+                    </div>
+                </div>
+               
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="discussion forum.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="knowledge center.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="expert network.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="events and training.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="events_training">Events & Training</a>
+                    </div>
+                </div>
+               
+                <a href="about us.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_about">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+               
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%2316a34a%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+           
+            <!-- Floating Elements -->
+            <div class="absolute top-20 left-10 w-72 h-72 bg-agri-400/20 rounded-full blur-3xl animate-morph"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-morph" style="animation-delay: -4s;"></div>
+           
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-8 animate-float">
+                    <span class="w-2 h-2 bg-red-500 rounded-full live-indicator"></span>
+                    <span class="text-sm font-medium text-agri-700 dark:text-agri-300">Live Events & Training</span>
+                </div>
+               
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                    <span class="block text-earth-800 dark:text-earth-100">Learn, Connect</span>
+                    <span class="block text-gradient mt-2">& Grow Together</span>
+                </h1>
+               
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    Join thousands of farmers worldwide in interactive workshops, expert-led webinars, 
+                    and hands-on field demonstrations designed to transform your agricultural practices.
+                </p>
+               
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button onclick="scrollToSection('upcoming-events')" class="group px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold text-lg shadow-2xl hover:shadow-agri-500/30 transition-all hover:-translate-y-1 flex items-center gap-2">
+                        <span>Explore Events</span>
+                        <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                    </button>
+                    <button onclick="openTrainingModal()" class="px-8 py-4 glass dark:glass-dark rounded-full font-semibold text-lg hover:bg-white/20 transition-all flex items-center gap-2">
+                        <i data-lucide="play-circle" class="w-5 h-5 text-agri-600"></i>
+                        <span>Start Learning</span>
+                    </button>
+                </div>
+               
+                <!-- Quick Stats -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="250">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Events This Year</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="50000">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Farmers Trained</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="150">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Expert Instructors</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="45">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Countries Reached</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="py-24 relative bg-gradient-to-b from-transparent to-agri-50/50 dark:to-agri-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">How Our Training Works</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        A comprehensive learning ecosystem designed to take you from beginner to expert through practical, hands-on education
+                    </p>
+                </div>
+               
+                <!-- Timeline -->
+                <div class="relative">
+                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 timeline-line rounded-full hidden md:block"></div>
+                   
+                    <div class="space-y-12">
+                        <!-- Step 1 -->
+                        <div class="relative flex flex-col md:flex-row items-center gap-8 animate-slide-up">
+                            <div class="md:w-1/2 md:text-right md:pr-12">
+                                <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-4 ml-auto shadow-lg">
+                                        <i data-lucide="search" class="w-7 h-7 text-white"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold mb-3">1. Discover & Register</h3>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        Browse our extensive catalog of events, webinars, and workshops. Filter by topic, skill level, 
+                                        language, and location. One-click registration with personalized recommendations based on your farm profile.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-agri-500 border-4 border-white dark:border-slate-900 flex items-center justify-center z-10 hidden md:flex">
+                                <span class="text-white font-bold">1</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80" alt="Discover Events" class="rounded-2xl shadow-2xl w-full h-64 object-cover">
+                            </div>
+                        </div>
+                       
+                        <!-- Step 2 -->
+                        <div class="relative flex flex-col md:flex-row-reverse items-center gap-8 animate-slide-up" style="animation-delay: 0.1s;">
+                            <div class="md:w-1/2 md:text-left md:pl-12">
+                                <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4 shadow-lg">
+                                        <i data-lucide="users" class="w-7 h-7 text-white"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold mb-3">2. Learn & Interact</h3>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        Join live sessions with industry experts, participate in Q&A, access downloadable resources, 
+                                        and connect with fellow farmers. All sessions are recorded for later review.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-agri-500 border-4 border-white dark:border-slate-900 flex items-center justify-center z-10 hidden md:flex">
+                                <span class="text-white font-bold">2</span>
+                            </div>
+                            <div class="md:w-1/2 md:pr-12">
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&auto=format&fit=crop&q=80" alt="Interactive Learning" class="rounded-2xl shadow-2xl w-full h-64 object-cover">
+                            </div>
+                        </div>
+                       
+                        <!-- Step 3 -->
+                        <div class="relative flex flex-col md:flex-row items-center gap-8 animate-slide-up" style="animation-delay: 0.2s;">
+                            <div class="md:w-1/2 md:text-right md:pr-12">
+                                <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-4 ml-auto shadow-lg">
+                                        <i data-lucide="handshake" class="w-7 h-7 text-white"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold mb-3">3. Practice & Connect</h3>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        Apply what you've learned in your fields. Join local farmer groups, find mentors, 
+                                        and participate in field demonstrations. Share your progress and get feedback from the community.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-agri-500 border-4 border-white dark:border-slate-900 flex items-center justify-center z-10 hidden md:flex">
+                                <span class="text-white font-bold">3</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&auto=format&fit=crop&q=80" alt="Field Practice" class="rounded-2xl shadow-2xl w-full h-64 object-cover">
+                            </div>
+                        </div>
+                       
+                        <!-- Step 4 -->
+                        <div class="relative flex flex-col md:flex-row-reverse items-center gap-8 animate-slide-up" style="animation-delay: 0.3s;">
+                            <div class="md:w-1/2 md:text-left md:pl-12">
+                                <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-4 shadow-lg">
+                                        <i data-lucide="award" class="w-7 h-7 text-white"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold mb-3">4. Certify & Advance</h3>
+                                    <p class="text-gray-600 dark:text-gray-300">
+                                        Complete assessments to earn recognized certificates. Track your learning progress, 
+                                        unlock advanced courses, and become a certified trainer to help other farmers.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-agri-500 border-4 border-white dark:border-slate-900 flex items-center justify-center z-10 hidden md:flex">
+                                <span class="text-white font-bold">4</span>
+                            </div>
+                            <div class="md:w-1/2 md:pr-12">
+                                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=80" alt="Certification" class="rounded-2xl shadow-2xl w-full h-64 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Categories -->
+        <section class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Learning Paths</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Choose from diverse training formats designed to fit your schedule and learning style
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Live Webinars -->
+                    <div class="category-tag glass-card dark:glass-dark rounded-2xl p-6 text-center cursor-pointer group" onclick="filterEvents('webinar')">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="video" class="w-8 h-8 text-red-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Live Webinars</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Real-time online sessions with experts</p>
+                        <div class="flex items-center justify-center gap-2 text-red-600 text-sm font-medium">
+                            <span class="w-2 h-2 bg-red-500 rounded-full live-indicator"></span>
+                            <span>12 Live Now</span>
+                        </div>
+                    </div>
+                   
+                    <!-- Workshops -->
+                    <div class="category-tag glass-card dark:glass-dark rounded-2xl p-6 text-center cursor-pointer group" onclick="filterEvents('workshop')">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="wrench" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Hands-on Workshops</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Practical field training sessions</p>
+                        <div class="flex items-center justify-center gap-2 text-blue-600 text-sm font-medium">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>45 Locations</span>
+                        </div>
+                    </div>
+                   
+                    <!-- Courses -->
+                    <div class="category-tag glass-card dark:glass-dark rounded-2xl p-6 text-center cursor-pointer group" onclick="filterEvents('course')">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="graduation-cap" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Certified Courses</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Self-paced learning with credentials</p>
+                        <div class="flex items-center justify-center gap-2 text-purple-600 text-sm font-medium">
+                            <i data-lucide="award" class="w-4 h-4"></i>
+                            <span>78 Courses</span>
+                        </div>
+                    </div>
+                   
+                    <!-- Field Days -->
+                    <div class="category-tag glass-card dark:glass-dark rounded-2xl p-6 text-center cursor-pointer group" onclick="filterEvents('field-day')">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="tractor" class="w-8 h-8 text-agri-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Field Demonstrations</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">On-farm learning experiences</p>
+                        <div class="flex items-center justify-center gap-2 text-agri-600 text-sm font-medium">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <span>32 This Month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Calendar & Events -->
+        <section id="upcoming-events" class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Upcoming Events</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Find and register for events near you or join global online sessions
+                    </p>
+                </div>
+               
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Calendar Widget -->
+                    <div class="lg:col-span-1">
+                        <div class="glass dark:glass-dark rounded-3xl p-6 shadow-2xl border border-white/30 sticky top-24">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xl font-bold" id="current-month">November 2025</h3>
+                                <div class="flex gap-2">
+                                    <button onclick="changeMonth(-1)" class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                                    </button>
+                                    <button onclick="changeMonth(1)" class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                           
+                            <div class="grid grid-cols-7 gap-1 text-center text-sm font-medium text-gray-500 mb-2">
+                                <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                            </div>
+                            <div id="calendar-grid" class="grid grid-cols-7 gap-1">
+                                <!-- Calendar days generated by JS -->
+                            </div>
+                           
+                            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                                <h4 class="font-semibold mb-3">Selected Date Events</h4>
+                                <div id="selected-date-events" class="space-y-2 max-h-48 overflow-y-auto">
+                                    <p class="text-sm text-gray-500">Click a date to see events</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Events List -->
+                    <div class="lg:col-span-2">
+                        <!-- Filter Tabs -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <button onclick="filterEvents('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-gray-700 hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-filter="all">
+                                All Events
+                            </button>
+                            <button onclick="filterEvents('webinar')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-gray-700 hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-filter="webinar">
+                                Webinars
+                            </button>
+                            <button onclick="filterEvents('workshop')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-gray-700 hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-filter="workshop">
+                                Workshops
+                            </button>
+                            <button onclick="filterEvents('course')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-gray-700 hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-filter="course">
+                                Courses
+                            </button>
+                            <button onclick="filterEvents('field-day')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 dark:bg-gray-700 hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-filter="field-day">
+                                Field Days
+                            </button>
+                        </div>
+                       
+                        <!-- Events Container -->
+                        <div id="events-container" class="space-y-6">
+                            <!-- Events generated by JS -->
+                        </div>
+                       
+                        <!-- Load More -->
+                        <div class="text-center mt-8">
+                            <button onclick="loadMoreEvents()" class="px-8 py-3 glass dark:glass-dark rounded-full font-semibold hover:bg-white/20 transition-all flex items-center gap-2 mx-auto">
+                                <span>Load More Events</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Training Programs -->
+        <section class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Featured Training Programs</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Comprehensive learning journeys designed by industry experts
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Program 1 -->
+                    <div class="event-card glass-card dark:glass-dark rounded-3xl overflow-hidden border border-white/20">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&auto=format&fit=crop&q=80" alt="Climate Smart Agriculture" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute top-4 right-4 certificate-badge px-3 py-1 rounded-full text-xs font-bold text-white">
+                                Certificate
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                <span class="text-white text-sm font-medium">8 Weeks • Beginner</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Climate-Smart Agriculture Fundamentals</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Master sustainable farming practices, water conservation, and climate adaptation strategies for resilient crop production.
+                            </p>
+                            <div class="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="users" class="w-4 h-4"></i> 2,341 enrolled
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="star" class="w-4 h-4 text-yellow-500"></i> 4.9
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex -space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="Instructor">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="Instructor">
+                                    <div class="w-8 h-8 rounded-full border-2 border-white bg-agri-100 flex items-center justify-center text-xs font-bold text-agri-700">+3</div>
+                                </div>
+                                <button onclick="enrollProgram('climate-smart')" class="px-4 py-2 bg-agri-600 text-white rounded-lg text-sm font-medium hover:bg-agri-700 transition-colors">
+                                    Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Program 2 -->
+                    <div class="event-card glass-card dark:glass-dark rounded-3xl overflow-hidden border border-white/20">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=600&auto=format&fit=crop&q=80" alt="Precision Farming" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute top-4 right-4 certificate-badge px-3 py-1 rounded-full text-xs font-bold text-white">
+                                Certificate
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                <span class="text-white text-sm font-medium">12 Weeks • Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Precision Farming with IoT & AI</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Learn to implement sensor networks, drone technology, and AI-driven decision support systems for optimized farm management.
+                            </p>
+                            <div class="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="users" class="w-4 h-4"></i> 1,892 enrolled
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="star" class="w-4 h-4 text-yellow-500"></i> 4.8
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex -space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="Instructor">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="Instructor">
+                                    <div class="w-8 h-8 rounded-full border-2 border-white bg-agri-100 flex items-center justify-center text-xs font-bold text-agri-700">+2</div>
+                                </div>
+                                <button onclick="enrollProgram('precision-farming')" class="px-4 py-2 bg-agri-600 text-white rounded-lg text-sm font-medium hover:bg-agri-700 transition-colors">
+                                    Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Program 3 -->
+                    <div class="event-card glass-card dark:glass-dark rounded-3xl overflow-hidden border border-white/20">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&auto=format&fit=crop&q=80" alt="Livestock Health" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                            <div class="absolute top-4 right-4 certificate-badge px-3 py-1 rounded-full text-xs font-bold text-white">
+                                Certificate
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                <span class="text-white text-sm font-medium">6 Weeks • All Levels</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Livestock Health & Disease Management</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                Comprehensive training on animal health monitoring, disease prevention, vaccination schedules, and emergency response protocols.
+                            </p>
+                            <div class="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="users" class="w-4 h-4"></i> 3,156 enrolled
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="star" class="w-4 h-4 text-yellow-500"></i> 4.9
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex -space-x-2">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="Instructor">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full border-2 border-white" alt="Instructor">
+                                    <div class="w-8 h-8 rounded-full border-2 border-white bg-agri-100 flex items-center justify-center text-xs font-bold text-agri-700">+4</div>
+                                </div>
+                                <button onclick="enrollProgram('livestock-health')" class="px-4 py-2 bg-agri-600 text-white rounded-lg text-sm font-medium hover:bg-agri-700 transition-colors">
+                                    Enroll Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Now Section -->
+        <section class="py-24 relative bg-gradient-to-b from-transparent to-agri-50/50 dark:to-agri-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-12">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="w-3 h-3 bg-red-500 rounded-full live-indicator"></span>
+                            <h2 class="text-3xl md:text-4xl font-bold">Happening Now</h2>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400">Join these live sessions in progress</p>
+                    </div>
+                    <a href="#" class="text-agri-600 font-medium hover:underline flex items-center gap-1">
+                        View All Live <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+               
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Live Event 1 -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 border border-white/30 relative overflow-hidden group cursor-pointer" onclick="joinLiveEvent('weekly-market-update')">
+                        <div class="absolute top-0 right-0 bg-red-500 text-white px-4 py-1 rounded-bl-2xl text-sm font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                            LIVE
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="relative w-32 h-32 flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=300&auto=format&fit=crop&q=80" alt="Market Update" class="w-full h-full object-cover rounded-2xl">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center play-button">
+                                        <i data-lucide="play" class="w-6 h-6 text-agri-600 ml-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-2">Weekly Market Update & Price Forecasts</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Live analysis of commodity prices and trading opportunities</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="users" class="w-4 h-4"></i> 1,234 watching
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-4 h-4"></i> 45 min left
+                                    </span>
+                                </div>
+                                <div class="mt-4 flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full" alt="Host">
+                                    <span class="text-sm font-medium">Dr. James Mwangi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Live Event 2 -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 border border-white/30 relative overflow-hidden group cursor-pointer" onclick="joinLiveEvent('pest-control-qna')">
+                        <div class="absolute top-0 right-0 bg-red-500 text-white px-4 py-1 rounded-bl-2xl text-sm font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                            LIVE
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="relative w-32 h-32 flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300&auto=format&fit=crop&q=80" alt="Pest Control" class="w-full h-full object-cover rounded-2xl">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center play-button">
+                                        <i data-lucide="play" class="w-6 h-6 text-agri-600 ml-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-2">Emergency Pest Control Q&A</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Get immediate answers for Fall Armyworm and other threats</p>
+                                <div class="flex items-center gap-4 text-sm text-gray-500">
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="users" class="w-4 h-4"></i> 892 watching
+                                    </span>
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-4 h-4"></i> 30 min left
+                                    </span>
+                                </div>
+                                <div class="mt-4 flex items-center gap-2">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80" class="w-8 h-8 rounded-full" alt="Host">
+                                    <span class="text-sm font-medium">Prof. Sarah Ochieng</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expert Instructors -->
+        <section class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Learn from the Best</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Our instructors are world-class agricultural experts, researchers, and successful farmers
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Instructor 1 -->
+                    <div class="speaker-card glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80" alt="Dr. James Mwangi" class="w-full h-full object-cover rounded-full speaker-image transition-transform duration-300">
+                            <div class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg">Dr. James Mwangi</h3>
+                        <p class="text-agri-600 text-sm mb-2">Agricultural Economist</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">20+ years in commodity trading and market analysis</p>
+                        <div class="flex justify-center gap-3">
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="twitter" class="w-4 h-4"></i>
+                            </button>
+                            <button class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-xs font-medium">
+                                45 Courses
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <!-- Instructor 2 -->
+                    <div class="speaker-card glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80" alt="Prof. Sarah Ochieng" class="w-full h-full object-cover rounded-full speaker-image transition-transform duration-300">
+                            <div class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg">Prof. Sarah Ochieng</h3>
+                        <p class="text-agri-600 text-sm mb-2">Crop Protection Specialist</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Leading researcher in integrated pest management</p>
+                        <div class="flex justify-center gap-3">
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="twitter" class="w-4 h-4"></i>
+                            </button>
+                            <button class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-xs font-medium">
+                                32 Courses
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <!-- Instructor 3 -->
+                    <div class="speaker-card glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=80" alt="Dr. Michael Chen" class="w-full h-full object-cover rounded-full speaker-image transition-transform duration-300">
+                            <div class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg">Dr. Michael Chen</h3>
+                        <p class="text-agri-600 text-sm mb-2">Precision Agriculture Expert</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">IoT and AI implementation specialist for small farms</p>
+                        <div class="flex justify-center gap-3">
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="twitter" class="w-4 h-4"></i>
+                            </button>
+                            <button class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-xs font-medium">
+                                28 Courses
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <!-- Instructor 4 -->
+                    <div class="speaker-card glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80" alt="Dr. Amina Hassan" class="w-full h-full object-cover rounded-full speaker-image transition-transform duration-300">
+                            <div class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center border-2 border-white">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg">Dr. Amina Hassan</h3>
+                        <p class="text-agri-600 text-sm mb-2">Livestock Veterinarian</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Specialist in tropical livestock diseases and health</p>
+                        <div class="flex justify-center gap-3">
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 hover:bg-agri-100 dark:hover:bg-agri-900/30 rounded-lg transition-colors">
+                                <i data-lucide="twitter" class="w-4 h-4"></i>
+                            </button>
+                            <button class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-xs font-medium">
+                                38 Courses
+                            </button>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="text-center mt-12">
+                    <button onclick="viewAllInstructors()" class="px-8 py-3 glass dark:glass-dark rounded-full font-semibold hover:bg-white/20 transition-all">
+                        View All 150+ Instructors
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Stories -->
+        <section class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Farmer Success Stories</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Real farmers, real results. See how training transformed their operations
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Story 1 -->
+                    <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="John Kamau" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold">John Kamau</h4>
+                                <p class="text-sm text-gray-500">Nakuru, Kenya</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex items-center gap-1 mb-2">
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 italic">
+                                "The Climate-Smart Agriculture course completely changed how I farm. I've reduced water usage by 40% and increased my tomato yields by 60%. The instructors were incredibly knowledgeable."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-agri-600">60%</div>
+                                <div class="text-xs text-gray-500">Yield Increase</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-blue-600">40%</div>
+                                <div class="text-xs text-gray-500">Water Saved</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-purple-600">3x</div>
+                                <div class="text-xs text-gray-500">Income Growth</div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Story 2 -->
+                    <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" alt="Maria Santos" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold">Maria Santos</h4>
+                                <p class="text-sm text-gray-500">Manila, Philippines</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex items-center gap-1 mb-2">
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 italic">
+                                "I started with zero knowledge about livestock. After completing the Health Management certification, I'm now running a successful poultry farm with 500 birds and mentoring other women farmers."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-agri-600">500</div>
+                                <div class="text-xs text-gray-500">Birds Raised</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-blue-600">0</div>
+                                <div class="text-xs text-gray-500">Disease Outbreaks</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-purple-600">12</div>
+                                <div class="text-xs text-gray-500">Women Trained</div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Story 3 -->
+                    <div class="glass-card dark:glass-dark rounded-3xl p-8 border border-white/20">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" alt="Raj Patel" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold">Raj Patel</h4>
+                                <p class="text-sm text-gray-500">Gujarat, India</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex items-center gap-1 mb-2">
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 italic">
+                                "The Precision Farming course helped me implement drip irrigation and soil sensors. My cotton farm is now 3x more productive, and I've become a local expert helping neighboring farms."
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-agri-600">3x</div>
+                                <div class="text-xs text-gray-500">Productivity</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-blue-600">50%</div>
+                                <div class="text-xs text-gray-500">Cost Reduction</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-purple-600">25</div>
+                                <div class="text-xs text-gray-500">Farms Advised</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-12 text-center border border-white/30 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-agri-500/10 to-blue-500/10"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Farm?</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Join 50,000+ farmers who are already learning, connecting, and growing with AgriClimate Connect. 
+                            Your first course is free!
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="openAuthModal()" class="px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold text-lg shadow-2xl hover:shadow-agri-500/30 transition-all hover:-translate-y-1">
+                                Get Started Free
+                            </button>
+                            <button onclick="scrollToSection('upcoming-events')" class="px-8 py-4 glass dark:glass-dark rounded-full font-semibold text-lg hover:bg-white/20 transition-all">
+                                Browse All Events
+                            </button>
+                        </div>
+                        <p class="mt-6 text-sm text-gray-500">No credit card required • Cancel anytime • 30-day money-back guarantee</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+       
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+               
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html#features" class="hover:text-agri-400 transition-colors">Features</a></li>
+                        <li><a href="index.html#weather" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="index.html#market" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="index.html#community" class="hover:text-agri-400 transition-colors">Community</a></li>
+                        <li><a href="index.html#about" class="hover:text-agri-400 transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+               
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+               
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+           
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+       
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                    Hello! I'm your AI farming assistant. I can help you find events, recommend training programs, or answer questions about agriculture. What would you like to know?
+                </div>
+            </div>
+        </div>
+       
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('What events are happening this week?')" class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 rounded-full text-xs whitespace-nowrap hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">This week's events</button>
+                <button onclick="sendQuickMessage('Recommend a course for beginners')" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full text-xs whitespace-nowrap hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">Beginner courses</button>
+                <button onclick="sendQuickMessage('How do I earn certificates?')" class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full text-xs whitespace-nowrap hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors">Certificates</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+               
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sprout" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" id="auth-title">Welcome Back</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Sign in to access your personalized dashboard</p>
+                </div>
+               
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        <span id="auth-submit-text">Sign In</span>
+                    </button>
+                </form>
+               
+                <div class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-agri-600 font-semibold hover:underline ml-1" id="auth-switch-btn">Sign Up</button>
+                </div>
+               
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <button class="w-full py-3 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google">
+                        <span class="text-sm font-medium">Continue with Google</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Registration Modal -->
+    <div id="event-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeEventModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeEventModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+               
+                <div id="event-modal-content">
+                    <!-- Content populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+       
+        // Global State
+        let currentLanguage = 'en';
+        let isDarkMode = false;
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+        let currentMonth = new Date();
+        let selectedDate = null;
+        let currentFilter = 'all';
+       
+        // Sample Events Data
+        const eventsData = [
+            {
+                id: 1,
+                title: "Sustainable Irrigation Techniques",
+                type: "webinar",
+                date: new Date(2025, 10, 15),
+                time: "14:00 UTC",
+                duration: "90 min",
+                instructor: "Dr. Maria Gonzalez",
+                location: "Online",
+                image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=400&auto=format&fit=crop&q=80",
+                description: "Learn modern water conservation methods and drip irrigation systems.",
+                attendees: 234,
+                maxAttendees: 500
+            },
+            {
+                id: 2,
+                title: "Organic Pest Management Workshop",
+                type: "workshop",
+                date: new Date(2025, 10, 18),
+                time: "09:00 UTC",
+                duration: "4 hours",
+                instructor: "Prof. Sarah Ochieng",
+                location: "Nairobi, Kenya",
+                image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&auto=format&fit=crop&q=80",
+                description: "Hands-on training in biological pest control and natural pesticides.",
+                attendees: 45,
+                maxAttendees: 50
+            },
+            {
+                id: 3,
+                title: "Climate-Smart Agriculture Certification",
+                type: "course",
+                date: new Date(2025, 10, 20),
+                time: "Self-paced",
+                duration: "8 weeks",
+                instructor: "Multiple Experts",
+                location: "Online",
+                image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&auto=format&fit=crop&q=80",
+                description: "Comprehensive certification program on sustainable farming practices.",
+                attendees: 1234,
+                maxAttendees: 2000
+            },
+            {
+                id: 4,
+                title: "Maize Field Day 2025",
+                type: "field-day",
+                date: new Date(2025, 10, 22),
+                time: "08:00 UTC",
+                duration: "Full day",
+                instructor: "Dr. James Mwangi",
+                location: "Nakuru, Kenya",
+                image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&auto=format&fit=crop&q=80",
+                description: "Demonstration of new drought-resistant maize varieties and best practices.",
+                attendees: 156,
+                maxAttendees: 200
+            },
+            {
+                id: 5,
+                title: "Livestock Health & Nutrition",
+                type: "webinar",
+                date: new Date(2025, 10, 25),
+                time: "16:00 UTC",
+                duration: "120 min",
+                instructor: "Dr. Amina Hassan",
+                location: "Online",
+                image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&auto=format&fit=crop&q=80",
+                description: "Essential nutrition strategies for dairy cattle and poultry.",
+                attendees: 567,
+                maxAttendees: 1000
+            },
+            {
+                id: 6,
+                title: "Precision Farming with Drones",
+                type: "workshop",
+                date: new Date(2025, 10, 28),
+                time: "10:00 UTC",
+                duration: "6 hours",
+                instructor: "Dr. Michael Chen",
+                location: "Lagos, Nigeria",
+                image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400&auto=format&fit=crop&q=80",
+                description: "Practical training on UAV operation for crop monitoring and spraying.",
+                attendees: 23,
+                maxAttendees: 30
+            }
+        ];
+       
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_knowledge: "Knowledge Tools",
+                nav_community: "Community",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                get_started: "Get Started",
+                weather_intel: "Weather Intelligence",
+                crop_advisory: "AI Crop Advisory",
+                livestock: "Livestock Management",
+                market_intelligence: "Market Intelligence",
+                soil_analysis: "Soil Analysis",
+                ai_powered: "AI-Powered Tools",
+                discussion_forum: "Discussion Forum",
+                knowledge_center: "Knowledge Center",
+                expert_network: "Expert Network",
+                events_training: "Events & Training",
+                text_size: "Text Size",
+                high_contrast: "High Contrast",
+                dyslexic_font: "Dyslexic Friendly",
+                toggle_theme: "Toggle Theme"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_knowledge: "Herramientas de Conocimiento",
+                nav_community: "Comunidad",
+                nav_about: "Sobre Nosotros",
+                nav_contact: "Contacto",
+                get_started: "Comenzar",
+                weather_intel: "Inteligencia del Clima",
+                crop_advisory: "Asesoría de Cultivos IA",
+                livestock: "Gestión de Ganado",
+                market_intelligence: "Inteligencia de Mercado",
+                soil_analysis: "Análisis de Suelo",
+                ai_powered: "Herramientas IA",
+                discussion_forum: "Foro de Discusión",
+                knowledge_center: "Centro de Conocimiento",
+                expert_network: "Red de Expertos",
+                events_training: "Eventos y Capacitación",
+                text_size: "Tamaño de Texto",
+                high_contrast: "Alto Contraste",
+                dyslexic_font: "Fuente Disléxica",
+                toggle_theme: "Cambiar Tema"
+            }
+        };
+       
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initCalendar();
+            renderEvents();
+            initCounters();
+            initParticles();
+           
+            // Check system dark mode preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        });
+       
+        // Calendar Functions
+        function initCalendar() {
+            renderCalendar();
+        }
+       
+        function renderCalendar() {
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+           
+            document.getElementById('current-month').textContent = 
+                new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+           
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+           
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+           
+            // Empty cells for days before start of month
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day empty p-2';
+                grid.appendChild(empty);
+            }
+           
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayEl = document.createElement('button');
+                dayEl.className = 'calendar-day p-2 rounded-lg text-sm hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors';
+                dayEl.textContent = day;
+               
+                // Check if has events
+                const hasEvent = eventsData.some(e => 
+                    e.date.getDate() === day && 
+                    e.date.getMonth() === month && 
+                    e.date.getFullYear() === year
+                );
+               
+                if (hasEvent) {
+                    dayEl.classList.add('has-event');
+                }
+               
+                // Check if selected
+                if (selectedDate && 
+                    selectedDate.getDate() === day && 
+                    selectedDate.getMonth() === month && 
+                    selectedDate.getFullYear() === year) {
+                    dayEl.classList.add('bg-agri-500', 'text-white');
+                }
+               
+                dayEl.onclick = () => selectDate(date);
+                grid.appendChild(dayEl);
+            }
+        }
+       
+        function changeMonth(delta) {
+            currentMonth.setMonth(currentMonth.getMonth() + delta);
+            renderCalendar();
+        }
+       
+        function selectDate(date) {
+            selectedDate = date;
+            renderCalendar();
+            showDateEvents(date);
+        }
+       
+        function showDateEvents(date) {
+            const container = document.getElementById('selected-date-events');
+            const daysEvents = eventsData.filter(e => 
+                e.date.getDate() === date.getDate() && 
+                e.date.getMonth() === date.getMonth() && 
+                e.date.getFullYear() === date.getFullYear()
+            );
+           
+            if (daysEvents.length === 0) {
+                container.innerHTML = '<p class="text-sm text-gray-500">No events on this date</p>';
+                return;
+            }
+           
+            container.innerHTML = daysEvents.map(event => `
+                <div class="p-3 bg-agri-50 dark:bg-agri-900/20 rounded-lg cursor-pointer hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" onclick="openEventModal(${event.id})">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 rounded-full ${getEventTypeColor(event.type)}"></span>
+                        <span class="text-xs font-medium text-gray-500">${event.time}</span>
+                    </div>
+                    <h5 class="font-medium text-sm">${event.title}</h5>
+                </div>
+            `).join('');
+        }
+       
+        function getEventTypeColor(type) {
+            const colors = {
+                'webinar': 'bg-red-500',
+                'workshop': 'bg-blue-500',
+                'course': 'bg-purple-500',
+                'field-day': 'bg-agri-500'
+            };
+            return colors[type] || 'bg-gray-500';
+        }
+       
+        // Event Filtering and Display
+        function filterEvents(type) {
+            currentFilter = type;
+           
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === type) {
+                    btn.classList.add('active');
+                }
+            });
+           
+            renderEvents();
+        }
+       
+        function renderEvents() {
+            const container = document.getElementById('events-container');
+            const filtered = currentFilter === 'all' 
+                ? eventsData 
+                : eventsData.filter(e => e.type === currentFilter);
+           
+            container.innerHTML = filtered.map(event => `
+                <div class="event-card glass dark:glass-dark rounded-2xl p-6 border border-white/20 cursor-pointer" onclick="openEventModal(${event.id})">
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="relative w-full md:w-48 h-32 flex-shrink-0">
+                            <img src="${event.image}" alt="${event.title}" class="w-full h-full object-cover rounded-xl">
+                            <div class="absolute top-2 left-2 px-2 py-1 bg-white/90 dark:bg-black/70 rounded text-xs font-bold uppercase">
+                                ${event.type}
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between mb-2">
+                                <h3 class="text-xl font-bold">${event.title}</h3>
+                                <span class="text-sm text-gray-500">${event.date.toLocaleDateString()}</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">${event.description}</p>
+                            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="clock" class="w-4 h-4"></i> ${event.time}
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i> ${event.location}
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="users" class="w-4 h-4"></i> ${event.attendees}/${event.maxAttendees}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="px-6 py-3 bg-agri-600 text-white rounded-xl font-medium hover:bg-agri-700 transition-colors whitespace-nowrap">
+                                Register
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+           
+            lucide.createIcons();
+        }
+       
+        function loadMoreEvents() {
+            showToast('Loading more events...');
+            // In production, this would fetch from API
+        }
+       
+        // Event Modal
+        function openEventModal(eventId) {
+            const event = eventsData.find(e => e.id === eventId);
+            if (!event) return;
+           
+            const modal = document.getElementById('event-modal');
+            const content = document.getElementById('event-modal-content');
+           
+            content.innerHTML = `
+                <div class="mb-4">
+                    <span class="inline-block px-3 py-1 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-sm font-medium mb-4">
+                        ${event.type.toUpperCase()}
+                    </span>
+                    <h2 class="text-2xl font-bold mb-2">${event.title}</h2>
+                    <p class="text-gray-600 dark:text-gray-400">${event.description}</p>
+                </div>
+               
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-3 text-sm">
+                        <i data-lucide="calendar" class="w-5 h-5 text-agri-600"></i>
+                        <span>${event.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <i data-lucide="clock" class="w-5 h-5 text-agri-600"></i>
+                        <span>${event.time} • ${event.duration}</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-agri-600"></i>
+                        <span>${event.location}</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <i data-lucide="user" class="w-5 h-5 text-agri-600"></i>
+                        <span>${event.instructor}</span>
+                    </div>
+                </div>
+               
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium">Registration</span>
+                        <span class="text-sm text-gray-500">${event.attendees}/${event.maxAttendees} registered</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        <div class="bg-agri-600 h-2 rounded-full" style="width: ${(event.attendees/event.maxAttendees)*100}%"></div>
+                    </div>
+                </div>
+               
+                <button onclick="registerForEvent(${event.id})" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                    Register Now
+                </button>
+            `;
+           
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+       
+        function closeEventModal() {
+            document.getElementById('event-modal').classList.add('hidden');
+        }
+       
+        function registerForEvent(eventId) {
+            closeEventModal();
+            showToast('Successfully registered! Check your email for details.');
+        }
+       
+        // Training Modal
+        function openTrainingModal() {
+            showToast('Training catalog loading...');
+        }
+       
+        function enrollProgram(programId) {
+            showToast('Enrollment successful! Welcome to the program.');
+        }
+       
+        function joinLiveEvent(eventId) {
+            showToast('Joining live stream...');
+        }
+       
+        function viewAllInstructors() {
+            showToast('Instructor directory loading...');
+        }
+       
+        // UI Functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('active');
+        }
+       
+        function toggleMobileDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            dropdown.classList.toggle('hidden');
+            icon.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+       
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('mobile-menu').classList.add('hidden');
+                document.getElementById('hamburger-btn').classList.remove('active');
+            }
+        }
+       
+        // Dark Mode
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+       
+        // Accessibility Features
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            const label = document.getElementById('text-size-label');
+            if (label) label.textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text mode enabled' : 'Normal text mode enabled');
+        }
+       
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        }
+       
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : '';
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+       
+        // Language Switching
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const label = document.getElementById('current-lang');
+            if (label) label.textContent = lang.toUpperCase();
+           
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+           
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+       
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+       
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+       
+        function sendQuickMessage(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+       
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+           
+            addMessage(message, 'user');
+            input.value = '';
+            showTypingIndicator();
+           
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+       
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+           
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                    </div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            }
+           
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+       
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 flex items-center gap-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+       
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+       
+        function generateAIResponse(input) {
+            const lowerInput = input.toLowerCase();
+           
+            if (lowerInput.includes('event') || lowerInput.includes('this week')) {
+                return "We have several exciting events this week! On Tuesday, we have a Sustainable Irrigation webinar at 14:00 UTC. On Friday, there's an Organic Pest Management workshop in Nairobi. Would you like me to register you for any of these?";
+            }
+            else if (lowerInput.includes('course') || lowerInput.includes('beginner')) {
+                return "For beginners, I highly recommend our 'Climate-Smart Agriculture Fundamentals' course. It's an 8-week program with over 2,300 enrolled farmers. You'll learn sustainable practices, water conservation, and soil health basics. Shall I enroll you?";
+            }
+            else if (lowerInput.includes('certificate') || lowerInput.includes('certification')) {
+                return "Our certification programs are recognized globally! To earn a certificate, you need to complete all course modules and pass the final assessment with 70% or higher. Certified farmers also get a badge on their profile and priority access to premium events.";
+            }
+            else {
+                return "I'd be happy to help you find the perfect training opportunity! You can browse our upcoming events, explore certified courses, or join live webinars. What topic interests you most - crop management, livestock, technology, or business skills?";
+            }
+        }
+       
+        // Auth Modal
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+       
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+       
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+       
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            closeAuthModal();
+            showToast(isSignUp ? 'Account created successfully!' : 'Welcome back!');
+        }
+       
+        // Form Submissions
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            showToast('Successfully subscribed to newsletter!');
+            event.target.reset();
+        }
+       
+        // Counter Animation
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        animateCounter(counter, target);
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+           
+            counters.forEach(counter => observer.observe(counter));
+        }
+       
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 30);
+        }
+       
+        // Particle Background
+        function initParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '0';
+            document.body.appendChild(canvas);
+           
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+           
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+           
+            window.addEventListener('resize', resize);
+            resize();
+           
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+               
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                   
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+               
+                draw() {
+                    ctx.fillStyle = `rgba(34, 197, 94, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+           
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+           
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+           
+            animate();
+        }
+       
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+           
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+       
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

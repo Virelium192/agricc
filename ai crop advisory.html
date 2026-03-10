@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crop Advisory | AgriClimate Connect - Intelligent Farming Recommendations</title>
+    <meta name="description" content="AI-powered crop recommendations, planting schedules, and harvest optimization based on real-time weather, soil data, and climate patterns.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        crop: {
+                            leafy: '#22c55e',
+                            root: '#d97706',
+                            fruit: '#ef4444',
+                            grain: '#eab308',
+                            legume: '#8b5cf6',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'grow': 'grow 2s ease-out forwards',
+                        'sway': 'sway 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        grow: {
+                            '0%': { transform: 'scaleY(0)', opacity: '0' },
+                            '100%': { transform: 'scaleY(1)', opacity: '1' },
+                        },
+                        sway: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Liquid Glass Effects - Identical to Homepage */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+        
+        /* Animated Background */
+        .bg-mesh {
+            background: 
+                radial-gradient(at 0% 0%, hsla(120,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(140,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(160,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(100,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-crop {
+            background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #86efac 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-radius: 5px;
+        }
+        
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+        
+        .large-text {
+            font-size: 120%;
+        }
+        
+        /* Crop Card Animations */
+        .crop-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .crop-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        .crop-icon {
+            animation: sway 3s ease-in-out infinite;
+        }
+        
+        /* Growth Timeline */
+        .growth-stage {
+            position: relative;
+        }
+        .growth-stage::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #22c55e, #16a34a);
+        }
+        .growth-stage:last-child::before {
+            display: none;
+        }
+        
+        /* Soil Meter */
+        .soil-meter {
+            background: conic-gradient(from 0deg, #ef4444 0deg, #eab308 90deg, #22c55e 180deg, #3b82f6 270deg, #8b5cf6 360deg);
+            border-radius: 50%;
+            position: relative;
+        }
+        .soil-meter::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform-origin: 50% 50%;
+        }
+        
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        /* Plant Growth Animation */
+        .plant-grow {
+            transform-origin: bottom center;
+            animation: grow 2s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- Navigation - Identical to Homepage -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+                    
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="ai crop advisory.html" class="block px-4 py-3 rounded-xl bg-agri-50 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-3 border-l-4 border-agri-500">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="livestock management.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="market intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="soil analysis.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="ai powered tools.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="ai_powered">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Top-tier agricultural AI</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="discussion forum.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="knowledge center.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="expert network.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <a href="events and training.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="events_training">Events & Training</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Webinars & workshops</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="about us.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_about">About Us</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+                
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl bg-agri-100 dark:bg-agri-900/30 font-medium flex items-center justify-between text-agri-700 dark:text-agri-300">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="pl-4 space-y-1">
+                        <a href="weather intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="ai crop advisory.html" class="block px-4 py-2 rounded-lg bg-agri-50 dark:bg-agri-900/20 text-agri-700 dark:text-agri-300 text-sm border-l-4 border-agri-500" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="livestock management.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="livestock">Livestock Management</a>
+                        <a href="market intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="soil analysis.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                        <a href="ai powered tools.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="ai_powered">AI-Powered Tools</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="discussion forum.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="knowledge center.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="expert network.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="events and training.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="events_training">Events & Training</a>
+                    </div>
+                </div>
+
+                <a href="about us.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_about">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+                
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-agri-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-agri-900/20">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-32 left-10 w-32 h-32 bg-agri-400/30 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
+            <div class="absolute bottom-32 right-10 w-48 h-48 bg-green-400/20 rounded-full blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-agri-400/10 rounded-full blur-3xl animate-morph"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-8 animate-float">
+                    <i data-lucide="brain" class="w-4 h-4 text-agri-500"></i>
+                    <span class="text-sm font-medium text-agri-700 dark:text-agri-300" data-translate="crop_badge">AI-Powered Crop Intelligence</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                    <span class="block text-earth-800 dark:text-earth-100" data-translate="crop_title_1">Smart Crop</span>
+                    <span class="block text-gradient-crop mt-2" data-translate="crop_title_2">Recommendations</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed" data-translate="crop_subtitle">
+                    AI-driven crop selection, planting schedules, and growth optimization based on real-time weather, soil conditions, and market demand. Maximize yields with data-driven precision agriculture.
+                </p>
+
+                <!-- Quick Input -->
+                <div class="max-w-3xl mx-auto glass dark:glass-dark rounded-2xl p-6 shadow-2xl border border-white/30">
+                    <div class="grid md:grid-cols-3 gap-4 mb-4">
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Location</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-gray-400"></i>
+                                <input type="text" id="farm-location" placeholder="Enter farm location" class="flex-1 bg-transparent border-none outline-none text-sm" value="Nairobi, Kenya">
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Farm Size</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="maximize" class="w-5 h-5 text-gray-400"></i>
+                                <select id="farm-size" class="flex-1 bg-transparent border-none outline-none text-sm">
+                                    <option value="small">Under 2 acres</option>
+                                    <option value="medium" selected>2-10 acres</option>
+                                    <option value="large">10-50 acres</option>
+                                    <option value="commercial">50+ acres</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Soil Type</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="mountain" class="w-5 h-5 text-gray-400"></i>
+                                <select id="soil-type" class="flex-1 bg-transparent border-none outline-none text-sm">
+                                    <option value="loamy" selected>Loamy Soil</option>
+                                    <option value="clay">Clay Soil</option>
+                                    <option value="sandy">Sandy Soil</option>
+                                    <option value="silty">Silty Soil</option>
+                                    <option value="peaty">Peaty Soil</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="generateRecommendations()" class="w-full py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
+                        <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                        <span>Generate AI Recommendations</span>
+                    </button>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Weather-Integrated</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Soil Analysis</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Market Data</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Pest Prediction</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Recommendations Dashboard -->
+        <section id="recommendations" class="py-12 -mt-20 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <!-- Dashboard Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                        <div>
+                            <h2 class="text-2xl font-bold flex items-center gap-3">
+                                <i data-lucide="sparkles" class="w-6 h-6 text-agri-500"></i>
+                                <span>AI-Recommended Crops</span>
+                                <span class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-xs font-medium">5 Matches</span>
+                            </h2>
+                            <p class="text-sm text-gray-500 mt-1">Based on current weather, soil conditions, and market trends</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="filterCrops('all')" class="px-4 py-2 rounded-xl bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 text-sm font-medium">All</button>
+                            <button onclick="filterCrops('leafy')" class="px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm font-medium">Leafy</button>
+                            <button onclick="filterCrops('grain')" class="px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm font-medium">Grains</button>
+                            <button onclick="filterCrops('vegetable')" class="px-4 py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm font-medium">Vegetables</button>
+                        </div>
+                    </div>
+
+                    <!-- Crop Cards Grid -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="crop-grid">
+                        <!-- Crop Card 1: Kale -->
+                        <div class="crop-card glass-card dark:glass-dark rounded-2xl p-6 border-2 border-agri-400/50 relative overflow-hidden group cursor-pointer" onclick="showCropDetails('kale')">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-agri-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-bold">98% Match</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center crop-icon shadow-lg">
+                                    <i data-lucide="leaf" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Kale (Sukuma Wiki)</h3>
+                                    <p class="text-sm text-gray-500">Leafy Green • 45-60 days</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Market Demand</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                        <span class="font-medium">High</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Water Needs</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 60%"></div>
+                                        </div>
+                                        <span class="font-medium">Moderate</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Profit Potential</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-agri-500 rounded-full" style="width: 88%"></div>
+                                        </div>
+                                        <span class="font-medium">Excellent</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>Plant: Now - 2 weeks</span>
+                                </div>
+                                <button class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-lg text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                                    View Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Crop Card 2: Maize -->
+                        <div class="crop-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-agri-400/50 relative overflow-hidden group cursor-pointer" onclick="showCropDetails('maize')">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-xs font-bold">92% Match</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center crop-icon shadow-lg">
+                                    <i data-lucide="wheat" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Maize (H614)</h3>
+                                    <p class="text-sm text-gray-500">Grain • 4-5 months</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Market Demand</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-medium">Very High</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Water Needs</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 80%"></div>
+                                        </div>
+                                        <span class="font-medium">High</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Profit Potential</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-agri-500 rounded-full" style="width: 82%"></div>
+                                        </div>
+                                        <span class="font-medium">Good</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>Plant: Next 2 weeks</span>
+                                </div>
+                                <button class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-lg text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                                    View Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Crop Card 3: Tomatoes -->
+                        <div class="crop-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-agri-400/50 relative overflow-hidden group cursor-pointer" onclick="showCropDetails('tomato')">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-red-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-bold">87% Match</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center crop-icon shadow-lg">
+                                    <i data-lucide="apple" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Tomatoes</h3>
+                                    <p class="text-sm text-gray-500">Fruit Vegetable • 75-90 days</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Market Demand</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 98%"></div>
+                                        </div>
+                                        <span class="font-medium">Excellent</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Water Needs</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 75%"></div>
+                                        </div>
+                                        <span class="font-medium">High</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Profit Potential</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-agri-500 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                        <span class="font-medium">Excellent</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>Plant: Next 3 weeks</span>
+                                </div>
+                                <button class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-lg text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                                    View Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Crop Card 4: Beans -->
+                        <div class="crop-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-agri-400/50 relative overflow-hidden group cursor-pointer" onclick="showCropDetails('beans')">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-bold">85% Match</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center crop-icon shadow-lg">
+                                    <i data-lucide="bean" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Beans (Rosecoco)</h3>
+                                    <p class="text-sm text-gray-500">Legume • 60-75 days</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Market Demand</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                        <span class="font-medium">Good</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Water Needs</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 50%"></div>
+                                        </div>
+                                        <span class="font-medium">Low</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Soil Benefit</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-agri-500 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                        <span class="font-medium">Nitrogen Fix</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>Plant: Now - 1 week</span>
+                                </div>
+                                <button class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-lg text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                                    View Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Crop Card 5: Spinach -->
+                        <div class="crop-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-agri-400/50 relative overflow-hidden group cursor-pointer" onclick="showCropDetails('spinach')">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-xs font-bold">83% Match</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center crop-icon shadow-lg">
+                                    <i data-lucide="flower-2" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Spinach</h3>
+                                    <p class="text-sm text-gray-500">Leafy Green • 40-50 days</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Market Demand</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 80%"></div>
+                                        </div>
+                                        <span class="font-medium">Good</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Water Needs</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 70%"></div>
+                                        </div>
+                                        <span class="font-medium">Moderate</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400">Profit Potential</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-agri-500 rounded-full" style="width: 78%"></div>
+                                        </div>
+                                        <span class="font-medium">Good</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>Plant: Now - 2 weeks</span>
+                                </div>
+                                <button class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-lg text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                                    View Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Add Custom Crop Card -->
+                        <div class="crop-card glass-card dark:glass-dark rounded-2xl p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-agri-400/50 flex flex-col items-center justify-center text-center cursor-pointer group min-h-[320px]" onclick="addCustomCrop()">
+                            <div class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="plus" class="w-8 h-8 text-gray-400 group-hover:text-agri-500 transition-colors"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-600 dark:text-gray-300 mb-2">Add Custom Crop</h3>
+                            <p class="text-sm text-gray-500">Not seeing your preferred crop? Add it to get AI recommendations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Crop Plan (Kale Example) -->
+        <section id="crop-plan" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <!-- Left: Crop Overview -->
+                        <div class="lg:w-1/3">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg">
+                                    <i data-lucide="leaf" class="w-10 h-10 text-white"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-3xl font-bold">Kale</h2>
+                                    <p class="text-gray-500">Brassica oleracea var. acephala</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 mb-6">
+                                <div class="glass-card dark:glass-dark rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Growth Duration</span>
+                                        <span class="font-bold">45-60 days</span>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Optimal Temp</span>
+                                        <span class="font-bold">16-24°C</span>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Water Needs</span>
+                                        <span class="font-bold">25-30mm/week</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Sunlight</span>
+                                        <span class="font-bold">6-8 hours/day</span>
+                                    </div>
+                                </div>
+
+                                <div class="glass-card dark:glass-dark rounded-xl p-4">
+                                    <h4 class="font-semibold mb-3">Current Weather Suitability</h4>
+                                    <div class="flex items-center gap-4 mb-3">
+                                        <div class="w-16 h-16 relative">
+                                            <svg class="w-full h-full transform -rotate-90">
+                                                <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="4" fill="none" class="text-gray-200 dark:text-gray-700"></circle>
+                                                <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="175.9" stroke-dashoffset="8.8" class="text-green-500"></circle>
+                                            </svg>
+                                            <div class="absolute inset-0 flex items-center justify-center font-bold text-lg">95%</div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="text-sm font-medium text-green-600 mb-1">Excellent Conditions</div>
+                                            <div class="text-xs text-gray-500">Current temp 24°C matches optimal range perfectly</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-2 text-xs">
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded">Temp: Optimal</span>
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded">Humidity: Good</span>
+                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded">Rain: Monitor</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="download" class="w-5 h-5"></i>
+                                <span>Download Full Guide (PDF)</span>
+                            </button>
+                        </div>
+
+                        <!-- Right: Growth Timeline -->
+                        <div class="lg:w-2/3">
+                            <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <i data-lucide="calendar-days" class="w-6 h-6 text-agri-500"></i>
+                                AI-Generated Growth Timeline
+                            </h3>
+
+                            <div class="space-y-6">
+                                <!-- Stage 1 -->
+                                <div class="growth-stage flex gap-4">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-agri-500 text-white flex items-center justify-center font-bold z-10">1</div>
+                                    <div class="flex-1 glass-card dark:glass-dark rounded-xl p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="font-bold text-lg">Germination & Emergence</h4>
+                                                <p class="text-sm text-gray-500">Days 1-10</p>
+                                            </div>
+                                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">Current Stage</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Seeds sprout and first true leaves appear. Keep soil consistently moist but not waterlogged.</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Water: Daily light spray</span>
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Temp: 18-24°C</span>
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Watch: Damping off</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Stage 2 -->
+                                <div class="growth-stage flex gap-4">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex items-center justify-center font-bold z-10">2</div>
+                                    <div class="flex-1 glass-card dark:glass-dark rounded-xl p-4 opacity-75">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="font-bold text-lg">Vegetative Growth</h4>
+                                                <p class="text-sm text-gray-500">Days 11-30</p>
+                                            </div>
+                                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-xs font-medium">Upcoming</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Rapid leaf development. Begin side-dressing with nitrogen-rich fertilizer at day 15.</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Fertilize: NPK 20-10-10</span>
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Water: 25mm/week</span>
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Watch: Aphids</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Stage 3 -->
+                                <div class="growth-stage flex gap-4">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex items-center justify-center font-bold z-10">3</div>
+                                    <div class="flex-1 glass-card dark:glass-dark rounded-xl p-4 opacity-75">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="font-bold text-lg">Harvest Ready</h4>
+                                                <p class="text-sm text-gray-500">Days 31-60</p>
+                                            </div>
+                                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-xs font-medium">Future</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Outer leaves ready for harvest. Pick regularly to encourage continuous production.</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Harvest: Outer leaves first</span>
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Frequency: Every 7-10 days</span>
+                                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Expected: 8-12 harvests</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Insights -->
+                            <div class="mt-6 glass-card dark:glass-dark rounded-xl p-4 border-l-4 border-agri-500 bg-agri-50/30 dark:bg-agri-900/10">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold mb-1">AI Insight: Optimal Planting Window</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Based on the 7-day forecast showing consistent 22-26°C days with light rainfall expected on days 3-4, we recommend starting germination indoors tomorrow, then transplanting on day 10 when soil moisture will be optimal from the predicted rainfall.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="py-16 relative bg-gradient-to-b from-transparent to-agri-50/30 dark:to-agri-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">How AI Crop Advisory Works</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Our intelligent system analyzes multiple data sources to provide personalized crop recommendations
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="cloud-sun" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">1. Weather Analysis</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Real-time and forecasted weather data including temperature, rainfall, humidity, and solar radiation.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="mountain" class="w-8 h-8 text-amber-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">2. Soil Assessment</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Soil type, pH levels, nutrient content, and moisture retention capacity analysis.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="brain" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">3. AI Processing</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Machine learning models match crop requirements with environmental conditions and predict outcomes.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="clipboard-list" class="w-8 h-8 text-agri-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">4. Actionable Plan</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Personalized planting schedules, care instructions, and harvest timelines delivered to you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pest & Disease Prediction -->
+        <section id="pest-disease" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">Predictive Pest & Disease Management</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                            Our AI monitors weather conditions that favor pest proliferation and disease development, alerting you before problems occur.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="glass-card dark:glass-dark rounded-xl p-4 flex items-start gap-4 border-l-4 border-red-500">
+                                <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bug" class="w-6 h-6 text-red-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h4 class="font-semibold">Aphid Risk</h4>
+                                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-xs font-bold">HIGH</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Warm, humid conditions (24°C, 65% RH) favor rapid aphid reproduction.</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-xs font-medium">Preventive Spray</button>
+                                        <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-medium">Set Alert</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-card dark:glass-dark rounded-xl p-4 flex items-start gap-4 border-l-4 border-yellow-500">
+                                <div class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="virus" class="w-6 h-6 text-yellow-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h4 class="font-semibold">Downy Mildew</h4>
+                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded text-xs font-bold">MODERATE</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Expected rainfall in 3 days may create favorable conditions.</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded text-xs font-medium">Fungicide Ready</button>
+                                        <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-medium">Monitor</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-card dark:glass-dark rounded-xl p-4 flex items-start gap-4 border-l-4 border-green-500">
+                                <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h4 class="font-semibold">Cutworm Risk</h4>
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs font-bold">LOW</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Soil temperatures below optimal range for cutworm activity.</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs font-medium">No Action</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-agri-400/20 to-blue-400/20 rounded-3xl transform rotate-3"></div>
+                        <div class="relative glass dark:glass-dark rounded-3xl p-6 shadow-2xl">
+                            <h3 class="text-xl font-bold mb-4">Disease Triangle Model</h3>
+                            <div class="relative h-64 flex items-center justify-center">
+                                <svg viewBox="0 0 200 200" class="w-full h-full">
+                                    <!-- Triangle -->
+                                    <polygon points="100,20 180,160 20,160" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-300 dark:text-gray-600"></polygon>
+                                    
+                                    <!-- Host -->
+                                    <circle cx="100" cy="20" r="30" class="fill-green-200 dark:fill-green-900/30"></circle>
+                                    <text x="100" y="25" text-anchor="middle" class="text-xs font-bold fill-current">Host</text>
+                                    
+                                    <!-- Pathogen -->
+                                    <circle cx="180" cy="160" r="30" class="fill-red-200 dark:fill-red-900/30"></circle>
+                                    <text x="180" y="165" text-anchor="middle" class="text-xs font-bold fill-current">Pathogen</text>
+                                    
+                                    <!-- Environment -->
+                                    <circle cx="20" cy="160" r="30" class="fill-blue-200 dark:fill-blue-900/30"></circle>
+                                    <text x="20" y="165" text-anchor="middle" class="text-xs font-bold fill-current">Environment</text>
+                                    
+                                    <!-- Center - Disease -->
+                                    <circle cx="100" cy="110" r="25" class="fill-orange-200 dark:fill-orange-900/30 animate-pulse"></circle>
+                                    <text x="100" y="115" text-anchor="middle" class="text-xs font-bold fill-current">Disease</text>
+                                </svg>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+                                Disease occurs only when susceptible host, virulent pathogen, and favorable environment coincide. We monitor all three factors.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yield Prediction -->
+        <section id="yield-prediction" class="py-16 relative bg-gradient-to-b from-agri-50/30 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">AI Yield Prediction</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">Estimate your harvest based on current conditions and best practices</p>
+                </div>
+
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Input Panel -->
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-lg mb-4">Your Farm Details</h3>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Crop Type</label>
+                                <select id="yield-crop" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                                    <option value="kale">Kale (Sukuma Wiki)</option>
+                                    <option value="maize">Maize</option>
+                                    <option value="tomato">Tomatoes</option>
+                                    <option value="beans">Beans</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Farm Size (acres)</label>
+                                <input type="number" id="yield-size" value="2" min="0.1" step="0.1" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Irrigation Type</label>
+                                <select id="yield-irrigation" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                                    <option value="drip">Drip Irrigation</option>
+                                    <option value="sprinkler">Sprinkler</option>
+                                    <option value="furrow">Furrow</option>
+                                    <option value="rain">Rain-fed</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Fertilizer Plan</label>
+                                <select id="yield-fertilizer" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                                    <option value="optimal">Optimal (AI Recommended)</option>
+                                    <option value="standard">Standard</option>
+                                    <option value="minimal">Minimal</option>
+                                </select>
+                            </div>
+
+                            <button onclick="calculateYield()" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                                Calculate Yield
+                            </button>
+                        </div>
+
+                        <!-- Results Panel -->
+                        <div class="lg:col-span-2">
+                            <div id="yield-results" class="h-full flex flex-col justify-center items-center text-center p-8">
+                                <div class="w-24 h-24 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center mb-4">
+                                    <i data-lucide="calculator" class="w-12 h-12 text-agri-600"></i>
+                                </div>
+                                <h4 class="text-xl font-bold mb-2">Ready to Calculate</h4>
+                                <p class="text-gray-600 dark:text-gray-400 max-w-md">Enter your farm details and click calculate to get AI-powered yield predictions based on current weather and soil conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-agri-600/10 to-blue-600/10"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Start Growing Smarter Today</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Join thousands of farmers using AI to optimize their crop selection and maximize yields.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="openAuthModal()" class="px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                <span>Create Free Account</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="openChat()" class="px-8 py-4 glass-button rounded-full font-semibold flex items-center justify-center gap-2">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                <span>Ask Crop Expert</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Identical to Homepage -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html" class="hover:text-agri-400 transition-colors">Home</a></li>
+                        <li><a href="weather.html" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="crops.html" class="hover:text-agri-400 transition-colors">AI Crop Advisory</a></li>
+                        <li><a href="market.html" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="community.html" class="hover:text-agri-400 transition-colors">Community</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                    Hello! I'm your AI crop advisor. I can help you select crops, plan planting schedules, or diagnose issues. What would you like to grow?
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Ask about crops, planting, or care..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('What crops are best for clay soil?')" class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 rounded-full text-xs whitespace-nowrap hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">Clay soil crops?</button>
+                <button onclick="sendQuickMessage('When should I plant tomatoes?')" class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 rounded-full text-xs whitespace-nowrap hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">Tomato timing?</button>
+                <button onclick="sendQuickMessage('How do I prevent pests organically?')" class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 rounded-full text-xs whitespace-nowrap hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">Organic pest control?</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sprout" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" id="auth-title">Welcome Back</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Sign in to save your crop plans</p>
+                </div>
+
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        <span id="auth-submit-text">Sign In</span>
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-agri-600 font-semibold hover:underline ml-1" id="auth-switch-btn">Sign Up</button>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <button class="w-full py-3 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google">
+                        <span class="text-sm font-medium">Continue with Google</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Global State
+        let currentLanguage = 'en';
+        let isDarkMode = false;
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+        let currentWeatherData = null;
+
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_knowledge: "Knowledge Tools",
+                nav_community: "Community",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                get_started: "Get Started",
+                weather_intel: "Weather Intelligence",
+                crop_advisory: "AI Crop Advisory",
+                livestock: "Livestock Management",
+                market_intelligence: "Market Intelligence",
+                soil_analysis: "Soil Analysis",
+                ai_powered: "AI-Powered Tools",
+                discussion_forum: "Discussion Forum",
+                knowledge_center: "Knowledge Center",
+                expert_network: "Expert Network",
+                events_training: "Events & Training",
+                text_size: "Text Size",
+                high_contrast: "High Contrast",
+                dyslexic_font: "Dyslexic Friendly",
+                toggle_theme: "Toggle Theme",
+                crop_badge: "AI-Powered Crop Intelligence",
+                crop_title_1: "Smart Crop",
+                crop_title_2: "Recommendations",
+                crop_subtitle: "AI-driven crop selection, planting schedules, and growth optimization based on real-time weather, soil conditions, and market demand. Maximize yields with data-driven precision agriculture."
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_knowledge: "Herramientas de Conocimiento",
+                nav_community: "Comunidad",
+                nav_about: "Sobre Nosotros",
+                nav_contact: "Contacto",
+                get_started: "Comenzar",
+                weather_intel: "Inteligencia del Clima",
+                crop_advisory: "Asesoría de Cultivos IA",
+                livestock: "Gestión de Ganado",
+                market_intelligence: "Inteligencia de Mercado",
+                soil_analysis: "Análisis de Suelo",
+                ai_powered: "Herramientas IA",
+                discussion_forum: "Foro de Discusión",
+                knowledge_center: "Centro de Conocimiento",
+                expert_network: "Red de Expertos",
+                events_training: "Eventos y Capacitación",
+                text_size: "Tamaño de Texto",
+                high_contrast: "Alto Contraste",
+                dyslexic_font: "Fuente Disléxica",
+                toggle_theme: "Cambiar Tema",
+                crop_badge: "Inteligencia de Cultivos con IA",
+                crop_title_1: "Recomendaciones",
+                crop_title_2: "Inteligentes de Cultivos",
+                crop_subtitle: "Selección de cultivos impulsada por IA, calendarios de siembra y optimización del crecimiento basados en el clima en tiempo real, condiciones del suelo y demanda del mercado."
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initWeather();
+            
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        });
+
+        // Weather Integration
+        async function initWeather() {
+            try {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        await fetchWeatherData(latitude, longitude);
+                    }, () => {
+                        fetchWeatherData(-1.2921, 36.8219);
+                    });
+                } else {
+                    fetchWeatherData(-1.2921, 36.8219);
+                }
+            } catch (error) {
+                console.error('Weather init error:', error);
+            }
+        }
+
+        async function fetchWeatherData(lat, lon) {
+            try {
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,precipitation_probability&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
+                const data = await response.json();
+                currentWeatherData = data;
+            } catch (error) {
+                console.error('Weather fetch error:', error);
+            }
+        }
+
+        // Core Functions
+        function generateRecommendations() {
+            const location = document.getElementById('farm-location').value;
+            const size = document.getElementById('farm-size').value;
+            const soil = document.getElementById('soil-type').value;
+            
+            showToast(`Generating AI recommendations for ${location}...`);
+            
+            setTimeout(() => {
+                showToast('Recommendations updated based on current weather data!');
+                // Scroll to recommendations
+                document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function filterCrops(type) {
+            showToast(`Filtering by: ${type}`);
+            // In production, this would filter the crop grid
+        }
+
+        function showCropDetails(crop) {
+            showToast(`Loading detailed plan for ${crop}...`);
+            document.getElementById('crop-plan').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function addCustomCrop() {
+            showToast('Custom crop feature coming soon!');
+        }
+
+        function calculateYield() {
+            const crop = document.getElementById('yield-crop').value;
+            const size = document.getElementById('yield-size').value;
+            const irrigation = document.getElementById('yield-irrigation').value;
+            const fertilizer = document.getElementById('yield-fertilizer').value;
+            
+            // Simple calculation logic
+            const baseYield = {
+                kale: 12000, // kg per acre
+                maize: 2500,
+                tomato: 15000,
+                beans: 1800
+            };
+            
+            let multiplier = 1;
+            if (irrigation === 'drip') multiplier *= 1.3;
+            else if (irrigation === 'sprinkler') multiplier *= 1.1;
+            else if (irrigation === 'furrow') multiplier *= 1.0;
+            else multiplier *= 0.7;
+            
+            if (fertilizer === 'optimal') multiplier *= 1.2;
+            else if (fertilizer === 'standard') multiplier *= 1.0;
+            else multiplier *= 0.8;
+            
+            const totalYield = Math.round(baseYield[crop] * size * multiplier);
+            const revenue = totalYield * (crop === 'kale' ? 30 : crop === 'tomato' ? 50 : crop === 'maize' ? 25 : 60); // Price per kg
+            
+            const resultsDiv = document.getElementById('yield-results');
+            resultsDiv.innerHTML = `
+                <div class="w-full animate-fade-in">
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="glass-card dark:glass-dark rounded-xl p-4 text-center">
+                            <div class="text-3xl font-bold text-agri-600">${totalYield.toLocaleString()}</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider">kg Expected</div>
+                        </div>
+                        <div class="glass-card dark:glass-dark rounded-xl p-4 text-center">
+                            <div class="text-3xl font-bold text-green-600">$${revenue.toLocaleString()}</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider">Est. Revenue</div>
+                        </div>
+                        <div class="glass-card dark:glass-dark rounded-xl p-4 text-center">
+                            <div class="text-3xl font-bold text-blue-600">${Math.round(multiplier * 100)}%</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider">Efficiency</div>
+                        </div>
+                    </div>
+                    <div class="glass-card dark:glass-dark rounded-xl p-4 text-left">
+                        <h4 class="font-semibold mb-2">AI Analysis</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Based on current weather patterns showing optimal growing conditions (temp: 22-26°C, humidity: 60-70%) and your ${irrigation} irrigation system, 
+                            we predict ${multiplier > 1.1 ? 'above-average' : 'average'} yields. ${fertilizer === 'optimal' ? 'Your optimal fertilization plan should maximize output.' : 'Consider upgrading to optimal fertilization for 20% higher yields.'}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // UI Functions (Same as Homepage)
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleMobileDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            dropdown.classList.toggle('hidden');
+            icon.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            document.getElementById('text-size-label').textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text mode enabled' : 'Normal text mode enabled');
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        }
+
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : '';
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+
+        function openChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.add('open');
+            widget.classList.remove('closed');
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendQuickMessage(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+            showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+            
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                    </div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            }
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 flex items-center gap-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function generateAIResponse(input) {
+            const lowerInput = input.toLowerCase();
+            
+            if (lowerInput.includes('clay') || lowerInput.includes('soil')) {
+                return "For clay soil, I recommend:<br><br>• <strong>Kale</strong> - Tolerates heavier soils well<br>• <strong>Beans</strong> - Improve soil structure with nitrogen fixation<br>• <strong>Broccoli</strong> - Deep roots handle clay<br><br>Add organic matter (compost) to improve drainage. Avoid root crops like carrots which struggle in compacted clay.";
+            }
+            else if (lowerInput.includes('tomato') || lowerInput.includes('when')) {
+                return "For tomatoes in your region:<br><br><strong>Best planting window:</strong> 2-3 weeks from now<br><strong>Why:</strong> Soil temp will reach 18°C+ and frost risk passes<br><strong>Variety:</strong> Rio Grande (drought tolerant) or Money Maker (high yield)<br><br>Start seeds indoors now, transplant when seedlings have 4-6 true leaves. Would you like a detailed tomato growing guide?";
+            }
+            else if (lowerInput.includes('pest') || lowerInput.includes('organic')) {
+                return "Organic pest control strategies:<br><br>1. <strong>Neem oil spray</strong> - Effective against aphids, whiteflies (apply evening)<br>2. <strong>Companion planting</strong> - Marigolds repel nematodes<br>3. <strong>Beneficial insects</strong> - Ladybugs for aphid control<br>4. <strong>DIY garlic spray</strong> - Blend 10 cloves + 1L water + tsp soap<br><br>Based on current weather, spray neem oil in next 2 days before humidity rises. Shall I set a reminder?";
+            }
+            else {
+                return "I can help you with:<br><br>• Crop selection for your soil type<br>• Optimal planting dates based on weather<br>• Pest and disease prevention<br>• Fertilizer recommendations<br>• Harvest timing<br><br>What specific crop or farming challenge would you like advice on?";
+            }
+        }
+
+        // Auth Modal
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            closeAuthModal();
+            showToast(isSignUp ? 'Account created successfully!' : 'Welcome back!');
+        }
+
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            showToast('Successfully subscribed to newsletter!');
+            event.target.reset();
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

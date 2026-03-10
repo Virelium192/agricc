@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriClimate Connect | Developer API Documentation</title>
+    <meta name="description" content="Comprehensive API documentation for AgriClimate Connect. Integrate climate intelligence, crop advisory, and market data into your agricultural applications.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+                            400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+                            800: '#166534', 900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1',
+                            400: '#a8a29e', 500: '#78716c', 600: '#57534e', 700: '#44403c',
+                            800: '#292524', 900: '#1c1917',
+                        },
+                        code: {
+                            bg: '#1e1e1e',
+                            keyword: '#569cd6',
+                            string: '#ce9178',
+                            comment: '#6a9955',
+                            func: '#dcdcaa',
+                            tag: '#569cd6',
+                            attr: '#9cdcfe'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Core Design System - Retained from Homepage */
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        .dark .glass-card {
+            background: linear-gradient(135deg, rgba(30,41,59,0.9) 0%, rgba(15,23,42,0.8) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Code Block Styling */
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+        }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-func { color: #dcdcaa; }
+        .code-comment { color: #6a9955; font-style: italic; }
+        .code-tag { color: #569cd6; }
+        .code-attr { color: #9cdcfe; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Layout Utilities */
+        .doc-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; color: #14532d; }
+        .dark .doc-content h2 { color: #4ade80; }
+        .doc-content h3 { font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; color: #166534; }
+        .dark .doc-content h3 { color: #86efac; }
+        .doc-content p { margin-bottom: 1rem; line-height: 1.75; color: #44403c; }
+        .dark .doc-content p { color: #d6d3d1; }
+        .doc-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: #57534e; }
+        .dark .doc-content ul { color: #a8a29e; }
+        .doc-content code { background: rgba(34, 197, 94, 0.1); color: #15803d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: 'Fira Code', monospace; font-size: 0.9em; }
+        .dark .doc-content code { background: rgba(74, 222, 128, 0.1); color: #4ade80; }
+
+        /* API Method Badges */
+        .method-get { background: #dbeafe; color: #1e40af; }
+        .dark .method-get { background: #1e3a8a; color: #93c5fd; }
+        .method-post { background: #dcfce7; color: #166534; }
+        .dark .method-post { background: #14532d; color: #86efac; }
+        
+        /* Interactive Console */
+        .console-window {
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- Navigation (Retained Structure) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='#'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-agri-700 to-agri-500 dark:from-agri-400 dark:to-agri-200">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">DEV DOCS</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#overview" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">Overview</a>
+                    <a href="#authentication" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">Auth</a>
+                    <a href="#endpoints" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">Endpoints</a>
+                    <a href="#sdk" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">SDKs</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <div class="relative">
+                        <input type="text" placeholder="Search docs..." class="pl-9 pr-4 py-2 rounded-full bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-agri-500 w-64 transition-all">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-gray-400"></i>
+                    </div>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                    
+                    <button class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2 bg-white/40 dark:bg-slate-800/40 border border-white/30 shadow-sm">
+                        <span>Dashboard</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Layout Container -->
+    <div class="pt-20 flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-8 relative">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:block w-64 flex-shrink-0 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto pr-4 py-8 border-r border-gray-200 dark:border-gray-800">
+            <nav class="space-y-8">
+                <div>
+                    <h5 class="mb-3 text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Getting Started</h5>
+                    <ul class="space-y-2 border-l border-gray-200 dark:border-gray-700">
+                        <li><a href="#introduction" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Introduction</a></li>
+                        <li><a href="#quickstart" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Quick Start</a></li>
+                        <li><a href="#authentication" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Authentication</a></li>
+                        <li><a href="#errors" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Errors</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="mb-3 text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Core API</h5>
+                    <ul class="space-y-2 border-l border-gray-200 dark:border-gray-700">
+                        <li><a href="#weather-api" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Weather Intelligence</a></li>
+                        <li><a href="#crop-api" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Crop Advisory</a></li>
+                        <li><a href="#soil-api" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Soil Analysis</a></li>
+                        <li><a href="#market-api" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Market Data</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="mb-3 text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Resources</h5>
+                    <ul class="space-y-2 border-l border-gray-200 dark:border-gray-700">
+                        <li><a href="#webhooks" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Webhooks</a></li>
+                        <li><a href="#sdks" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">SDKs & Libraries</a></li>
+                        <li><a href="#changelog" class="block pl-4 -ml-px border-l-2 border-transparent hover:border-agri-500 text-gray-600 dark:text-gray-400 hover:text-agri-600 dark:hover:text-agri-400 text-sm font-medium transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 py-8 lg:py-12 doc-content max-w-4xl">
+            
+            <!-- Hero Section -->
+            <div class="mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 text-xs font-semibold mb-4">
+                    <span class="w-2 h-2 bg-agri-500 rounded-full animate-pulse"></span>
+                    v2.4.0 Stable Release
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-earth-900 dark:text-white">AgriClimate Connect API</h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+                    Build the future of agriculture. Our API provides real-time access to hyperlocal weather data, AI-driven crop recommendations, soil health analytics, and global market intelligence.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="scrollToSection('quickstart')" class="px-6 py-3 bg-agri-600 hover:bg-agri-700 text-white rounded-lg font-semibold shadow-lg shadow-agri-500/30 transition-all flex items-center gap-2">
+                        <i data-lucide="zap" class="w-5 h-5"></i> Get Started
+                    </button>
+                    <button class="px-6 py-3 glass-card hover:bg-white dark:hover:bg-slate-800 text-gray-700 dark:text-gray-200 rounded-lg font-semibold transition-all flex items-center gap-2">
+                        <i data-lucide="github" class="w-5 h-5"></i> View on GitHub
+                    </button>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <section id="introduction" class="mb-16">
+                <h2>Introduction</h2>
+                <p>
+                    The AgriClimate Connect API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+                </p>
+                <p>
+                    You can use the AgriClimate Connect API in test mode, which does not affect your live data or interact with the banking networks. The API key you use to authenticate the request determines whether the request is live mode or test mode.
+                </p>
+                
+                <div class="my-8 p-6 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex gap-4">
+                    <i data-lucide="info" class="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0"></i>
+                    <div>
+                        <h4 class="font-bold text-blue-900 dark:text-blue-100 mb-1">Base URL</h4>
+                        <p class="text-blue-800 dark:text-blue-200 text-sm font-mono">https://api.agriclimate.com/v2</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start -->
+            <section id="quickstart" class="mb-16">
+                <h2>Quick Start Guide</h2>
+                <p>This guide will walk you through making your first API call to retrieve weather data for a specific location.</p>
+                
+                <h3>1. Sign up for an API Key</h3>
+                <p>All requests to the AgriClimate API must include a valid API key. You can generate one from your <a href="#" class="text-agri-600 hover:underline">Developer Dashboard</a>.</p>
+
+                <h3>2. Make your first request</h3>
+                <p>Use the following cURL command to get current weather conditions for a farm in Kenya.</p>
+
+                <div class="my-6 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="bg-gray-100 dark:bg-gray-800 px-4 py-2 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
+                        <span class="text-xs font-mono text-gray-500 dark:text-gray-400">cURL</span>
+                        <button class="text-xs text-gray-500 hover:text-agri-600 flex items-center gap-1" onclick="copyCode(this)">
+                            <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-block p-4 text-sm overflow-x-auto">
+<pre><span class="code-func">curl</span> <span class="code-attr">-X</span> <span class="code-string">GET</span> <span class="code-string">"https://api.agriclimate.com/v2/weather/current?lat=-1.2921&lon=36.8219"</span> \
+  <span class="code-attr">-H</span> <span class="code-string">"Authorization: Bearer YOUR_API_KEY"</span> \
+  <span class="code-attr">-H</span> <span class="code-string">"Content-Type: application/json"</span></pre>
+                    </div>
+                </div>
+
+                <h3>3. Check the response</h3>
+                <p>If successful, you'll receive a JSON payload with detailed weather metrics.</p>
+                
+                <div class="my-6 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <div class="bg-gray-100 dark:bg-gray-800 px-4 py-2 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
+                        <span class="text-xs font-mono text-gray-500 dark:text-gray-400">JSON Response</span>
+                        <span class="text-xs text-green-600 font-bold">200 OK</span>
+                    </div>
+                    <div class="code-block p-4 text-sm overflow-x-auto">
+<pre>{
+  <span class="code-attr">"status"</span>: <span class="code-string">"success"</span>,
+  <span class="code-attr">"data"</span>: {
+    <span class="code-attr">"location"</span>: {
+      <span class="code-attr">"lat"</span>: -1.2921,
+      <span class="code-attr">"lon"</span>: 36.8219,
+      <span class="code-attr">"region"</span>: <span class="code-string">"Nairobi"</span>
+    },
+    <span class="code-attr">"current"</span>: {
+      <span class="code-attr">"temp_c"</span>: 24.5,
+      <span class="code-attr">"humidity"</span>: 65,
+      <span class="code-attr">"precip_mm"</span>: 0.0,
+      <span class="code-attr">"uv"</span>: 8.0,
+      <span class="code-attr">"condition"</span>: {
+        <span class="code-attr">"text"</span>: <span class="code-string">"Partly cloudy"</span>,
+        <span class="code-attr">"code"</span>: 1003
+      }
+    },
+    <span class="code-attr">"agricultural_alerts"</span>: [
+      {
+        <span class="code-attr">"type"</span>: <span class="code-string">"irrigation_advisory"</span>,
+        <span class="code-attr">"severity"</span>: <span class="code-string">"low"</span>,
+        <span class="code-attr">"message"</span>: <span class="code-string">"Soil moisture optimal. No irrigation needed today."</span>
+      }
+    ]
+  }
+}</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="mb-16">
+                <h2>Authentication</h2>
+                <p>The AgriClimate Connect API uses API keys to authenticate requests. You can view and manage your API keys in the Dashboard.</p>
+                <p>Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
+                
+                <div class="my-6 p-4 border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 rounded-r-lg">
+                    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                        <strong>Warning:</strong> All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+                    </p>
+                </div>
+
+                <p>Authentication to the API is performed via HTTP Basic Auth. Provide your API key as the basic auth username value. You do not need to provide a password.</p>
+            </section>
+
+            <!-- Interactive Endpoint Explorer -->
+            <section id="endpoints" class="mb-16">
+                <h2>API Endpoints</h2>
+                
+                <!-- Weather Endpoint -->
+                <div id="weather-api" class="mb-12 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-2 py-1 rounded text-xs font-bold method-get">GET</span>
+                        <h3 class="m-0 font-mono text-lg">/weather/forecast</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Retrieves a 7-day hyperlocal weather forecast including agricultural-specific metrics like evapotranspiration and soil temperature.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Parameters</h4>
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
+                                    <tr>
+                                        <th class="px-4 py-2">Name</th>
+                                        <th class="px-4 py-2">Type</th>
+                                        <th class="px-4 py-2">Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b dark:border-gray-700">
+                                        <td class="px-4 py-2 font-mono text-agri-600">lat</td>
+                                        <td class="px-4 py-2">float</td>
+                                        <td class="px-4 py-2">Yes</td>
+                                    </tr>
+                                    <tr class="border-b dark:border-gray-700">
+                                        <td class="px-4 py-2 font-mono text-agri-600">lon</td>
+                                        <td class="px-4 py-2">float</td>
+                                        <td class="px-4 py-2">Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 font-mono text-agri-600">days</td>
+                                        <td class="px-4 py-2">int</td>
+                                        <td class="px-4 py-2">No (Def: 7)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bg-gray-900 rounded-xl p-4 text-white font-mono text-xs relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-2">
+                                <button onclick="simulateApiCall('weather')" class="bg-agri-600 hover:bg-agri-500 text-white px-3 py-1 rounded text-xs transition-colors">Try It</button>
+                            </div>
+                            <div id="weather-response" class="mt-6 text-green-400 whitespace-pre-wrap">// Click "Try It" to see response</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop Advisory Endpoint -->
+                <div id="crop-api" class="mb-12 scroll-mt-24">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-2 py-1 rounded text-xs font-bold method-post">POST</span>
+                        <h3 class="m-0 font-mono text-lg">/advisory/crops</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Generates AI-driven crop recommendations based on soil data, climate history, and current market trends.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Request Body</h4>
+                            <div class="code-block p-3 text-xs">
+<pre>{
+  <span class="code-attr">"soil_ph"</span>: 6.5,
+  <span class="code-attr">"rainfall_mm"</span>: 800,
+  <span class="code-attr">"region"</span>: <span class="code-string">"East Africa"</span>,
+  <span class="code-attr">"farm_size_ha"</span>: 2.5
+}</pre>
+                            </div>
+                        </div>
+                        <div class="bg-gray-900 rounded-xl p-4 text-white font-mono text-xs relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-2">
+                                <button onclick="simulateApiCall('crop')" class="bg-agri-600 hover:bg-agri-500 text-white px-3 py-1 rounded text-xs transition-colors">Try It</button>
+                            </div>
+                            <div id="crop-response" class="mt-6 text-green-400 whitespace-pre-wrap">// Click "Try It" to see response</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SDK Section -->
+            <section id="sdk" class="mb-16">
+                <h2>SDKs & Libraries</h2>
+                <p>We offer official client libraries for popular languages to make integration even easier.</p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mt-8">
+                    <div class="glass-card p-6 rounded-xl hover:shadow-xl transition-all group cursor-pointer">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="code-2" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">JavaScript</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">npm install agriclimate-js</p>
+                        <span class="text-agri-600 text-sm font-medium flex items-center gap-1">Documentation <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-xl hover:shadow-xl transition-all group cursor-pointer">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="terminal" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Python</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">pip install agriclimate</p>
+                        <span class="text-agri-600 text-sm font-medium flex items-center gap-1">Documentation <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-xl hover:shadow-xl transition-all group cursor-pointer">
+                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="smartphone" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Flutter</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">flutter pub add agriclimate</p>
+                        <span class="text-agri-600 text-sm font-medium flex items-center gap-1">Documentation <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer (Retained Structure) -->
+            <footer class="mt-24 pt-12 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <span class="font-bold text-gray-700 dark:text-gray-300">AgriClimate Connect</span>
+                    </div>
+                    <div class="flex gap-6 text-sm text-gray-500">
+                        <a href="#" class="hover:text-agri-600 transition-colors">Support</a>
+                        <a href="#" class="hover:text-agri-600 transition-colors">Status</a>
+                        <a href="#" class="hover:text-agri-600 transition-colors">Terms</a>
+                    </div>
+                    <p class="text-sm text-gray-500">© 2026 AgriClimate Connect.</p>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Floating Chat Button (Retained) -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+
+    <!-- Chat Widget (Retained) -->
+    <div id="chat-widget" class="fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden transition-all duration-300 scale-0 opacity-0 origin-bottom-right">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Dev Assistant</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="flex-1 p-4 overflow-y-auto bg-white/50 dark:bg-slate-900/50 space-y-4">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-none p-3 shadow-sm text-sm border border-gray-100 dark:border-gray-700">
+                    Hi! I'm the Dev Assistant. Need help with the API integration?
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800">
+            <div class="flex gap-2">
+                <input type="text" placeholder="Ask about the API..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-transparent focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm">
+                <button class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Dark Mode Logic (Retained)
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Check local storage for theme
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Chat Widget Logic (Retained)
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            if (widget.classList.contains('scale-0')) {
+                widget.classList.remove('scale-0', 'opacity-0');
+                widget.classList.add('scale-100', 'opacity-100');
+            } else {
+                widget.classList.add('scale-0', 'opacity-0');
+                widget.classList.remove('scale-100', 'opacity-100');
+            }
+        }
+
+        // Copy Code Functionality
+        function copyCode(btn) {
+            const codeBlock = btn.closest('.rounded-xl').querySelector('pre');
+            navigator.clipboard.writeText(codeBlock.innerText);
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i> Copied';
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        // Interactive API Simulation
+        function simulateApiCall(type) {
+            const responseEl = document.getElementById(type + '-response');
+            responseEl.innerHTML = '<span class="text-yellow-400">Loading...</span>';
+            
+            setTimeout(() => {
+                if (type === 'weather') {
+                    responseEl.innerHTML = `<span class="text-blue-400">HTTP 200 OK</span>
+{
+  "forecast": [
+    {"day": "Mon", "temp": 24, "rain": 0},
+    {"day": "Tue", "temp": 25, "rain": 12},
+    {"day": "Wed", "temp": 23, "rain": 5}
+  ],
+  "advisory": "Irrigate on Monday"
+}`;
+                } else if (type === 'crop') {
+                    responseEl.innerHTML = `<span class="text-blue-400">HTTP 200 OK</span>
+{
+  "recommendations": [
+    {"crop": "Maize", "confidence": 0.95},
+    {"crop": "Beans", "confidence": 0.88}
+  ]
+}`;
+                }
+            }, 800);
+        }
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

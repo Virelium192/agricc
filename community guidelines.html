@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Guidelines | AgriClimate Connect</title>
+    <meta name="description" content="Community Guidelines for AgriClimate Connect - Building a respectful, inclusive, and knowledgeable global farming community dedicated to sustainable agriculture and mutual support.">
+
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ────────────────────────────────────────────────
+           Liquid Glass & Core Styles (same as homepage)
+        ──────────────────────────────────────────────── */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .bg-mesh {
+            background:
+                radial-gradient(at 0% 0%, hsla(120,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(140,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(160,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(100,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-radius: 5px;
+        }
+
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .high-contrast {
+            filter: contrast(150%);
+        }
+
+        .large-text {
+            font-size: 120% !important;
+            line-height: 1.5 !important;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* ────────────────────────────────────────────────
+           Guidelines Page Specific Styles
+        ──────────────────────────────────────────────── */
+        .guideline-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .guideline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+        }
+
+        .principle-icon {
+            transition: all 0.4s ease;
+        }
+        .guideline-card:hover .principle-icon {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .expandable-content.expanded {
+            max-height: 3000px;
+        }
+
+        .violation-meter {
+            background: linear-gradient(90deg, #22c55e 0%, #eab308 50%, #ef4444 100%);
+            height: 10px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .violation-marker {
+            position: absolute;
+            top: -7px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 4px solid currentColor;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            transition: left 0.4s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .tab-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #16a34a;
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+        .tab-btn.active::after {
+            width: 100%;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        .report-step {
+            display: none;
+        }
+        .report-step.active {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        .checklist-item {
+            transition: all 0.3s ease;
+        }
+        .checklist-item:hover {
+            background: rgba(34, 197, 94, 0.08);
+        }
+        .checklist-item.checked {
+            background: rgba(34, 197, 94, 0.15);
+        }
+        .checklist-item.checked .check-icon {
+            background: #16a34a;
+            color: white;
+            border-color: #16a34a;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.8s ease;
+        }
+
+        /* Additional visual flair */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #16a34a88, transparent);
+            margin: 3rem 0;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- ────────────────────────────────────────────────
+         Navigation (identical structure & functionality to homepage)
+    ──────────────────────────────────────────────── -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="index.html#weather" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="index.html#crops" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="index.html#livestock" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="index.html#market" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="index.html#soil" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="index.html#forum" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="index.html#knowledge-center" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="index.html#experts" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="community-guidelines.html" class="block px-4 py-3 rounded-xl bg-agri-50 dark:bg-agri-900/20 transition-colors flex items-center gap-3">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="community_guidelines">Community Guidelines</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Our standards & policies</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="index.html#about" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_about">About Us</a>
+                    <a href="index.html#contact" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="hidden pl-4 space-y-1">
+                        <a href="index.html#weather" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="index.html#crops" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="index.html#livestock" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="livestock">Livestock Management</a>
+                        <a href="index.html#market" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="index.html#soil" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="index.html#forum" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="index.html#knowledge-center" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="index.html#experts" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="community-guidelines.html" class="block px-4 py-2 rounded-lg bg-agri-50 dark:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="community_guidelines">Community Guidelines</a>
+                    </div>
+                </div>
+
+                <a href="index.html#about" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_about">About Us</a>
+                <a href="index.html#contact" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ────────────────────────────────────────────────
+         MAIN CONTENT
+    ──────────────────────────────────────────────── -->
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20">
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%2316a34a%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <div class="inline-flex items-center gap-2 px-5 py-3 rounded-full glass dark:glass-dark mb-10 animate-float shadow-lg">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-agri-600"></i>
+                    <span class="text-base font-medium text-agri-700 dark:text-agri-300">Official Community Standards</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight tracking-tight">
+                    <span class="block text-earth-900 dark:text-white">Community</span>
+                    <span class="block text-gradient mt-3">Guidelines</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto mb-14 leading-relaxed font-light">
+                    Creating a safe, respectful, inclusive, and knowledge-sharing space for farmers, agronomists, researchers, and agri-entrepreneurs worldwide.
+                </p>
+
+                <!-- Quick Navigation Pills -->
+                <div class="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
+                    <button onclick="scrollToSection('principles')" class="px-7 py-4 glass dark:glass-dark rounded-full text-base font-semibold hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-all flex items-center gap-3 shadow-md">
+                        <i data-lucide="heart" class="w-5 h-5 text-agri-600"></i>
+                        Core Principles
+                    </button>
+                    <button onclick="scrollToSection('conduct')" class="px-7 py-4 glass dark:glass-dark rounded-full text-base font-semibold hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-all flex items-center gap-3 shadow-md">
+                        <i data-lucide="users" class="w-5 h-5 text-blue-600"></i>
+                        Code of Conduct
+                    </button>
+                    <button onclick="scrollToSection('enforcement')" class="px-7 py-4 glass dark:glass-dark rounded-full text-base font-semibold hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-all flex items-center gap-3 shadow-md">
+                        <i data-lucide="scale" class="w-5 h-5 text-purple-600"></i>
+                        Enforcement & Appeals
+                    </button>
+                    <button onclick="scrollToSection('reporting')" class="px-7 py-4 glass dark:glass-dark rounded-full text-base font-semibold hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-all flex items-center gap-3 shadow-md">
+                        <i data-lucide="flag" class="w-5 h-5 text-red-600"></i>
+                        How to Report
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────────────────────────────────────────────────
+             CORE PRINCIPLES
+        ──────────────────────────────────────────────── -->
+        <section id="principles" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-bold mb-6">Our Five Core Principles</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                        These foundational values shape every interaction, decision, and policy in the AgriClimate Connect community.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                    <!-- Principle 1 -->
+                    <div class="guideline-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 cursor-pointer group" onclick="toggleExpand('principle-1')">
+                        <div class="principle-icon w-20 h-20 rounded-2xl bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center mb-6 shadow-xl group-hover:rotate-6 transition-transform">
+                            <i data-lucide="heart-handshake" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 flex items-center justify-between">
+                            Respect & Dignity
+                            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transition-transform" id="principle-1-icon"></i>
+                        </h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-5">
+                            Every member deserves to be treated with courtesy, regardless of nationality, farm size, experience level, gender, religion, or farming philosophy.
+                        </p>
+                        <div class="expandable-content" id="principle-1">
+                            <div class="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-5 text-gray-700 dark:text-gray-300">
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Use inclusive, non-derogatory language at all times</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Honor cultural differences in agricultural practices</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Never mock, shame, or belittle questions or opinions</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="x-circle" class="w-6 h-6 text-red-500 flex-shrink-0 mt-1"></i>
+                                    <p>No personal attacks, slurs, or targeted harassment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Principle 2 -->
+                    <div class="guideline-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 cursor-pointer group" onclick="toggleExpand('principle-2')">
+                        <div class="principle-icon w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-6 shadow-xl group-hover:rotate-6 transition-transform">
+                            <i data-lucide="share-2" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 flex items-center justify-between">
+                            Open Knowledge Sharing
+                            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transition-transform" id="principle-2-icon"></i>
+                        </h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-5">
+                            Freely share experience and expertise while remaining humble and open to correction and new learning.
+                        </p>
+                        <div class="expandable-content" id="principle-2">
+                            <div class="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-5 text-gray-700 dark:text-gray-300">
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Provide practical, evidence-based advice whenever possible</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Cite sources or personal experience when sharing technical info</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Share both successes and honest failures — real learning comes from both</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="x-circle" class="w-6 h-6 text-red-500 flex-shrink-0 mt-1"></i>
+                                    <p>Do not gatekeep knowledge or promote only proprietary solutions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Principle 3 -->
+                    <div class="guideline-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 cursor-pointer group" onclick="toggleExpand('principle-3')">
+                        <div class="principle-icon w-20 h-20 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-6 shadow-xl group-hover:rotate-6 transition-transform">
+                            <i data-lucide="shield" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 flex items-center justify-between">
+                            Safety & Responsibility
+                            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transition-transform" id="principle-3-icon"></i>
+                        </h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-5">
+                            Prioritize human health, animal welfare, environmental protection, and economic viability in every recommendation.
+                        </p>
+                        <div class="expandable-content" id="principle-3">
+                            <div class="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-5 text-gray-700 dark:text-gray-300">
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Clearly warn about risks of chemicals, machinery, or practices</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Promote regenerative, climate-resilient, and biodiversity-friendly methods</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Never give dangerous, illegal, or banned practice advice</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="x-circle" class="w-6 h-6 text-red-500 flex-shrink-0 mt-1"></i>
+                                    <p>No promotion of pesticides/inputs that are banned in the EU, WHO Class Ia/Ib, etc.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Principle 4 -->
+                    <div class="guideline-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 cursor-pointer group" onclick="toggleExpand('principle-4')">
+                        <div class="principle-icon w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-6 shadow-xl group-hover:rotate-6 transition-transform">
+                            <i data-lucide="award" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 flex items-center justify-between">
+                            Integrity & Transparency
+                            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transition-transform" id="principle-4-icon"></i>
+                        </h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-5">
+                            Be honest about your expertise, affiliations, limitations, and any commercial interests.
+                        </p>
+                        <div class="expandable-content" id="principle-4">
+                            <div class="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-5 text-gray-700 dark:text-gray-300">
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Clearly disclose if you work for, sell, or receive benefits from any recommended product/company</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Say "I don't know" or "consult a local expert" when unsure</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Correct your own mistakes promptly when pointed out</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="x-circle" class="w-6 h-6 text-red-500 flex-shrink-0 mt-1"></i>
+                                    <p>No undisclosed affiliate links, fake reviews, or astroturfing</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Principle 5 -->
+                    <div class="guideline-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 cursor-pointer group" onclick="toggleExpand('principle-5')">
+                        <div class="principle-icon w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-6 shadow-xl group-hover:rotate-6 transition-transform">
+                            <i data-lucide="users" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 flex items-center justify-between">
+                            Collaboration & Support
+                            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transition-transform" id="principle-5-icon"></i>
+                        </h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-5">
+                            Help each other succeed — celebrate wins, offer help without judgment, and build bridges across borders and scales.
+                        </p>
+                        <div class="expandable-content" id="principle-5">
+                            <div class="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-5 text-gray-700 dark:text-gray-300">
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Offer constructive feedback and solutions, not just criticism</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Celebrate fellow farmers' successes and milestones</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-agri-500 flex-shrink-0 mt-1"></i>
+                                    <p>Connect people who can help each other (buyers, suppliers, mentors)</p>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <i data-lucide="x-circle" class="w-6 h-6 text-red-500 flex-shrink-0 mt-1"></i>
+                                    <p>No gatekeeping, elitism, or exclusionary behavior</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Pledge Card -->
+                <div class="mt-16 glass dark:glass-dark rounded-3xl p-10 md:p-14 text-center border-2 border-agri-400/40 bg-gradient-to-br from-agri-50/70 to-agri-100/40 dark:from-agri-900/40 dark:to-agri-800/30">
+                    <h3 class="text-4xl font-bold mb-6 text-agri-700 dark:text-agri-300">Our Community Pledge</h3>
+                    <p class="text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto mb-10 leading-relaxed">
+                        By participating in AgriClimate Connect, I commit to upholding these five principles, treating others with respect, sharing knowledge responsibly, prioritizing safety, acting with integrity, and fostering collaboration for the benefit of farmers everywhere.
+                    </p>
+                    <button onclick="openPledgeModal()" class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full text-xl font-bold shadow-2xl hover:shadow-agri-600/40 hover:scale-105 transition-all">
+                        <i data-lucide="pen-tool" class="w-7 h-7"></i>
+                        I Accept the Pledge
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- ────────────────────────────────────────────────
+             CODE OF CONDUCT – TABBED SECTIONS
+        ──────────────────────────────────────────────── -->
+        <section id="conduct" class="py-24 relative bg-gradient-to-b from-transparent via-agri-50/30 to-transparent dark:via-agri-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-bold mb-6">Detailed Code of Conduct</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+                        Specific behavioral expectations across different parts of the platform.
+                    </p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex flex-wrap justify-center gap-3 mb-12 border-b border-gray-200 dark:border-gray-700 pb-6">
+                    <button onclick="switchTab('forum')" class="tab-btn active px-8 py-4 rounded-xl text-lg font-semibold transition-all" data-tab="forum">
+                        Discussion Forums
+                    </button>
+                    <button onclick="switchTab('expert')" class="tab-btn px-8 py-4 rounded-xl text-lg font-semibold transition-all" data-tab="expert">
+                        Expert Consultations
+                    </button>
+                    <button onclick="switchTab('marketplace')" class="tab-btn px-8 py-4 rounded-xl text-lg font-semibold transition-all" data-tab="marketplace">
+                        Marketplace & Trading
+                    </button>
+                    <button onclick="switchTab('content')" class="tab-btn px-8 py-4 rounded-xl text-lg font-semibold transition-all" data-tab="content">
+                        Content & Media Sharing
+                    </button>
+                </div>
+
+                <!-- Forum Tab -->
+                <div id="tab-forum" class="tab-content active">
+                    <div class="glass dark:glass-dark rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/20">
+                        <div class="grid lg:grid-cols-2 gap-10">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-8 flex items-center gap-4">
+                                    <i data-lucide="message-circle" class="w-10 h-10 text-blue-600"></i>
+                                    Forum & Discussion Standards
+                                </h3>
+
+                                <div class="space-y-6">
+                                    <div class="checklist-item p-6 rounded-2xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-agri-50 dark:hover:bg-agri-900/20 transition-colors" onclick="toggleChecklist(this)">
+                                        <div class="flex items-start gap-5">
+                                            <div class="check-icon w-8 h-8 rounded-full border-3 border-agri-500 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                                                <i data-lucide="check" class="w-5 h-5 opacity-0 text-white"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-xl font-semibold mb-2">Stay Relevant & Use Tags</h4>
+                                                <p class="text-gray-600 dark:text-gray-400">Post in the correct category and use appropriate tags. Avoid thread hijacking or off-topic replies.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item p-6 rounded-2xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-agri-50 dark:hover:bg-agri-900/20 transition-colors" onclick="toggleChecklist(this)">
+                                        <div class="flex items-start gap-5">
+                                            <div class="check-icon w-8 h-8 rounded-full border-3 border-agri-500 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                                                <i data-lucide="check" class="w-5 h-5 opacity-0 text-white"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-xl font-semibold mb-2">Constructive Criticism Only</h4>
+                                                <p class="text-gray-600 dark:text-gray-400">Critique ideas and methods — never attack people. Offer solutions together with problems.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item p-6 rounded-2xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-agri-50 dark:hover:bg-agri-900/20 transition-colors" onclick="toggleChecklist(this)">
+                                        <div class="flex items-start gap-5">
+                                            <div class="check-icon w-8 h-8 rounded-full border-3 border-agri-500 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                                                <i data-lucide="check" class="w-5 h-5 opacity-0 text-white"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-xl font-semibold mb-2">Search First – Reduce Duplicates</h4>
+                                                <p class="text-gray-600 dark:text-gray-400">Use search before posting. Add to existing threads when appropriate instead of starting identical ones.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item p-6 rounded-2xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-agri-50 dark:hover:bg-agri-900/20 transition-colors" onclick="toggleChecklist(this)">
+                                        <div class="flex items-start gap-5">
+                                            <div class="check-icon w-8 h-8 rounded-full border-3 border-agri-500 flex items-center justify-center flex-shrink-0 transition-all duration-300">
+                                                <i data-lucide="check" class="w-5 h-5 opacity-0 text-white"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="text-xl font-semibold mb-2">Protect Privacy</h4>
+                                                <p class="text-gray-600 dark:text-gray-400">Never share screenshots of private messages, personal details, or farm locations without explicit consent.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-8">
+                                <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/30 dark:to-red-900/20 rounded-2xl p-8 border border-red-200 dark:border-red-800/40">
+                                    <h4 class="text-2xl font-bold text-red-700 dark:text-red-400 mb-6 flex items-center gap-3">
+                                        <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+                                        Strictly Prohibited
+                                    </h4>
+                                    <ul class="space-y-4 text-red-700 dark:text-red-300 text-lg">
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="x" class="w-6 h-6 flex-shrink-0 mt-1"></i>
+                                            Spam, self-promotion, affiliate link flooding, repetitive posting
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="x" class="w-6 h-6 flex-shrink-0 mt-1"></i>
+                                            Harassment, doxxing, threats, bullying, targeted insults
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="x" class="w-6 h-6 flex-shrink-0 mt-1"></i>
+                                            Hate speech, slurs, discrimination based on protected characteristics
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="x" class="w-6 h-6 flex-shrink-0 mt-1"></i>
+                                            Deliberate misinformation presented as fact (especially health/safety claims)
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="x" class="w-6 h-6 flex-shrink-0 mt-1"></i>
+                                            Sock-puppeting, vote manipulation, brigading
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800/40">
+                                    <h4 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-6 flex items-center gap-3">
+                                        <i data-lucide="lightbulb" class="w-8 h-8"></i>
+                                        Encouraged Behaviors
+                                    </h4>
+                                    <ul class="space-y-4 text-blue-700 dark:text-blue-300 text-lg">
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-6 h-6 flex-shrink-0 mt-1 text-green-600"></i>
+                                            Use descriptive thread titles and include photos/videos when asking for help
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-6 h-6 flex-shrink-0 mt-1 text-green-600"></i>
+                                            Return to threads to post updates and final outcomes
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-6 h-6 flex-shrink-0 mt-1 text-green-600"></i>
+                                            Welcome and patiently onboard new members
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-6 h-6 flex-shrink-0 mt-1 text-green-600"></i>
+                                            Use the "Thank", "Helpful", and "Solution" reactions generously
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert Consultation Tab -->
+                <div id="tab-expert" class="tab-content">
+                    <div class="glass dark:glass-dark rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/20">
+                        <div class="grid lg:grid-cols-2 gap-12">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-8 flex items-center gap-4">
+                                    <i data-lucide="user-check" class="w-10 h-10 text-orange-600"></i>
+                                    Expert Consultation Standards
+                                </h3>
+
+                                <div class="space-y-8">
+                                    <div class="p-7 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/20 border border-orange-200 dark:border-orange-800/40">
+                                        <h4 class="text-2xl font-bold text-orange-800 dark:text-orange-300 mb-5">Farmers Seeking Advice</h4>
+                                        <ul class="space-y-4 text-orange-700 dark:text-orange-200 text-lg">
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                                                Provide full context: location, soil type, climate, current practices, photos
+                                            </li>
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                                                Be respectful of experts' time — ask focused, specific questions
+                                            </li>
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                                                Implement advice safely and report back results (good or bad)
+                                            </li>
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="info" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1"></i>
+                                                Understand remote advice cannot replace local professional consultation
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="p-7 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/20 border border-purple-200 dark:border-purple-800/40">
+                                        <h4 class="text-2xl font-bold text-purple-800 dark:text-purple-300 mb-5">Certified Experts & Contributors</h4>
+                                        <ul class="space-y-4 text-purple-700 dark:text-purple-200 text-lg">
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                                                Clearly state your qualifications, experience, and any limitations
+                                            </li>
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                                                Disclose commercial relationships or conflicts of interest
+                                            </li>
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="check" class="w-6 h-6 text-green-600 flex-shrink-0 mt-1"></i>
+                                                Recommend local lab testing / vet / agronomist when needed
+                                            </li>
+                                            <li class="flex items-start gap-4">
+                                                <i data-lucide="refresh-cw" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1"></i>
+                                                Stay current with research and update advice accordingly
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-2xl font-bold mb-8">Quality & Ethics Standards</h4>
+                                <div class="space-y-6">
+                                    <div class="flex items-center gap-6 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700">
+                                        <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="clock" class="w-8 h-8 text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-xl font-semibold mb-2">Response Time</h5>
+                                            <p class="text-gray-600 dark:text-gray-400">Experts should aim to respond within 48 hours (business days)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-6 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700">
+                                        <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="file-text" class="w-8 h-8 text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-xl font-semibold mb-2">Record Keeping</h5>
+                                            <p class="text-gray-600 dark:text-gray-400">Experts encouraged to keep notes for continuity and liability protection</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-6 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700">
+                                        <div class="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="shield-check" class="w-8 h-8 text-purple-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-xl font-semibold mb-2">Liability Disclaimer</h5>
+                                            <p class="text-gray-600 dark:text-gray-400">All remote advice is general — farmers remain responsible for final decisions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketplace Tab -->
+                <div id="tab-marketplace" class="tab-content">
+                    <div class="glass dark:glass-dark rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/20">
+                        <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                            <div class="text-center p-8 rounded-3xl bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/30 dark:to-green-900/20 border border-green-200 dark:border-green-800/40">
+                                <i data-lucide="shopping-bag" class="w-16 h-16 text-green-600 mx-auto mb-6"></i>
+                                <h4 class="text-2xl font-bold text-green-800 dark:text-green-300 mb-4">Transparent Listings</h4>
+                                <p class="text-gray-700 dark:text-gray-300">Accurate photos, honest descriptions, realistic pricing, clear condition & location</p>
+                            </div>
+
+                            <div class="text-center p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/20 border border-blue-200 dark:border-blue-800/40">
+                                <i data-lucide="handshake" class="w-16 h-16 text-blue-600 mx-auto mb-6"></i>
+                                <h4 class="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-4">Fair & Respectful Negotiation</h4>
+                                <p class="text-gray-700 dark:text-gray-300">No pressure tactics, fake offers, lowballing with intent to insult, or ghosting after agreement</p>
+                            </div>
+
+                            <div class="text-center p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/20 border border-purple-200 dark:border-purple-800/40">
+                                <i data-lucide="shield-check" class="w-16 h-16 text-purple-600 mx-auto mb-6"></i>
+                                <h4 class="text-2xl font-bold text-purple-800 dark:text-purple-300 mb-4">Secure & Traceable Transactions</h4>
+                                <p class="text-gray-700 dark:text-gray-300">Use platform escrow when available, verified payment methods, keep communication on-platform</p>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 dark:border-gray-700 pt-12">
+                            <h4 class="text-3xl font-bold mb-8 text-center">Strictly Prohibited in Marketplace</h4>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 flex items-start gap-5">
+                                    <i data-lucide="ban" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-700 dark:text-red-400 mb-3">Counterfeit / Fake Inputs</h5>
+                                        <p class="text-red-700 dark:text-red-300">Fake seeds, expired chemicals, cloned equipment, forged certificates</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 flex items-start gap-5">
+                                    <i data-lucide="ban" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-700 dark:text-red-400 mb-3">CITES / Endangered Species</h5>
+                                        <p class="text-red-700 dark:text-red-300">Protected plants, animals, or derivatives without proper permits</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 flex items-start gap-5">
+                                    <i data-lucide="ban" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-700 dark:text-red-400 mb-3">Price Fixing / Collusion</h5>
+                                        <p class="text-red-700 dark:text-red-300">Group agreements to artificially inflate/deflate prices or restrict supply</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 flex items-start gap-5">
+                                    <i data-lucide="ban" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-700 dark:text-red-400 mb-3">Banned / Restricted Chemicals</h5>
+                                        <p class="text-red-700 dark:text-red-300">WHO Class Ia/Ib, Rotterdam Convention, Stockholm POPs, EU-banned substances</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 flex items-start gap-5">
+                                    <i data-lucide="ban" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-700 dark:text-red-400 mb-3">Scams & Fraud</h5>
+                                        <p class="text-red-700 dark:text-red-300">Advance-fee fraud, fake escrow, phishing links, impersonation</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 flex items-start gap-5">
+                                    <i data-lucide="ban" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <h5 class="text-xl font-bold text-red-700 dark:text-red-400 mb-3">Off-Platform Pressure</h5>
+                                        <p class="text-red-700 dark:text-red-300">Forcing buyers/sellers to move to WhatsApp/Telegram before transaction completion</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Sharing Tab -->
+                <div id="tab-content" class="tab-content">
+                    <div class="glass dark:glass-dark rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/20">
+                        <div class="grid lg:grid-cols-2 gap-12">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-8">Intellectual Property & Attribution Rules</h3>
+
+                                <div class="space-y-8">
+                                    <div class="p-8 rounded-3xl bg-gradient-to-br from-agri-50 to-agri-100 dark:from-agri-900/30 dark:to-agri-800/20 border border-agri-200 dark:border-agri-700/40">
+                                        <h4 class="text-2xl font-bold text-agri-700 dark:text-agri-300 mb-5">Original Content</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                                            You retain ownership of photos, videos, text, and data you post. By uploading, you grant AgriClimate Connect a non-exclusive, worldwide, royalty-free license to display, distribute, and promote your content within the platform and related marketing (with attribution where practical).
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/20 border border-blue-200 dark:border-blue-800/40">
+                                        <h4 class="text-2xl font-bold text-blue-700 dark:text-blue-300 mb-5">Third-Party Content</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                                            Only share content you own, have written permission to share, or that clearly falls under fair use / fair dealing for educational/scientific discussion. Always credit photographers, researchers, publications, or platforms.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-3xl font-bold mb-8">Prohibited Content Types</h3>
+
+                                <div class="space-y-6">
+                                    <div class="flex items-start gap-5 p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40">
+                                        <i data-lucide="x-circle" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-red-700 dark:text-red-400 mb-2">Graphic / Disturbing Media</h4>
+                                            <p class="text-red-700 dark:text-red-300">Excessive gore, animal cruelty, graphic pesticide poisoning, or violent content (even if educational)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-5 p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40">
+                                        <i data-lucide="x-circle" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-red-700 dark:text-red-400 mb-2">Misleading / Manipulated Media</h4>
+                                            <p class="text-red-700 dark:text-red-300">Deepfakes, heavily edited images presented as real, out-of-context screenshots designed to mislead</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-5 p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40">
+                                        <i data-lucide="x-circle" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-red-700 dark:text-red-400 mb-2">Copyright Infringement</h4>
+                                            <p class="text-red-700 dark:text-red-300">Reposting entire research papers, books, paywalled articles, commercial videos without permission</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-5 p-6 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40">
+                                        <i data-lucide="x-circle" class="w-8 h-8 text-red-600 flex-shrink-0 mt-1"></i>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-red-700 dark:text-red-400 mb-2">NSFW / Inappropriate Content</h4>
+                                            <p class="text-red-700 dark:text-red-300">Sexually explicit material, nudity, extreme political/religious content unrelated to agriculture</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- ────────────────────────────────────────────────
+             ENFORCEMENT & REPORTING
+        ──────────────────────────────────────────────── -->
+        <section id="enforcement" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-bold mb-6">Enforcement & Appeals Process</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+                        How we maintain community standards while ensuring fairness and due process.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div class="glass dark:glass-dark rounded-3xl p-10 lg:p-14 border border-white/20">
+                        <h3 class="text-3xl font-bold mb-8 flex items-center gap-4">
+                            <i data-lucide="gavel" class="w-10 h-10 text-purple-600"></i>
+                            Enforcement Approach
+                        </h3>
+
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-6">
+                                <div class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-alert" class="w-8 h-8 text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-2xl font-semibold mb-3">Tiered Response System</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-lg">
+                                        Most first offenses receive warnings or temporary mutes. Serious or repeated violations result in temporary or permanent bans.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-6">
+                                <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="clock" class="w-8 h-8 text-amber-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-2xl font-semibold mb-3">Review Timeline</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-lg">
+                                        Moderation team aims to review reports within 72 hours. Critical safety violations are addressed within 24 hours.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-6">
+                                <div class="w-14 h-14 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="scale" class="w-8 h-8 text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-2xl font-semibold mb-3">Appeals Process</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-lg">
+                                        Users may appeal moderation actions within 30 days via the in-app appeal form or email appeals@agriclimateconnect.com
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass dark:glass-dark rounded-3xl p-10 lg:p-14 border border-white/20">
+                        <h3 class="text-3xl font-bold mb-8 flex items-center gap-4" id="reporting">
+                            <i data-lucide="flag" class="w-10 h-10 text-red-600"></i>
+                            How to Report Violations
+                        </h3>
+
+                        <div id="report-form" class="space-y-8">
+                            <!-- Step 1 -->
+                            <div class="report-step active" id="report-step-1">
+                                <h4 class="text-2xl font-bold mb-6">Step 1: Choose Violation Type</h4>
+                                <div class="grid md:grid-cols-2 gap-5">
+                                    <button onclick="nextReportStep(2, 'harassment')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-red-500 transition-colors text-left">
+                                        <h5 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                                            <i data-lucide="users" class="w-6 h-6 text-red-600"></i>
+                                            Harassment / Abuse
+                                        </h5>
+                                        <p class="text-gray-600 dark:text-gray-400">Personal attacks, threats, slurs, doxxing</p>
+                                    </button>
+
+                                    <button onclick="nextReportStep(2, 'spam')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-red-500 transition-colors text-left">
+                                        <h5 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                                            <i data-lucide="alert-octagon" class="w-6 h-6 text-red-600"></i>
+                                            Spam / Promotion
+                                        </h5>
+                                        <p class="text-gray-600 dark:text-gray-400">Unsolicited ads, affiliate spam, repetitive posting</p>
+                                    </button>
+
+                                    <button onclick="nextReportStep(2, 'misinfo')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-red-500 transition-colors text-left">
+                                        <h5 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                                            <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600"></i>
+                                            Dangerous Misinformation
+                                        </h5>
+                                        <p class="text-gray-600 dark:text-gray-400">False safety/chemical advice that could cause harm</p>
+                                    </button>
+
+                                    <button onclick="nextReportStep(2, 'other')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-red-500 transition-colors text-left">
+                                        <h5 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                                            <i data-lucide="help-circle" class="w-6 h-6 text-red-600"></i>
+                                            Other Serious Violation
+                                        </h5>
+                                        <p class="text-gray-600 dark:text-gray-400">IP theft, prohibited items, etc.</p>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="report-step" id="report-step-2">
+                                <h4 class="text-2xl font-bold mb-6">Step 2: Provide Details</h4>
+                                <form id="report-details-form" class="space-y-6">
+                                    <div>
+                                        <label class="block text-lg font-medium mb-3">Link to the post/comment (optional but very helpful)</label>
+                                        <input type="url" class="w-full px-5 py-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-lg font-medium mb-3">Describe what happened and why it violates our guidelines</label>
+                                        <textarea rows="6" class="w-full px-5 py-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 resize-none"></textarea>
+                                    </div>
+
+                                    <div class="flex justify-between items-center pt-4">
+                                        <button type="button" onclick="prevReportStep()" class="px-8 py-4 bg-gray-200 dark:bg-gray-700 rounded-xl font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                            Back
+                                        </button>
+                                        <button type="button" onclick="nextReportStep(3)" class="px-10 py-4 bg-agri-600 text-white rounded-xl font-semibold hover:bg-agri-700 transition-colors flex items-center gap-3">
+                                            Continue
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="report-step" id="report-step-3">
+                                <div class="text-center py-12">
+                                    <i data-lucide="check-circle" class="w-24 h-24 text-agri-600 mx-auto mb-8 animate-pulse"></i>
+                                    <h4 class="text-4xl font-bold mb-6 text-agri-700 dark:text-agri-300">Thank You!</h4>
+                                    <p class="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-10">
+                                        Your report has been submitted. Our moderation team will review it as quickly as possible. Serious safety violations are prioritized.
+                                    </p>
+                                    <button onclick="closeReportForm()" class="px-12 py-5 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full text-xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+                                        Return to Guidelines
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+        <!-- ────────────────────────────────────────────────
+             Pledge Modal (bonus interactive element)
+        ──────────────────────────────────────────────── -->
+        <div id="pledge-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div class="glass dark:glass-dark rounded-3xl p-10 md:p-14 max-w-2xl w-[90%] max-h-[90vh] overflow-y-auto border border-agri-400/40 shadow-2xl">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-4xl font-bold text-gradient">Community Pledge</h3>
+                    <button onclick="closePledgeModal()" class="p-3 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition-colors">
+                        <i data-lucide="x" class="w-8 h-8"></i>
+                    </button>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed mb-10">
+                    <p>I solemnly pledge to:</p>
+                    <ol class="list-decimal pl-6 space-y-4 my-6">
+                        <li>Treat every member with respect, dignity, and cultural sensitivity</li>
+                        <li>Share knowledge openly, honestly, and with proper attribution</li>
+                        <li>Prioritize safety — human, animal, environmental, and economic — in every recommendation</li>
+                        <li>Act with integrity: disclose conflicts, correct mistakes, avoid deception</li>
+                        <li>Foster collaboration, celebrate success, and support fellow farmers across borders</li>
+                        <li>Report violations constructively and accept moderation decisions fairly</li>
+                    </ol>
+                    <p class="font-semibold text-xl mt-10">
+                        By clicking "I Accept", I commit to upholding these values and helping maintain a world-class farming community.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-5 justify-end">
+                    <button onclick="closePledgeModal()" class="px-10 py-5 bg-gray-200 dark:bg-gray-700 rounded-xl font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-lg">
+                        Cancel
+                    </button>
+                    <button onclick="acceptPledge()" class="px-12 py-5 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all text-lg flex items-center gap-3">
+                        <i data-lucide="check" class="w-6 h-6"></i>
+                        I Accept the Pledge
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────────────────────
+             Retained Chat Widget, Auth Modal, Toast (same as homepage)
+        ──────────────────────────────────────────────── -->
+        <button onclick="toggleChat()" class="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-600/50 transition-all hover:scale-110 z-50 flex items-center justify-center group" aria-label="Open AI Assistant">
+            <i data-lucide="bot" class="w-8 h-8 group-hover:rotate-12 transition-transform"></i>
+            <span class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse font-bold">1</span>
+        </button>
+
+        <div id="chat-widget" class="chat-widget closed fixed bottom-28 right-8 w-96 md:w-[420px] h-[580px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/20 z-50 flex flex-col overflow-hidden">
+            <!-- Chat header, messages, input - same as homepage -->
+            <!-- (omitted here for brevity - copy from your original homepage code) -->
+        </div>
+
+        <!-- Auth Modal - same as homepage -->
+        <div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/70 backdrop-blur-sm">
+            <!-- same auth modal content as homepage -->
+        </div>
+
+        <!-- Toast -->
+        <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass dark:glass-dark px-8 py-4 rounded-full shadow-2xl border border-white/20 flex items-center gap-4 translate-y-24 opacity-0 transition-all duration-400 z-50">
+            <i data-lucide="check-circle" class="w-7 h-7 text-agri-600"></i>
+            <span id="toast-message" class="text-base font-semibold">Success!</span>
+        </div>
+
+    </main>
+
+    <!-- Footer - identical to homepage -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html" class="hover:text-agri-400 transition-colors">Home</a></li>
+                        <li><a href="weather.html" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="crops.html" class="hover:text-agri-400 transition-colors">AI Crop Advisory</a></li>
+                        <li><a href="market.html" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="community.html" class="hover:text-agri-400 transition-colors">Community</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ────────────────────────────────────────────────
+        //  All JavaScript from homepage retained + new functions
+        // ────────────────────────────────────────────────
+
+        lucide.createIcons();
+
+        let currentLanguage = 'en';
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+
+        if (isDarkMode) document.documentElement.classList.add('dark');
+
+        // ── Retained functions from homepage ──
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+            showToast(isDarkMode ? 'Dark mode enabled' : 'Light mode enabled');
+        }
+
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            document.getElementById('text-size-label').textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text enabled' : 'Normal text restored');
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast enabled' : 'High contrast disabled');
+        }
+
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : "'Plus Jakarta Sans', 'Inter', sans-serif";
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+            });
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.getElementById('hamburger-btn').classList.toggle('active');
+        }
+
+        function toggleMobileDropdown(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            el.classList.toggle('hidden');
+            icon.style.transform = el.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('mobile-menu')?.classList.add('hidden');
+            document.getElementById('hamburger-btn')?.classList.remove('active');
+        }
+
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3500);
+        }
+
+        // ── New functions for guidelines page ──
+
+        function toggleExpand(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            content.classList.toggle('expanded');
+            icon.style.transform = content.classList.contains('expanded') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function toggleChecklist(el) {
+            el.classList.toggle('checked');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function nextReportStep(step, type = null) {
+            document.querySelectorAll('.report-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`report-step-${step}`).classList.add('active');
+
+            if (type) {
+                // You could store violation type in hidden input if needed
+                console.log('Violation type selected:', type);
+            }
+        }
+
+        function prevReportStep() {
+            nextReportStep(1);
+        }
+
+        function closeReportForm() {
+            document.getElementById('report-form').reset();
+            nextReportStep(1);
+        }
+
+        function openPledgeModal() {
+            document.getElementById('pledge-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePledgeModal() {
+            document.getElementById('pledge-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function acceptPledge() {
+            showToast("Thank you for accepting the Community Pledge!");
+            closePledgeModal();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            if (localStorage.getItem('darkMode') === 'true') toggleDarkMode();
+        });
+    </script>
+</body>
+</html>

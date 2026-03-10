@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | AgriClimate Connect</title>
+    <meta name="description" content="Learn about AgriClimate Connect's mission to empower farmers worldwide with AI-driven climate intelligence, sustainable agriculture solutions, and global community building.">
+   
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Liquid Glass Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+       
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+       
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+       
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+       
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+       
+        /* Animated Background */
+        .bg-mesh {
+            background:
+                radial-gradient(at 0% 0%, hsla(120,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(140,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(160,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(100,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+       
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+       
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+       
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-radius: 5px;
+        }
+       
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+       
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+       
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+       
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+       
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+       
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+       
+        .large-text {
+            font-size: 120%;
+        }
+       
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+       
+        /* Timeline */
+        .timeline-line {
+            background: linear-gradient(to bottom, #22c55e, #16a34a);
+        }
+       
+        /* Value Card Hover */
+        .value-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .value-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+       
+        /* Partner Logo */
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+       
+        /* Team Card */
+        .team-card {
+            transition: all 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+        }
+        .team-card:hover .team-image {
+            transform: scale(1.05);
+        }
+       
+        /* Achievement Counter */
+        .achievement-item {
+            position: relative;
+        }
+        .achievement-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60%;
+            background: linear-gradient(to bottom, transparent, rgba(34, 197, 94, 0.3), transparent);
+        }
+        .achievement-item:last-child::after {
+            display: none;
+        }
+       
+        /* Map Container */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.4) 100%);
+            pointer-events: none;
+        }
+       
+        /* Impact Bar */
+        .impact-bar {
+            transition: width 1.5s ease-out;
+        }
+       
+        /* Testimonial Card */
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateX(10px);
+        }
+       
+        /* Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.open {
+            max-height: 500px;
+        }
+       
+        /* Certificate Badge */
+        .certificate-badge {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+        }
+       
+        /* Live Indicator */
+        .live-indicator {
+            animation: pulse-live 2s infinite;
+        }
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+       
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+   
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+               
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+                   
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="ai crop advisory.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="livestock management.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="market intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="soil analysis.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="ai powered tools.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="ai_powered">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Top-tier agricultural AI</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                   
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="discussion forum.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="knowledge center.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="expert network.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <a href="events and training.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="events_training">Events & Training</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Webinars & workshops</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                   
+                    <a href="about us.html" class="px-4 py-2 rounded-lg text-sm font-medium bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300" data-translate="nav_about">About Us</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+               
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                   
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+               
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+       
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+               
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="hidden pl-4 space-y-1">
+                        <a href="weather intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="ai crop advisory.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="livestock management.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="livestock">Livestock Management</a>
+                        <a href="market intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="soil analysis.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                        <a href="ai powered tools.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="ai_powered">AI-Powered Tools</a>
+                    </div>
+                </div>
+               
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="discussion forum.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="knowledge center.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="expert network.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="events and training.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="events_training">Events & Training</a>
+                    </div>
+                </div>
+               
+                <a href="about us.html" class="block px-4 py-3 rounded-xl bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 font-medium" data-translate="nav_about">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+               
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%2316a34a%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+           
+            <!-- Floating Elements -->
+            <div class="absolute top-20 left-10 w-72 h-72 bg-agri-400/20 rounded-full blur-3xl animate-morph"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-morph" style="animation-delay: -4s;"></div>
+           
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-8 animate-float">
+                    <i data-lucide="heart" class="w-4 h-4 text-red-500"></i>
+                    <span class="text-sm font-medium text-agri-700 dark:text-agri-300">Our Story</span>
+                </div>
+               
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                    <span class="block text-earth-800 dark:text-earth-100">Empowering</span>
+                    <span class="block text-gradient mt-2">Agricultural</span>
+                    <span class="block text-earth-800 dark:text-earth-100 mt-2">Transformation</span>
+                </h1>
+               
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    We are a global team of agricultural experts, technologists, and climate scientists 
+                    dedicated to building resilient farming communities through innovation and knowledge sharing.
+                </p>
+               
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button onclick="scrollToSection('our-story')" class="group px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold text-lg shadow-2xl hover:shadow-agri-500/30 transition-all hover:-translate-y-1 flex items-center gap-2">
+                        <span>Discover Our Story</span>
+                        <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                    </button>
+                    <button onclick="scrollToSection('join-us')" class="px-8 py-4 glass dark:glass-dark rounded-full font-semibold text-lg hover:bg-white/20 transition-all flex items-center gap-2">
+                        <i data-lucide="users" class="w-5 h-5 text-agri-600"></i>
+                        <span>Join Our Mission</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Stats Bar -->
+        <section class="py-12 relative bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="achievement-item text-center">
+                        <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="2018">0</div>
+                        <div class="text-agri-100 text-sm">Founded</div>
+                    </div>
+                    <div class="achievement-item text-center">
+                        <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="50000">0</div>
+                        <div class="text-agri-100 text-sm">Farmers Helped</div>
+                    </div>
+                    <div class="achievement-item text-center">
+                        <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="120">0</div>
+                        <div class="text-agri-100 text-sm">Countries</div>
+                    </div>
+                    <div class="achievement-item text-center">
+                        <div class="text-4xl md:text-5xl font-bold mb-2 counter" data-target="150">0</div>
+                        <div class="text-agri-100 text-sm">Team Members</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section -->
+        <section id="our-story" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">Our Story</h2>
+                        <div class="space-y-6 text-lg text-gray-600 dark:text-gray-300">
+                            <p>
+                                AgriClimate Connect was born from a simple yet powerful observation: while climate change was 
+                                increasingly threatening global food security, smallholder farmers—who produce 70% of the world's 
+                                food—lacked access to the information and tools needed to adapt.
+                            </p>
+                            <p>
+                                Founded in 2018 by a team of agricultural scientists and technology entrepreneurs in Nairobi, Kenya, 
+                                we set out to bridge this gap. What started as a small pilot project serving 500 farmers in East 
+                                Africa has grown into a global movement reaching 50,000 farmers across 120 countries.
+                            </p>
+                            <p>
+                                Our journey has been marked by continuous innovation. From early SMS-based weather alerts to 
+                                today's AI-powered comprehensive platform, we've remained committed to our core belief: that 
+                                knowledge, when made accessible, becomes the most powerful tool for transformation.
+                            </p>
+                        </div>
+                       
+                        <div class="mt-8 flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&auto=format&fit=crop&q=80" alt="Founder" class="w-16 h-16 rounded-full object-cover">
+                            <div>
+                                <p class="font-bold">Dr. James Mwangi</p>
+                                <p class="text-sm text-gray-500">Founder & CEO</p>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-agri-400/20 to-blue-400/20 rounded-3xl transform rotate-3"></div>
+                        <div class="relative glass dark:glass-dark rounded-3xl p-8 shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800&auto=format&fit=crop&q=80" alt="Team working" class="rounded-2xl w-full h-64 object-cover mb-6">
+                           
+                            <!-- Timeline -->
+                            <div class="space-y-6">
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 text-right font-bold text-agri-600">2018</div>
+                                    <div class="relative pl-6 border-l-2 border-agri-200 dark:border-agri-800">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Founded in Nairobi with 5 team members</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 text-right font-bold text-agri-600">2019</div>
+                                    <div class="relative pl-6 border-l-2 border-agri-200 dark:border-agri-800">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Launched first AI weather prediction model</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 text-right font-bold text-agri-600">2021</div>
+                                    <div class="relative pl-6 border-l-2 border-agri-200 dark:border-agri-800">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Expanded to 50 countries, 10,000 farmers</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 text-right font-bold text-agri-600">2023</div>
+                                    <div class="relative pl-6 border-l-2 border-agri-200 dark:border-agri-800">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Reached 50,000 farmers, full platform launch</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 text-right font-bold text-agri-600">2025</div>
+                                    <div class="relative pl-6 border-l-2 border-agri-300 dark:border-agri-700">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Global expansion, 120 countries, 150 team members</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision Section -->
+        <section class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Mission & Vision</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Guided by purpose, driven by impact
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Mission -->
+                    <div class="glass-card dark:glass-dark rounded-3xl p-10 border border-white/20 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-agri-400/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-6 shadow-lg">
+                                <i data-lucide="target" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold mb-4">Our Mission</h3>
+                            <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                                To democratize access to agricultural knowledge and climate intelligence, empowering 
+                                smallholder farmers worldwide to increase productivity, build resilience, and achieve 
+                                sustainable prosperity through technology and community.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-3">
+                                <span class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-sm font-medium">Empowerment</span>
+                                <span class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-sm font-medium">Innovation</span>
+                                <span class="px-4 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-full text-sm font-medium">Sustainability</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Vision -->
+                    <div class="glass-card dark:glass-dark rounded-3xl p-10 border border-white/20 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 group-hover:scale-150 transition-transform duration-700"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-6 shadow-lg">
+                                <i data-lucide="eye" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold mb-4">Our Vision</h3>
+                            <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                                A world where every farmer, regardless of location or resources, has access to the knowledge 
+                                and tools needed to thrive in a changing climate—creating a global food system that is 
+                                resilient, equitable, and sustainable for generations to come.
+                            </p>
+                            <div class="mt-6 flex flex-wrap gap-3">
+                                <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">Global Equity</span>
+                                <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">Climate Resilience</span>
+                                <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">Food Security</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Values Section -->
+        <section class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Core Values</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        The principles that guide every decision we make
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Value 1 -->
+                    <div class="value-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-6 shadow-lg">
+                            <i data-lucide="users" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Farmer-First</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Every solution we build starts with understanding farmers' real needs. We design with, not for, 
+                            the communities we serve.
+                        </p>
+                    </div>
+                   
+                    <!-- Value 2 -->
+                    <div class="value-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-6 shadow-lg">
+                            <i data-lucide="lightbulb" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Innovation</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            We constantly push boundaries, leveraging cutting-edge AI and technology to solve age-old 
+                            agricultural challenges in new ways.
+                        </p>
+                    </div>
+                   
+                    <!-- Value 3 -->
+                    <div class="value-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-6 shadow-lg">
+                            <i data-lucide="shield-check" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Integrity</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Trust is earned through transparency. We're committed to ethical AI, data privacy, and honest 
+                            communication with our community.
+                        </p>
+                    </div>
+                   
+                    <!-- Value 4 -->
+                    <div class="value-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-6 shadow-lg">
+                            <i data-lucide="globe" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Inclusivity</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Agriculture knows no borders. We ensure our platform serves diverse languages, cultures, and 
+                            farming systems equitably.
+                        </p>
+                    </div>
+                   
+                    <!-- Value 5 -->
+                    <div class="value-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center mb-6 shadow-lg">
+                            <i data-lucide="leaf" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Sustainability</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Environmental stewardship is at our core. We promote practices that regenerate soil, conserve 
+                            water, and protect biodiversity.
+                        </p>
+                    </div>
+                   
+                    <!-- Value 6 -->
+                    <div class="value-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center mb-6 shadow-lg">
+                            <i data-lucide="heart-handshake" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Collaboration</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            We believe in the power of partnership. Working with governments, NGOs, and private sector 
+                            to amplify our impact.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Impact Section -->
+        <section class="py-24 relative bg-gradient-to-b from-transparent to-agri-50/50 dark:to-agri-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Global Impact</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Measurable results that demonstrate our commitment to agricultural transformation
+                    </p>
+                </div>
+               
+                <!-- Impact Metrics -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                    <div class="glass-card dark:glass-dark rounded-2xl p-8 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-agri-600"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-gradient mb-2 counter" data-target="35">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Average Yield Increase (%)</div>
+                    </div>
+                   
+                    <div class="glass-card dark:glass-dark rounded-2xl p-8 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="droplets" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-gradient mb-2 counter" data-target="40">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Water Savings (%)</div>
+                    </div>
+                   
+                    <div class="glass-card dark:glass-dark rounded-2xl p-8 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="wallet" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-gradient mb-2 counter" data-target="50">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Income Growth (%)</div>
+                    </div>
+                   
+                    <div class="glass-card dark:glass-dark rounded-2xl p-8 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="sprout" class="w-8 h-8 text-orange-600"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-gradient mb-2 counter" data-target="2">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Million Tons CO₂ Reduced</div>
+                    </div>
+                </div>
+               
+                <!-- Impact Bars -->
+                <div class="glass dark:glass-dark rounded-3xl p-8 border border-white/30">
+                    <h3 class="text-2xl font-bold mb-8 text-center">Impact by Region</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">East Africa</span>
+                                <span class="text-agri-600 font-bold">18,500 farmers</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                                <div class="impact-bar bg-gradient-to-r from-agri-400 to-agri-600 h-full rounded-full" style="width: 0%" data-width="37%"></div>
+                            </div>
+                        </div>
+                       
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">South Asia</span>
+                                <span class="text-agri-600 font-bold">12,300 farmers</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                                <div class="impact-bar bg-gradient-to-r from-agri-400 to-agri-600 h-full rounded-full" style="width: 0%" data-width="25%"></div>
+                            </div>
+                        </div>
+                       
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">West Africa</span>
+                                <span class="text-agri-600 font-bold">9,800 farmers</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                                <div class="impact-bar bg-gradient-to-r from-agri-400 to-agri-600 h-full rounded-full" style="width: 0%" data-width="20%"></div>
+                            </div>
+                        </div>
+                       
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Latin America</span>
+                                <span class="text-agri-600 font-bold">6,200 farmers</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                                <div class="impact-bar bg-gradient-to-r from-agri-400 to-agri-600 h-full rounded-full" style="width: 0%" data-width="12%"></div>
+                            </div>
+                        </div>
+                       
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Southeast Asia</span>
+                                <span class="text-agri-600 font-bold">3,200 farmers</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 overflow-hidden">
+                                <div class="impact-bar bg-gradient-to-r from-agri-400 to-agri-600 h-full rounded-full" style="width: 0%" data-width="6%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Team Section -->
+        <section class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Leadership</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Meet the passionate experts driving our mission forward
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- CEO -->
+                    <div class="team-card glass-card dark:glass-dark rounded-2xl overflow-hidden border border-white/20">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80" alt="Dr. James Mwangi" class="w-full h-full object-cover team-image transition-transform duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                                <div class="flex gap-3">
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="twitter" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Dr. James Mwangi</h3>
+                            <p class="text-agri-600 text-sm mb-3">Founder & CEO</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Agricultural economist with 20+ years experience in African farming systems and climate adaptation strategies.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- CTO -->
+                    <div class="team-card glass-card dark:glass-dark rounded-2xl overflow-hidden border border-white/20">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80" alt="Dr. Michael Chen" class="w-full h-full object-cover team-image transition-transform duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                                <div class="flex gap-3">
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="twitter" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Dr. Michael Chen</h3>
+                            <p class="text-agri-600 text-sm mb-3">Chief Technology Officer</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                AI and machine learning expert, formerly led agricultural robotics at MIT Media Lab.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- Head of Agriculture -->
+                    <div class="team-card glass-card dark:glass-dark rounded-2xl overflow-hidden border border-white/20">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80" alt="Prof. Sarah Ochieng" class="w-full h-full object-cover team-image transition-transform duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                                <div class="flex gap-3">
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="twitter" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Prof. Sarah Ochieng</h3>
+                            <p class="text-agri-600 text-sm mb-3">Head of Agricultural Science</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Leading crop protection researcher, published 50+ papers on integrated pest management in tropical systems.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- Head of Community -->
+                    <div class="team-card glass-card dark:glass-dark rounded-2xl overflow-hidden border border-white/20">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80" alt="Dr. Amina Hassan" class="w-full h-full object-cover team-image transition-transform duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                                <div class="flex gap-3">
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                                        <i data-lucide="twitter" class="w-4 h-4 text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Dr. Amina Hassan</h3>
+                            <p class="text-agri-600 text-sm mb-3">Head of Community Impact</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Veterinarian and rural development specialist, led livestock programs across 15 African countries.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="text-center mt-12">
+                    <button onclick="viewAllTeam()" class="px-8 py-3 glass dark:glass-dark rounded-full font-semibold hover:bg-white/20 transition-all">
+                        View All 150 Team Members
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Partners Section -->
+        <section class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Partners</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Collaborating with leading organizations to amplify our impact
+                    </p>
+                </div>
+               
+                <!-- Partner Categories -->
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="building-2" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Institutional Partners</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Governments, UN agencies, and development banks</p>
+                    </div>
+                   
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="microscope" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Research Partners</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Universities and agricultural research institutions</p>
+                    </div>
+                   
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="handshake" class="w-8 h-8 text-orange-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Private Sector</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Technology companies and agribusinesses</p>
+                    </div>
+                </div>
+               
+                <!-- Partner Logos Grid -->
+                <div class="glass dark:glass-dark rounded-3xl p-8 border border-white/30">
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">FAO</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">World Bank</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">CGIAR</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">USAID</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">Gates Fdn</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">Rockefeller</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">Microsoft</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">Google.org</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">One Acre</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">Heifer Int</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">TechnoServe</div>
+                        </div>
+                        <div class="partner-logo flex items-center justify-center p-4">
+                            <div class="text-2xl font-bold text-gray-400">ACRE Africa</div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Partnership CTA -->
+                <div class="mt-12 text-center">
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Interested in partnering with us?</p>
+                    <button onclick="openPartnershipModal()" class="px-8 py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all">
+                        Become a Partner
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Voices from Our Community</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Hear from farmers, partners, and team members about their experience with AgriClimate Connect
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20">
+                        <div class="flex items-center gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 italic">
+                            "AgriClimate Connect transformed my farming completely. The weather alerts saved my crops from three floods this year, and the market prices feature helped me increase my income by 40%."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="John Kamau" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <p class="font-bold">John Kamau</p>
+                                <p class="text-sm text-gray-500">Maize Farmer, Kenya</p>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20">
+                        <div class="flex items-center gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 italic">
+                            "As a woman farmer in rural India, I never had access to expert advice. Now I have AI-powered recommendations in my language. I've trained 20 other women in my village using what I learned."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" alt="Priya Sharma" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <p class="font-bold">Priya Sharma</p>
+                                <p class="text-sm text-gray-500">Vegetable Farmer, India</p>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card glass-card dark:glass-dark rounded-2xl p-8 border border-white/20">
+                        <div class="flex items-center gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                            <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-yellow-500"></i>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 italic">
+                            "Partnering with AgriClimate Connect has allowed us to reach 10,000 smallholder farmers we couldn't have served otherwise. Their technology platform is truly game-changing for development organizations."
+                        </p>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80" alt="Dr. Robert Mensah" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <p class="font-bold">Dr. Robert Mensah</p>
+                                <p class="text-sm text-gray-500">Country Director, NGO Partner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards & Recognition -->
+        <section class="py-24 relative bg-gradient-to-b from-transparent to-agri-50/50 dark:to-agri-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Awards & Recognition</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Honored for our contribution to agricultural innovation and climate action
+                    </p>
+                </div>
+               
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="trophy" class="w-8 h-8 text-yellow-600"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">UN Innovation Award</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2024</p>
+                    </div>
+                   
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="award" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">Climate Tech 100</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2023</p>
+                    </div>
+                   
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="medal" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">Africa Food Prize</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2023</p>
+                    </div>
+                   
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center border border-white/20">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="leaf" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">Green Tech Award</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">2022</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Us CTA -->
+        <section id="join-us" class="py-24 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-12 text-center border border-white/30 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-agri-500/10 to-blue-500/10"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">Join Our Mission</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Whether you're a farmer seeking knowledge, an expert wanting to share your skills, 
+                            or an organization looking to partner, there's a place for you in our community.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="openAuthModal()" class="px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold text-lg shadow-2xl hover:shadow-agri-500/30 transition-all hover:-translate-y-1">
+                                Create Free Account
+                            </button>
+                            <button onclick="openCareersModal()" class="px-8 py-4 glass dark:glass-dark rounded-full font-semibold text-lg hover:bg-white/20 transition-all">
+                                View Careers
+                            </button>
+                        </div>
+                        <p class="mt-6 text-sm text-gray-500">Join 50,000+ farmers and experts already in our community</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">
+                        Common questions about AgriClimate Connect
+                    </p>
+                </div>
+               
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="glass dark:glass-dark rounded-2xl border border-white/20 overflow-hidden">
+                        <button onclick="toggleAccordion(1)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                            <span class="font-semibold">Is AgriClimate Connect free for farmers?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" id="accordion-icon-1"></i>
+                        </button>
+                        <div id="accordion-content-1" class="accordion-content px-6">
+                            <p class="pb-4 text-gray-600 dark:text-gray-400">
+                                Yes! Our core platform is completely free for smallholder farmers. This includes weather alerts, 
+                                basic crop advisory, market prices, and community forum access. We also offer premium features 
+                                and certified courses at affordable rates, with scholarships available for those who need them.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- FAQ 2 -->
+                    <div class="glass dark:glass-dark rounded-2xl border border-white/20 overflow-hidden">
+                        <button onclick="toggleAccordion(2)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                            <span class="font-semibold">How does the AI crop advisory work?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" id="accordion-icon-2"></i>
+                        </button>
+                        <div id="accordion-content-2" class="accordion-content px-6">
+                            <p class="pb-4 text-gray-600 dark:text-gray-400">
+                                Our AI analyzes multiple data sources—satellite imagery, weather patterns, soil data, and local 
+                                agricultural knowledge—to provide personalized recommendations. You simply input your location, 
+                                crop type, and farming conditions, and receive tailored advice on planting, irrigation, pest 
+                                management, and harvesting.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- FAQ 3 -->
+                    <div class="glass dark:glass-dark rounded-2xl border border-white/20 overflow-hidden">
+                        <button onclick="toggleAccordion(3)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                            <span class="font-semibold">In which countries do you operate?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" id="accordion-icon-3"></i>
+                        </button>
+                        <div id="accordion-content-3" class="accordion-content px-6">
+                            <p class="pb-4 text-gray-600 dark:text-gray-400">
+                                We currently serve farmers in 120 countries, with strongest presence in East Africa, South Asia, 
+                                and West Africa. Our platform supports 15 languages and we're constantly expanding. If your 
+                                country isn't fully supported yet, you can still access many of our features and join our 
+                                global community.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- FAQ 4 -->
+                    <div class="glass dark:glass-dark rounded-2xl border border-white/20 overflow-hidden">
+                        <button onclick="toggleAccordion(4)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                            <span class="font-semibold">How can I become a trainer or expert?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" id="accordion-icon-4"></i>
+                        </button>
+                        <div id="accordion-content-4" class="accordion-content px-6">
+                            <p class="pb-4 text-gray-600 dark:text-gray-400">
+                                We welcome agricultural experts, researchers, and experienced farmers to join our expert network. 
+                                Apply through our website with your credentials and areas of expertise. Once approved, you can 
+                                host webinars, create courses, answer farmer questions, and earn income while helping others.
+                            </p>
+                        </div>
+                    </div>
+                   
+                    <!-- FAQ 5 -->
+                    <div class="glass dark:glass-dark rounded-2xl border border-white/20 overflow-hidden">
+                        <button onclick="toggleAccordion(5)" class="w-full px-6 py-4 flex items-center justify-between text-left">
+                            <span class="font-semibold">How do you protect farmer data?</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" id="accordion-icon-5"></i>
+                        </button>
+                        <div id="accordion-content-5" class="accordion-content px-6">
+                            <p class="pb-4 text-gray-600 dark:text-gray-400">
+                                Data privacy is paramount. We use enterprise-grade encryption, never sell personal data, and 
+                                comply with GDPR and local data protection laws. Farmers control what information they share, 
+                                and we use aggregated, anonymized data only for improving our AI models and generating 
+                                regional insights.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+       
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+               
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html#features" class="hover:text-agri-400 transition-colors">Features</a></li>
+                        <li><a href="weather intelligence.html" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="market intelligence.html" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="index.html#community" class="hover:text-agri-400 transition-colors">Community</a></li>
+                        <li><a href="about us.html" class="hover:text-agri-400 transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+               
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="help center.html" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="api documentation.html" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="community guidelines.html" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="privacy policy.html" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms of use.html" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+               
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+           
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="privacy policy.html" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="terms of use.html" class="hover:text-white transition-colors">Terms</a>
+                    <a href="cookie.html" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+       
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                    Hello! I'm your AI assistant. I can tell you more about AgriClimate Connect, our mission, or help you get involved. What would you like to know?
+                </div>
+            </div>
+        </div>
+       
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('Tell me about your mission')" class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 rounded-full text-xs whitespace-nowrap hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">Our mission</button>
+                <button onclick="sendQuickMessage('How can I partner with you?')" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full text-xs whitespace-nowrap hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">Partnerships</button>
+                <button onclick="sendQuickMessage('Are you hiring?')" class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full text-xs whitespace-nowrap hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors">Careers</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+               
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sprout" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" id="auth-title">Welcome Back</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Sign in to access your personalized dashboard</p>
+                </div>
+               
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        <span id="auth-submit-text">Sign In</span>
+                    </button>
+                </form>
+               
+                <div class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-agri-600 font-semibold hover:underline ml-1" id="auth-switch-btn">Sign Up</button>
+                </div>
+               
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <button class="w-full py-3 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google">
+                        <span class="text-sm font-medium">Continue with Google</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+       
+        // Global State
+        let currentLanguage = 'en';
+        let isDarkMode = false;
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+       
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_knowledge: "Knowledge Tools",
+                nav_community: "Community",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                get_started: "Get Started",
+                weather_intel: "Weather Intelligence",
+                crop_advisory: "AI Crop Advisory",
+                livestock: "Livestock Management",
+                market_intelligence: "Market Intelligence",
+                soil_analysis: "Soil Analysis",
+                ai_powered: "AI-Powered Tools",
+                discussion_forum: "Discussion Forum",
+                knowledge_center: "Knowledge Center",
+                expert_network: "Expert Network",
+                events_training: "Events & Training",
+                text_size: "Text Size",
+                high_contrast: "High Contrast",
+                dyslexic_font: "Dyslexic Friendly",
+                toggle_theme: "Toggle Theme"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_knowledge: "Herramientas de Conocimiento",
+                nav_community: "Comunidad",
+                nav_about: "Sobre Nosotros",
+                nav_contact: "Contacto",
+                get_started: "Comenzar",
+                weather_intel: "Inteligencia del Clima",
+                crop_advisory: "Asesoría de Cultivos IA",
+                livestock: "Gestión de Ganado",
+                market_intelligence: "Inteligencia de Mercado",
+                soil_analysis: "Análisis de Suelo",
+                ai_powered: "Herramientas IA",
+                discussion_forum: "Foro de Discusión",
+                knowledge_center: "Centro de Conocimiento",
+                expert_network: "Red de Expertos",
+                events_training: "Eventos y Capacitación",
+                text_size: "Tamaño de Texto",
+                high_contrast: "Alto Contraste",
+                dyslexic_font: "Fuente Disléxica",
+                toggle_theme: "Cambiar Tema"
+            }
+        };
+       
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initCounters();
+            initImpactBars();
+            initParticles();
+           
+            // Check system dark mode preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        });
+       
+        // UI Functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('active');
+        }
+       
+        function toggleMobileDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            dropdown.classList.toggle('hidden');
+            icon.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+       
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('mobile-menu').classList.add('hidden');
+                document.getElementById('hamburger-btn').classList.remove('active');
+            }
+        }
+       
+        // Dark Mode
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+       
+        // Accessibility Features
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            const label = document.getElementById('text-size-label');
+            if (label) label.textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text mode enabled' : 'Normal text mode enabled');
+        }
+       
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        }
+       
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : '';
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+       
+        // Language Switching
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const label = document.getElementById('current-lang');
+            if (label) label.textContent = lang.toUpperCase();
+           
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+           
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+       
+        // Counter Animation
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        animateCounter(counter, target);
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+           
+            counters.forEach(counter => observer.observe(counter));
+        }
+       
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 30);
+        }
+       
+        // Impact Bars Animation
+        function initImpactBars() {
+            const bars = document.querySelectorAll('.impact-bar');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target;
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width;
+                        observer.unobserve(bar);
+                    }
+                });
+            }, { threshold: 0.5 });
+           
+            bars.forEach(bar => observer.observe(bar));
+        }
+       
+        // Accordion
+        function toggleAccordion(id) {
+            const content = document.getElementById(`accordion-content-${id}`);
+            const icon = document.getElementById(`accordion-icon-${id}`);
+           
+            content.classList.toggle('open');
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+       
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+       
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+       
+        function sendQuickMessage(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+       
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+           
+            addMessage(message, 'user');
+            input.value = '';
+            showTypingIndicator();
+           
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+       
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+           
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                    </div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            }
+           
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+       
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 flex items-center gap-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+       
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+       
+        function generateAIResponse(input) {
+            const lowerInput = input.toLowerCase();
+           
+            if (lowerInput.includes('mission') || lowerInput.includes('about')) {
+                return "Our mission is to democratize access to agricultural knowledge and climate intelligence. We believe every farmer deserves access to the best information, regardless of their location or resources. Would you like to know more about our history or impact?";
+            }
+            else if (lowerInput.includes('partner') || lowerInput.includes('partnership')) {
+                return "We partner with governments, NGOs, research institutions, and private companies. Partnership opportunities include technology integration, research collaboration, funding support, and content development. Would you like me to connect you with our partnerships team?";
+            }
+            else if (lowerInput.includes('career') || lowerInput.includes('hiring') || lowerInput.includes('job')) {
+                return "We're always looking for passionate people! Current openings include Agricultural Data Scientists, Field Officers, and Community Managers. We offer competitive salaries, remote work options, and the chance to make a real impact. Shall I send you to our careers page?";
+            }
+            else {
+                return "Thanks for your interest in AgriClimate Connect! I can help you learn about our mission, team, partnerships, or career opportunities. You can also ask about how to get involved as a farmer, expert, or partner. What would you like to explore?";
+            }
+        }
+       
+        // Auth Modal
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+       
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+       
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+       
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            closeAuthModal();
+            showToast(isSignUp ? 'Account created successfully!' : 'Welcome back!');
+        }
+       
+        // Other Modal Functions
+        function viewAllTeam() {
+            showToast('Full team directory coming soon!');
+        }
+       
+        function openPartnershipModal() {
+            showToast('Partnership application form coming soon!');
+        }
+       
+        function openCareersModal() {
+            showToast('Careers page coming soon!');
+        }
+       
+        // Form Submissions
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            showToast('Successfully subscribed to newsletter!');
+            event.target.reset();
+        }
+       
+        // Particle Background
+        function initParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '0';
+            document.body.appendChild(canvas);
+           
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+           
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+           
+            window.addEventListener('resize', resize);
+            resize();
+           
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+               
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                   
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+               
+                draw() {
+                    ctx.fillStyle = `rgba(34, 197, 94, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+           
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+           
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+           
+            animate();
+        }
+       
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+           
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+       
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

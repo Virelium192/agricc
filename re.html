@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Tools | AgriClimate Connect - Command Center</title>
+    <meta name="description" content="Next-generation AI tools for agriculture: Autonomous coding for drones, Digital Twin simulations, Satellite Intelligence, and Climate Forecasting.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+                            400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+                            800: '#166534', 900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1',
+                            400: '#a8a29e', 500: '#78716c', 600: '#57534e', 700: '#44403c',
+                            800: '#292524', 900: '#1c1917',
+                        },
+                        neon: {
+                            blue: '#3b82f6',
+                            purple: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'scan': 'scan 4s linear infinite',
+                    },
+                    keyframes: {
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
+                        shimmer: { '0%': { backgroundPosition: '-1000px 0' }, '100%': { backgroundPosition: '1000px 0' } },
+                        morph: { '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' }, '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' } },
+                        scan: { '0%': { top: '0%' }, '100%': { top: '100%' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Core Glassmorphism & Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* Animated Background */
+        .bg-mesh {
+            background: 
+                radial-gradient(at 0% 0%, hsla(142,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(190,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(45,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(260,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .text-gradient-ai {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Accessibility */
+        .high-contrast { filter: contrast(150%); }
+        .large-text { font-size: 120%; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #16a34a, #22c55e); border-radius: 5px; }
+
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0; visibility: hidden; transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        /* Chat Widget */
+        .chat-widget { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .chat-widget.open { transform: scale(1); opacity: 1; }
+        .chat-widget.closed { transform: scale(0); opacity: 0; }
+
+        /* Code Editor Styling */
+        .code-editor {
+            background: #1e1e1e;
+            font-family: 'Fira Code', monospace;
+            color: #d4d4d4;
+            line-height: 1.5;
+        }
+        .code-line-numbers {
+            color: #858585;
+            text-align: right;
+            padding-right: 16px;
+            border-right: 1px solid #333;
+            user-select: none;
+        }
+
+        /* Scanning Effect for Satellite */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(6, 182, 212, 0.8);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
+            animation: scan 3s linear infinite;
+        }
+
+        /* Hamburger Menu */
+        .hamburger-line { transition: all 0.3s ease; }
+        .hamburger.active .hamburger-line:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active .hamburger-line:nth-child(2) { opacity: 0; }
+        .hamburger.active .hamburger-line:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- Navigation (Identical to Homepage Specification) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">Home</a>
+                    
+                    <!-- Knowledge Tools Dropdown (Active State for AI Tools) -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-1">
+                            <span>Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500">Real-time forecasts</div>
+                                </div>
+                            </a>
+                            <a href="crops.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500">Smart planting</div>
+                                </div>
+                            </a>
+                            <a href="livestock.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">Livestock Management</div>
+                                    <div class="text-xs text-gray-500">Animal health</div>
+                                </div>
+                            </a>
+                            <!-- AI Tools Link (Active) -->
+                            <a href="ai-tools.html" class="block px-4 py-3 rounded-xl bg-agri-50 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-3 border-l-4 border-agri-500">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500">Command Center</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="market.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">Market</a>
+                    <a href="about.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">About</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span>Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span>High Contrast</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors text-left text-sm">English</button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors text-left text-sm">Español</button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span>Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium">Home</a>
+                <a href="weather.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium">Weather</a>
+                <a href="livestock.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium">Livestock</a>
+                <a href="ai-tools.html" class="block px-4 py-3 rounded-xl bg-agri-50 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 font-medium border-l-4 border-agri-500">AI Tools</a>
+                
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span>Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span>Text Size</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        
+        <!-- Hero Section: The Command Center -->
+        <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-slate-900 via-slate-800 to-agri-900 text-white">
+            <!-- Animated Background Grid -->
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+            <div class="absolute inset-0 bg-mesh opacity-30"></div>
+            
+            <!-- Floating Orbs -->
+            <div class="absolute top-20 left-20 w-72 h-72 bg-neon-blue/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-neon-purple/20 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:bg-white/10 mb-8 animate-float border border-neon-cyan/30">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-neon-cyan"></span>
+                    </span>
+                    <span class="text-sm font-medium text-neon-cyan">System Online: Neural Net Active</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tight">
+                    <span class="block text-white">Agricultural</span>
+                    <span class="block text-gradient-ai mt-2">Intelligence Core</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    Harnessing the power of 15+ proprietary AI engines. From autonomous drone swarms to predictive climate modeling, we provide the infrastructure for the farm of the future.
+                </p>
+
+                <!-- Live Market Ticker (Simulated Real-time) -->
+                <div class="max-w-5xl mx-auto glass dark:glass-dark rounded-2xl p-4 border border-white/10 mb-12 overflow-hidden">
+                    <div class="flex items-center gap-4 text-sm font-mono">
+                        <span class="text-neon-cyan font-bold flex-shrink-0">LIVE MARKET DATA:</span>
+                        <div class="overflow-hidden relative w-full">
+                            <div class="whitespace-nowrap animate-[float_20s_linear_infinite] flex gap-8" id="market-ticker">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <button onclick="scrollToSection('code-studio')" class="glass-button p-4 rounded-xl text-left group hover:border-neon-blue/50">
+                        <i data-lucide="code-2" class="w-8 h-8 text-neon-blue mb-2 group-hover:scale-110 transition-transform"></i>
+                        <div class="font-bold text-sm">AI Code Studio</div>
+                        <div class="text-xs text-gray-400">Drone & Robot Logic</div>
+                    </button>
+                    <button onclick="scrollToSection('satellite')" class="glass-button p-4 rounded-xl text-left group hover:border-neon-purple/50">
+                        <i data-lucide="satellite" class="w-8 h-8 text-neon-purple mb-2 group-hover:scale-110 transition-transform"></i>
+                        <div class="font-bold text-sm">Satellite View</div>
+                        <div class="text-xs text-gray-400">Real-time Imagery</div>
+                    </button>
+                    <button onclick="scrollToSection('digital-twin')" class="glass-button p-4 rounded-xl text-left group hover:border-neon-cyan/50">
+                        <i data-lucide="box" class="w-8 h-8 text-neon-cyan mb-2 group-hover:scale-110 transition-transform"></i>
+                        <div class="font-bold text-sm">Digital Twin</div>
+                        <div class="text-xs text-gray-400">Farm Simulation</div>
+                    </button>
+                    <button onclick="scrollToSection('carbon')" class="glass-button p-4 rounded-xl text-left group hover:border-agri-400/50">
+                        <i data-lucide="leaf" class="w-8 h-8 text-agri-400 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <div class="font-bold text-sm">Carbon Engine</div>
+                        <div class="text-xs text-gray-400">Credit Optimization</div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Tools Grid -->
+        <section class="py-20 relative bg-earth-50 dark:bg-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">The Neural Network Suite</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Integrated AI modules working in concert to optimize every aspect of your agribusiness.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 1. AI Code Studio (Interactive) -->
+                    <div id="code-studio" class="lg:col-span-2 glass dark:glass-dark rounded-3xl p-1 overflow-hidden border border-gray-200 dark:border-gray-700 shadow-2xl">
+                        <div class="bg-gray-900 rounded-[20px] p-6 h-full flex flex-col">
+                            <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-4">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="terminal" class="w-6 h-6 text-neon-blue"></i>
+                                    <h3 class="text-xl font-bold text-white">AI Code Studio</h3>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button onclick="runCodeSimulation()" class="px-4 py-1.5 bg-neon-blue/20 text-neon-blue rounded-lg text-sm font-medium hover:bg-neon-blue/30 transition-colors flex items-center gap-2">
+                                        <i data-lucide="play" class="w-4 h-4"></i> Deploy to Drone
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 grid grid-cols-12 gap-4 min-h-[300px]">
+                                <!-- Line Numbers -->
+                                <div class="col-span-1 text-right text-gray-600 font-mono text-sm select-none pt-2">
+                                    1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
+                                </div>
+                                <!-- Code Area -->
+                                <div class="col-span-11 font-mono text-sm relative group">
+                                    <pre class="text-gray-300 leading-6"><code><span class="text-purple-400">class</span> <span class="text-yellow-300">AutonomousDrone</span> {
+  <span class="text-purple-400">constructor</span>() {
+    <span class="text-blue-400">this</span>.sensors = <span class="text-purple-400">new</span> SensorArray();
+    <span class="text-blue-400">this</span>.ai = <span class="text-purple-400">new</span> CropAnalysisAI();
+  }
+
+  <span class="text-yellow-300">async patrol</span>(sector) {
+    <span class="text-gray-500">// AI-generated route optimization</span>
+    <span class="text-purple-400">const</span> route = <span class="text-blue-400">await</span> <span class="text-blue-400">this</span>.ai.calculateOptimalPath(sector);
+    
+    <span class="text-purple-400">for</span> (<span class="text-purple-400">let</span> point <span class="text-purple-400">of</span> route) {
+      <span class="text-blue-400">this</span>.moveTo(point);
+      <span class="text-purple-400">const</span> scan = <span class="text-blue-400">this</span>.sensors.scanNDVI();
+      <span class="text-purple-400">if</span> (scan.anomaly) <span class="text-blue-400">this</span>.ai.report(scan);
+    }
+  }
+}</code></pre>
+                                    <!-- Typing Simulation Overlay -->
+                                    <div id="code-cursor" class="absolute top-[168px] left-[20px] w-2 h-5 bg-neon-blue animate-pulse"></div>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 bg-black/50 rounded-lg border border-gray-700 flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                <span class="text-xs text-gray-400 font-mono">System Status: IDLE // Waiting for deployment command...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Satellite Intelligence -->
+                    <div id="satellite" class="glass dark:glass-dark rounded-3xl p-6 border border-gray-200 dark:border-gray-700 shadow-xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-slate-800">
+                            <!-- Simulated Map Canvas -->
+                            <canvas id="satelliteCanvas" class="w-full h-full opacity-60 group-hover:opacity-80 transition-opacity duration-500"></canvas>
+                            <!-- Scanning Line -->
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="relative z-10 h-full flex flex-col justify-between pointer-events-none">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-bold text-white drop-shadow-md">Satellite Intel</h3>
+                                <span class="px-2 py-1 bg-red-500/80 text-white text-xs rounded animate-pulse">LIVE</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="glass dark:bg-black/40 p-3 rounded-lg border border-white/10 backdrop-blur-md">
+                                    <div class="flex justify-between text-sm text-white mb-1">
+                                        <span>Cloud Cover</span>
+                                        <span class="font-bold">12%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-600 h-1 rounded-full">
+                                        <div class="bg-neon-cyan h-1 rounded-full" style="width: 12%"></div>
+                                    </div>
+                                </div>
+                                <div class="glass dark:bg-black/40 p-3 rounded-lg border border-white/10 backdrop-blur-md">
+                                    <div class="flex justify-between text-sm text-white mb-1">
+                                        <span>Soil Moisture</span>
+                                        <span class="font-bold text-yellow-400">Critical</span>
+                                    </div>
+                                    <div class="w-full bg-gray-600 h-1 rounded-full">
+                                        <div class="bg-yellow-400 h-1 rounded-full" style="width: 32%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Digital Twin Simulation -->
+                    <div id="digital-twin" class="glass dark:glass-dark rounded-3xl p-6 border border-gray-200 dark:border-gray-700 shadow-xl">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-neon-purple/10 rounded-lg">
+                                <i data-lucide="box" class="w-6 h-6 text-neon-purple"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Digital Twin</h3>
+                        </div>
+                        <div class="relative h-48 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden mb-4 border border-gray-200 dark:border-gray-600">
+                            <canvas id="twinCanvas" class="w-full h-full"></canvas>
+                            <div class="absolute bottom-2 right-2 text-xs font-mono text-gray-500">Sim: 14 Days Future</div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500">Projected Yield</span>
+                                <span class="font-bold text-agri-600">+12.5% <i data-lucide="trending-up" class="inline w-3 h-3"></i></span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500">Water Usage</span>
+                                <span class="font-bold text-blue-600">-8.2% <i data-lucide="droplets" class="inline w-3 h-3"></i></span>
+                            </div>
+                            <button onclick="runSimulation()" class="w-full py-2 mt-2 bg-neon-purple/10 text-neon-purple rounded-lg text-sm font-medium hover:bg-neon-purple/20 transition-colors">
+                                Run Scenario Analysis
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Federated Learning Network -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 border border-gray-200 dark:border-gray-700 shadow-xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-blue-500/10 rounded-lg">
+                                <i data-lucide="network" class="w-6 h-6 text-blue-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Federated Learning</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Decentralized AI training. Your data improves global models without leaving your device.</p>
+                        <div class="relative h-32 w-full">
+                            <canvas id="networkCanvas" class="w-full h-full"></canvas>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-xs text-gray-500">
+                            <span>Nodes Active: 14,203</span>
+                            <span class="text-agri-500 flex items-center gap-1"><div class="w-2 h-2 bg-agri-500 rounded-full animate-pulse"></div> Syncing</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. Carbon Credit Engine -->
+                    <div id="carbon" class="glass dark:glass-dark rounded-3xl p-6 border border-gray-200 dark:border-gray-700 shadow-xl">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-agri-500/10 rounded-lg">
+                                <i data-lucide="leaf" class="w-6 h-6 text-agri-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Carbon Engine</h3>
+                        </div>
+                        
+                        <div class="flex items-center justify-center py-4">
+                            <div class="relative w-32 h-32">
+                                <svg class="w-full h-full transform -rotate-90">
+                                    <circle cx="64" cy="64" r="56" stroke="currentColor" stroke-width="8" fill="transparent" class="text-gray-200 dark:text-gray-700" />
+                                    <circle cx="64" cy="64" r="56" stroke="currentColor" stroke-width="8" fill="transparent" stroke-dasharray="351.86" stroke-dashoffset="70" class="text-agri-500" stroke-linecap="round" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-2xl font-bold text-agri-600">4.2</span>
+                                    <span class="text-xs text-gray-500">Tons CO2e</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-3 bg-agri-50 dark:bg-agri-900/20 rounded-xl mb-4 border border-agri-200 dark:border-agri-800">
+                            <div class="text-xs text-gray-500 mb-1">Estimated Credit Value</div>
+                            <div class="text-xl font-bold text-agri-700 dark:text-agri-300">$126.00 USD</div>
+                        </div>
+
+                        <button class="w-full py-2 bg-agri-600 text-white rounded-lg text-sm font-medium hover:bg-agri-700 transition-colors shadow-lg shadow-agri-500/30">
+                            Mint Carbon Credits
+                        </button>
+                    </div>
+
+                    <!-- 6. Risk Forecasting -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 border border-gray-200 dark:border-gray-700 shadow-xl bg-gradient-to-br from-white to-red-50 dark:from-slate-800 dark:to-red-900/10">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-red-500/10 rounded-lg">
+                                <i data-lucide="shield-alert" class="w-6 h-6 text-red-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Risk Forecasting</h3>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-100 dark:border-gray-700 shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-600">
+                                    <i data-lucide="bug" class="w-5 h-5"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold">Locust Swarm</div>
+                                    <div class="text-xs text-gray-500">Probability: 45% (High)</div>
+                                </div>
+                                <div class="text-xs font-bold text-red-500">Alert</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-100 dark:border-gray-700 shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600">
+                                    <i data-lucide="cloud-rain" class="w-5 h-5"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold">Flash Flood</div>
+                                    <div class="text-xs text-gray-500">Probability: 12% (Low)</div>
+                                </div>
+                                <div class="text-xs font-bold text-green-500">Safe</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Deep Dive: Voice Assistant -->
+        <section class="py-16 bg-white dark:bg-slate-800 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h2 class="text-3xl font-bold mb-4">Multilingual AI Voice Assistant</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        No literacy required. Speak to your farm in your native language. Get instant verbal feedback on crop health, weather, and market prices.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-agri-500"></i>
+                            Supports Kiswahili, Hausa, Hindi, Spanish, and English
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-agri-500"></i>
+                            Offline mode for low-connectivity areas
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-agri-500"></i>
+                            Natural Language Processing for complex queries
+                        </li>
+                    </ul>
+                    <button onclick="openChat()" class="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                        Try Voice Demo
+                    </button>
+                </div>
+                <div class="flex-1 relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-agri-400 to-blue-500 rounded-full blur-3xl opacity-20"></div>
+                    <div class="relative glass dark:glass-dark p-8 rounded-3xl border border-white/20 shadow-2xl text-center">
+                        <div class="w-24 h-24 mx-auto bg-gradient-to-br from-agri-400 to-blue-500 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                            <i data-lucide="mic" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <div class="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2">
+                            <div class="h-full bg-agri-500 w-1/3 animate-[shimmer_2s_infinite]"></div>
+                        </div>
+                        <p class="text-sm text-gray-500 font-mono">"Analyzing soil moisture levels..."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 relative bg-earth-50 dark:bg-slate-900">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 text-center relative overflow-hidden border border-agri-500/30">
+                    <div class="absolute inset-0 bg-gradient-to-r from-agri-600/10 to-blue-600/10"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Upgrade to the Future of Farming</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Join the AgriClimate Connect Neural Network. Get access to all 15+ AI engines, real-time satellite data, and autonomous robotics control.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="openAuthModal()" class="px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                <span>Activate Command Center</span>
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Identical to Homepage) -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html" class="hover:text-agri-400 transition-colors">Home</a></li>
+                        <li><a href="weather.html" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="crops.html" class="hover:text-agri-400 transition-colors">AI Crop Advisory</a></li>
+                        <li><a href="ai-tools.html" class="hover:text-agri-400 transition-colors text-agri-400">AI Command Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="event.preventDefault(); showToast('Subscribed successfully!');" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">© 2026 AgriClimate Connect. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+    </button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center"><i data-lucide="bot" class="w-6 h-6"></i></div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1"><span class="w-2 h-2 bg-white rounded-full animate-pulse"></span> Online</p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="bot" class="w-4 h-4 text-agri-600"></i></div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">Hello! I am your AI Command Assistant. Ask me about drone deployment, satellite imagery analysis, or carbon credit calculations.</div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Ask about AI tools..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700"><i data-lucide="send" class="w-5 h-5"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative bg-white dark:bg-slate-900">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4"><i data-lucide="sprout" class="w-8 h-8 text-white"></i></div>
+                    <h3 class="text-2xl font-bold">Access Command Center</h3>
+                </div>
+                <form onsubmit="event.preventDefault(); closeAuthModal(); showToast('Access Granted. Welcome Commander.');" class="space-y-4">
+                    <input type="email" placeholder="Email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    <input type="password" placeholder="Password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg">Initialize</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // --- State Management ---
+        let isDark = false;
+        let isLargeText = false;
+        
+        // --- UI Functions ---
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            btn.classList.toggle('active');
+        }
+
+        function toggleDarkMode() {
+            isDark = !isDark;
+            document.documentElement.classList.toggle('dark');
+            // Re-draw canvases if needed for color changes
+            drawSatelliteMap();
+            drawNetwork();
+        }
+
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text');
+            document.getElementById('text-size-label').textContent = isLargeText ? 'Large' : 'Normal';
+        }
+
+        function changeLanguage(lang) {
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            showToast(`Language switched to ${lang.toUpperCase()}`);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        // --- Chat Logic ---
+        function toggleChat() {
+            const w = document.getElementById('chat-widget');
+            w.classList.toggle('open');
+            w.classList.toggle('closed');
+        }
+
+        function openChat() { toggleChat(); }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            const container = document.getElementById('chat-messages');
+            
+            // User Msg
+            const userDiv = document.createElement('div');
+            userDiv.className = 'flex gap-3 justify-end';
+            userDiv.innerHTML = `<div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">${msg}</div>`;
+            container.appendChild(userDiv);
+            
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // Simulated AI Response
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'flex gap-3';
+                botDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="bot" class="w-4 h-4 text-agri-600"></i></div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">Processing your request regarding "${msg}"... <br> [AI Analysis Complete] Recommendation: Deploy Drone Swarm Sector 4.</div>
+                `;
+                container.appendChild(botDiv);
+                container.scrollTop = container.scrollHeight;
+                lucide.createIcons();
+            }, 1000);
+        }
+
+        // --- Modal Logic ---
+        function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+
+        // --- Canvas Visualizations ---
+
+        // 1. Satellite Map Simulation
+        function drawSatelliteMap() {
+            const canvas = document.getElementById('satelliteCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.offsetWidth;
+            const h = canvas.height = canvas.offsetHeight;
+            const isDarkMode = document.documentElement.classList.contains('dark');
+
+            // Background
+            ctx.fillStyle = isDarkMode ? '#0f172a' : '#e2e8f0';
+            ctx.fillRect(0, 0, w, h);
+
+            // Grid
+            ctx.strokeStyle = isDarkMode ? '#1e293b' : '#cbd5e1';
+            ctx.lineWidth = 1;
+            for(let i=0; i<w; i+=40) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
+            for(let i=0; i<h; i+=40) { ctx.beginPath(); ctx.moveTo(0,i); ctx.lineTo(w,i); ctx.stroke(); }
+
+            // Fields (Polygons)
+            const fields = [
+                {x: 50, y: 50, c: isDarkMode ? '#14532d' : '#86efac'},
+                {x: 200, y: 100, c: isDarkMode ? '#166534' : '#4ade80'},
+                {x: 100, y: 200, c: isDarkMode ? '#3f6212' : '#a3e635'}, // Dry patch
+                {x: 300, y: 50, c: isDarkMode ? '#14532d' : '#22c55e'}
+            ];
+
+            fields.forEach(f => {
+                ctx.fillStyle = f.c;
+                ctx.beginPath();
+                ctx.moveTo(f.x, f.y);
+                ctx.lineTo(f.x + 80, f.y + 20);
+                ctx.lineTo(f.x + 90, f.y + 90);
+                ctx.lineTo(f.x + 10, f.y + 80);
+                ctx.fill();
+            });
+
+            // Drone Icon
+            const time = Date.now() * 0.001;
+            const dx = (Math.sin(time) * 0.5 + 0.5) * (w - 40) + 20;
+            const dy = (Math.cos(time * 0.7) * 0.5 + 0.5) * (h - 40) + 20;
+            
+            ctx.fillStyle = '#06b6d4';
+            ctx.beginPath();
+            ctx.arc(dx, dy, 4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Drone Trail
+            ctx.strokeStyle = 'rgba(6, 182, 212, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(dx, dy);
+            ctx.lineTo(dx - 10, dy - 10); // Simplified trail
+            ctx.stroke();
+
+            requestAnimationFrame(drawSatelliteMap);
+        }
+
+        // 2. Federated Learning Network
+        function drawNetwork() {
+            const canvas = document.getElementById('networkCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.offsetWidth;
+            const h = canvas.height = canvas.offsetHeight;
+
+            ctx.clearRect(0, 0, w, h);
+            
+            const nodes = [];
+            for(let i=0; i<8; i++) {
+                nodes.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                const isDark = document.documentElement.classList.contains('dark');
+                
+                // Update and draw nodes
+                nodes.forEach(node => {
+                    node.x += node.vx;
+                    node.y += node.vy;
+                    if(node.x < 0 || node.x > w) node.vx *= -1;
+                    if(node.y < 0 || node.y > h) node.vy *= -1;
+
+                    ctx.fillStyle = isDark ? '#4ade80' : '#16a34a';
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, 3, 0, Math.PI*2);
+                    ctx.fill();
+                });
+
+                // Draw connections
+                ctx.strokeStyle = isDark ? 'rgba(74, 222, 128, 0.2)' : 'rgba(22, 163, 74, 0.2)';
+                ctx.lineWidth = 1;
+                for(let i=0; i<nodes.length; i++) {
+                    for(let j=i+1; j<nodes.length; j++) {
+                        const dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                        if(dist < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 3. Digital Twin Simulation (Simple Bar Chart Animation)
+        function runSimulation() {
+            const canvas = document.getElementById('twinCanvas');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.offsetWidth;
+            const h = canvas.height = canvas.offsetHeight;
+            
+            let progress = 0;
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                progress += 0.01;
+                if(progress > 1) progress = 0;
+
+                // Draw bars growing
+                const barWidth = w / 10;
+                for(let i=0; i<10; i++) {
+                    const height = (Math.sin(i + progress * 10) + 1) * (h/3) + (Math.random() * 20);
+                    const x = i * barWidth;
+                    const y = h - height;
+                    
+                    const grad = ctx.createLinearGradient(0, y, 0, h);
+                    grad.addColorStop(0, '#8b5cf6');
+                    grad.addColorStop(1, 'rgba(139, 92, 246, 0.2)');
+                    
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(x + 2, y, barWidth - 4, height);
+                }
+                
+                // Text overlay
+                ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'white' : 'black';
+                ctx.font = '12px sans-serif';
+                ctx.fillText("Simulating Climate Impact...", 10, 20);
+
+                if(progress < 1) requestAnimationFrame(animate);
+            }
+            animate();
+            showToast("Simulation Complete: Yield optimized by 12%");
+        }
+
+        // 4. Market Ticker
+        function initMarketTicker() {
+            const ticker = document.getElementById('market-ticker');
+            const crops = [
+                {n: 'Wheat', p: 245.50, c: 'up'}, {n: 'Corn', p: 312.20, c: 'down'}, 
+                {n: 'Soy', p: 890.10, c: 'up'}, {n: 'Coffee', p: 145.80, c: 'up'},
+                {n: 'Cotton', p: 78.40, c: 'down'}, {n: 'Rice', p: 450.00, c: 'up'}
+            ];
+            
+            let html = '';
+            // Duplicate for infinite scroll illusion
+            [...crops, ...crops].forEach(c => {
+                const color = c.c === 'up' ? 'text-green-400' : 'text-red-400';
+                const icon = c.c === 'up' ? '▲' : '▼';
+                html += `
+                    <div class="flex items-center gap-2 px-4 py-1 bg-white/10 rounded-full border border-white/10">
+                        <span class="font-bold text-gray-200">${c.n}</span>
+                        <span class="${color} text-xs">${icon} $${c.p.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            ticker.innerHTML = html;
+        }
+
+        // 5. Code Studio Simulation
+        function runCodeSimulation() {
+            const cursor = document.getElementById('code-cursor');
+            const status = document.querySelector('.code-editor + div span'); // Select status text
+            
+            // Animate cursor typing
+            let pos = 0;
+            const interval = setInterval(() => {
+                pos++;
+                cursor.style.top = (168 + (pos % 3) * 20) + 'px'; // Simple visual jitter
+            }, 100);
+
+            showToast("Compiling Drone Logic...");
+            
+            setTimeout(() => {
+                clearInterval(interval);
+                showToast("Deployment Successful! Drones Active.");
+                cursor.style.display = 'none';
+            }, 2000);
+        }
+
+        // --- Initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            drawSatelliteMap();
+            drawNetwork();
+            initMarketTicker();
+            runSimulation(); // Initial twin run
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if(window.scrollY > 50) nav.classList.add('shadow-lg');
+                else nav.classList.remove('shadow-lg');
+            });
+        });
+
+    </script>
+</body>
+</html>

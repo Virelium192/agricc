@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock Management | AgriClimate Connect - AI-Powered Animal Husbandry</title>
+    <meta name="description" content="Intelligent livestock management with breed selection, feed optimization, health monitoring, and climate adaptation strategies powered by AI and real-time weather data.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        livestock: {
+                            cattle: '#d97706',
+                            goat: '#7c3aed',
+                            sheep: '#059669',
+                            poultry: '#dc2626',
+                            pig: '#db2777',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+                        'graze': 'graze 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        },
+                        graze: {
+                            '0%, 100%': { transform: 'rotate(-5deg)' },
+                            '50%': { transform: 'rotate(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Liquid Glass Effects - Identical to Homepage */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+        
+        /* Animated Background */
+        .bg-mesh {
+            background: 
+                radial-gradient(at 0% 0%, hsla(30,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(40,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(20,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(35,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-livestock {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            border-radius: 5px;
+        }
+        
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+        
+        .large-text {
+            font-size: 120%;
+        }
+        
+        /* Livestock Card Animations */
+        .livestock-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .livestock-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        .animal-icon {
+            animation: graze 4s ease-in-out infinite;
+        }
+        
+        /* Health Indicator */
+        .health-pulse {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        /* Feed Meter */
+        .feed-meter {
+            background: linear-gradient(to right, #ef4444 0%, #eab308 50%, #22c55e 100%);
+            height: 8px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .feed-meter::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        /* Temperature Gauge */
+        .temp-gauge {
+            position: relative;
+            width: 120px;
+            height: 60px;
+        }
+        .temp-gauge-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 10;
+        }
+        .temp-gauge-fill {
+            fill: none;
+            stroke: url(#tempGradient);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.5s ease;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        /* Breeding Timeline */
+        .breeding-timeline {
+            position: relative;
+        }
+        .breeding-timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #d97706, #f59e0b);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- Navigation - Identical to Homepage -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+                    
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="ai crop advisory.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="livestock management.html" class="block px-4 py-3 rounded-xl bg-agri-50 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-3 border-l-4 border-agri-500">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="market intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="soil analysis.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="ai powered tools.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="ai_powered">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Top-tier agricultural AI</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="discussion forum.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="knowledge center.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="expert network.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <a href="events and training.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="events_training">Events & Training</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Webinars & workshops</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="about us.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_about">About Us</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+                
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl bg-agri-100 dark:bg-agri-900/30 font-medium flex items-center justify-between text-agri-700 dark:text-agri-300">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="pl-4 space-y-1">
+                        <a href="weather intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="ai crop advisory.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="livestock management.html" class="block px-4 py-2 rounded-lg bg-agri-50 dark:bg-agri-900/20 text-agri-700 dark:text-agri-300 text-sm border-l-4 border-agri-500" data-translate="livestock">Livestock Management</a>
+                        <a href="market intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="soil analysis.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                        <a href="ai powered tools.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="ai_powered">AI-Powered Tools</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="discussion forum.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="knowledge center.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="expert network.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="events and training.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="events_training">Events & Training</a>
+                    </div>
+                </div>
+
+                <a href="about us.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_about">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+                
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-slate-900 dark:via-slate-800 dark:to-amber-900/20">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-32 left-10 w-32 h-32 bg-amber-400/30 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
+            <div class="absolute bottom-32 right-10 w-48 h-48 bg-orange-400/20 rounded-full blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl animate-morph"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-8 animate-float">
+                    <i data-lucide="activity" class="w-4 h-4 text-amber-500"></i>
+                    <span class="text-sm font-medium text-amber-700 dark:text-amber-300" data-translate="livestock_badge">AI-Powered Livestock Intelligence</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                    <span class="block text-earth-800 dark:text-earth-100" data-translate="livestock_title_1">Intelligent Animal</span>
+                    <span class="block text-gradient-livestock mt-2" data-translate="livestock_title_2">Husbandry</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed" data-translate="livestock_subtitle">
+                    Optimize your livestock operations with AI-driven breed selection, precision feeding, health monitoring, and climate adaptation strategies tailored to your farm's unique conditions.
+                </p>
+
+                <!-- Quick Farm Setup -->
+                <div class="max-w-4xl mx-auto glass dark:glass-dark rounded-2xl p-6 shadow-2xl border border-white/30">
+                    <div class="grid md:grid-cols-4 gap-4 mb-4">
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Location</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-gray-400"></i>
+                                <input type="text" id="farm-location" placeholder="Farm location" class="flex-1 bg-transparent border-none outline-none text-sm" value="Nairobi, Kenya">
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Animal Type</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="beef" class="w-5 h-5 text-gray-400"></i>
+                                <select id="animal-type" class="flex-1 bg-transparent border-none outline-none text-sm" onchange="updateAnimalType()">
+                                    <option value="cattle">Cattle</option>
+                                    <option value="goat">Goats</option>
+                                    <option value="sheep">Sheep</option>
+                                    <option value="poultry">Poultry</option>
+                                    <option value="pig">Pigs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Herd Size</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="users" class="w-5 h-5 text-gray-400"></i>
+                                <input type="number" id="herd-size" placeholder="Number of animals" class="flex-1 bg-transparent border-none outline-none text-sm" value="25">
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Production Goal</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="target" class="w-5 h-5 text-gray-400"></i>
+                                <select id="production-goal" class="flex-1 bg-transparent border-none outline-none text-sm">
+                                    <option value="meat">Meat Production</option>
+                                    <option value="milk">Dairy/Milk</option>
+                                    <option value="breeding">Breeding</option>
+                                    <option value="mixed">Mixed Purpose</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="analyzeLivestock()" class="w-full py-4 bg-gradient-to-r from-amber-600 to-amber-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
+                        <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                        <span>Analyze & Optimize Herd</span>
+                    </button>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Breed Optimization</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Precision Feeding</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Health Monitoring</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Climate Adaptation</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Livestock Dashboard -->
+        <section id="livestock-dashboard" class="py-12 -mt-20 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <!-- Dashboard Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                        <div>
+                            <h2 class="text-2xl font-bold flex items-center gap-3">
+                                <i data-lucide="layout-dashboard" class="w-6 h-6 text-amber-500"></i>
+                                <span>Livestock Management Dashboard</span>
+                                <span class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-xs font-medium">25 Animals</span>
+                            </h2>
+                            <p class="text-sm text-gray-500 mt-1">Real-time monitoring and AI recommendations for your herd</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="refreshData()" class="px-4 py-2 rounded-xl bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors flex items-center gap-2 text-sm font-medium">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                Refresh
+                            </button>
+                            <button onclick="addAnimal()" class="px-4 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 transition-colors flex items-center gap-2 text-sm font-medium">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                Add Animal
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-3">
+                                <i data-lucide="heart-pulse" class="w-6 h-6 text-green-600 health-pulse"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-green-600">94%</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Health Score</div>
+                            <div class="text-xs text-green-600 mt-1">2 animals need attention</div>
+                        </div>
+                        
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-3">
+                                <i data-lucide="droplets" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-blue-600">850L</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Daily Water</div>
+                            <div class="text-xs text-blue-600 mt-1">+12% from last week</div>
+                        </div>
+                        
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-3">
+                                <i data-lucide="wheat" class="w-6 h-6 text-amber-600"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-amber-600">320kg</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Feed/Day</div>
+                            <div class="text-xs text-amber-600 mt-1">Optimal range</div>
+                        </div>
+                        
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-3">
+                                <i data-lucide="trending-up" class="w-6 h-6 text-purple-600"></i>
+                            </div>
+                            <div class="text-2xl font-bold text-purple-600">$4,250</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Monthly Value</div>
+                            <div class="text-xs text-purple-600 mt-1">+8% projected</div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Grid -->
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Left: Breed Recommendations -->
+                        <div class="lg:col-span-2">
+                            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="dna" class="w-5 h-5 text-amber-500"></i>
+                                AI-Recommended Breeds for Your Climate
+                            </h3>
+                            
+                            <div class="space-y-4" id="breed-recommendations">
+                                <!-- Boran Cattle -->
+                                <div class="livestock-card glass-card dark:glass-dark rounded-2xl p-6 border-2 border-amber-400/50 relative overflow-hidden group cursor-pointer" onclick="showBreedDetails('boran')">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                    <div class="absolute top-4 right-4">
+                                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-bold">96% Climate Match</span>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center animal-icon shadow-lg flex-shrink-0">
+                                            <i data-lucide="beef" class="w-10 h-10 text-white"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <div>
+                                                    <h4 class="text-xl font-bold">Boran Cattle</h4>
+                                                    <p class="text-sm text-gray-500">Bos indicus • East African Breed</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                                Highly drought-resistant breed adapted to arid and semi-arid conditions. Excellent heat tolerance and disease resistance.
+                                            </p>
+                                            
+                                            <div class="grid grid-cols-3 gap-4 mb-4">
+                                                <div class="text-center p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-amber-600">45°C</div>
+                                                    <div class="text-xs text-gray-500">Heat Tolerance</div>
+                                                </div>
+                                                <div class="text-center p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-amber-600">Low</div>
+                                                    <div class="text-xs text-gray-500">Water Needs</div>
+                                                </div>
+                                                <div class="text-center p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-amber-600">A+</div>
+                                                    <div class="text-xs text-gray-500">Disease Res.</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex gap-2">
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Meat</span>
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Milk</span>
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Draft</span>
+                                                </div>
+                                                <button class="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-lg text-sm font-medium hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors">
+                                                    View Profile
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sahiwal Cattle -->
+                                <div class="livestock-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-amber-400/50 relative overflow-hidden group cursor-pointer" onclick="showBreedDetails('sahiwal')">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                    <div class="absolute top-4 right-4">
+                                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold">91% Climate Match</span>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center animal-icon shadow-lg flex-shrink-0">
+                                            <i data-lucide="beef" class="w-10 h-10 text-white"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <div>
+                                                    <h4 class="text-xl font-bold">Sahiwal Cattle</h4>
+                                                    <p class="text-sm text-gray-500">Bos indicus • Pakistani Breed</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                                Dual-purpose breed excellent for dairy production in tropical climates. High milk yield with low feed requirements.
+                                            </p>
+                                            
+                                            <div class="grid grid-cols-3 gap-4 mb-4">
+                                                <div class="text-center p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-orange-600">18L</div>
+                                                    <div class="text-xs text-gray-500">Milk/Day</div>
+                                                </div>
+                                                <div class="text-center p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-orange-600">High</div>
+                                                    <div class="text-xs text-gray-500">Feed Eff.</div>
+                                                </div>
+                                                <div class="text-center p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-orange-600">A</div>
+                                                    <div class="text-xs text-gray-500">Tick Res.</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex gap-2">
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Dairy</span>
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Meat</span>
+                                                </div>
+                                                <button class="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-lg text-sm font-medium hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors">
+                                                    View Profile
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Galla Goats -->
+                                <div class="livestock-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-amber-400/50 relative overflow-hidden group cursor-pointer" onclick="showBreedDetails('galla')">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                    <div class="absolute top-4 right-4">
+                                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-bold">94% Climate Match</span>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center animal-icon shadow-lg flex-shrink-0">
+                                            <i data-lucide="rabbit" class="w-10 h-10 text-white"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <div>
+                                                    <h4 class="text-xl font-bold">Galla Goats</h4>
+                                                    <p class="text-sm text-gray-500">Capra hircus • East African Breed</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                                Indigenous Kenyan breed known for drought tolerance and fast growth. Excellent for meat production in harsh conditions.
+                                            </p>
+                                            
+                                            <div class="grid grid-cols-3 gap-4 mb-4">
+                                                <div class="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-purple-600">35kg</div>
+                                                    <div class="text-xs text-gray-500">Mature Weight</div>
+                                                </div>
+                                                <div class="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-purple-600">Fast</div>
+                                                    <div class="text-xs text-gray-500">Growth Rate</div>
+                                                </div>
+                                                <div class="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                                    <div class="text-lg font-bold text-purple-600">A+</div>
+                                                    <div class="text-xs text-gray-500">Hardiness</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex gap-2">
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Meat</span>
+                                                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Milk</span>
+                                                </div>
+                                                <button class="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-lg text-sm font-medium hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors">
+                                                    View Profile
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Climate & Health Panel -->
+                        <div class="space-y-6">
+                            <!-- Climate Stress Monitor -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="thermometer-sun" class="w-5 h-5 text-amber-500"></i>
+                                    Climate Stress Monitor
+                                </h4>
+                                
+                                <div class="mb-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Heat Stress Index</span>
+                                        <span class="text-sm font-bold text-yellow-600">Moderate (72%)</span>
+                                    </div>
+                                    <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 rounded-full" style="width: 72%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-2">Provide shade and increase water availability. Avoid handling animals midday.</p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                                        <div class="text-2xl font-bold text-amber-600">28°C</div>
+                                        <div class="text-xs text-gray-500">Current Temp</div>
+                                    </div>
+                                    <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                                        <div class="text-2xl font-bold text-blue-600">65%</div>
+                                        <div class="text-xs text-gray-500">Humidity</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border-l-4 border-red-500">
+                                    <div class="flex items-start gap-2">
+                                        <i data-lucide="alert-triangle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i>
+                                        <div>
+                                            <div class="font-medium text-sm text-red-700 dark:text-red-300">Heat Alert</div>
+                                            <div class="text-xs text-gray-600 dark:text-gray-400">Temperature expected to reach 34°C on Thursday. Activate cooling measures.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Health Alerts -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="stethoscope" class="w-5 h-5 text-red-500"></i>
+                                    Health Alerts
+                                </h4>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border-l-4 border-yellow-500">
+                                        <div class="w-10 h-10 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-yellow-700">B3</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">Boran #3 - Low Activity</div>
+                                            <div class="text-xs text-gray-500">Monitor for 24h • Check for fever</div>
+                                        </div>
+                                        <button class="p-2 hover:bg-yellow-200 dark:hover:bg-yellow-900/30 rounded-lg">
+                                            <i data-lucide="chevron-right" class="w-4 h-4 text-yellow-600"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border-l-4 border-red-500">
+                                        <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                                            <span class="text-sm font-bold text-red-700">G7</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">Galla #7 - Vaccination Due</div>
+                                            <div class="text-xs text-gray-500">Overdue by 3 days • East Coast Fever</div>
+                                        </div>
+                                        <button class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-xs font-medium">
+                                            Schedule
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button class="w-full mt-4 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-sm text-gray-500 hover:border-amber-400 hover:text-amber-600 transition-colors">
+                                    View All Health Records
+                                </button>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h4 class="font-semibold mb-4">Quick Actions</h4>
+                                <div class="space-y-2">
+                                    <button onclick="openFeedCalculator()" class="w-full p-3 text-left rounded-xl hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                                            <i data-lucide="calculator" class="w-5 h-5 text-amber-600"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-sm">Feed Calculator</div>
+                                            <div class="text-xs text-gray-500">Optimize rations</div>
+                                        </div>
+                                    </button>
+                                    <button onclick="openBreedingPlanner()" class="w-full p-3 text-left rounded-xl hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center">
+                                            <i data-lucide="heart" class="w-5 h-5 text-pink-600"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-sm">Breeding Planner</div>
+                                            <div class="text-xs text-gray-500">Track cycles</div>
+                                        </div>
+                                    </button>
+                                    <button onclick="openVetSchedule()" class="w-full p-3 text-left rounded-xl hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                                            <i data-lucide="calendar-check" class="w-5 h-5 text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-sm">Vet Schedule</div>
+                                            <div class="text-xs text-gray-500">3 upcoming</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feed Optimization -->
+        <section id="feed-optimization" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">AI Feed Optimization</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Precision nutrition based on animal weight, production stage, climate conditions, and available feed resources
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Feed Calculator -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-6 h-6 text-amber-500"></i>
+                            Ration Calculator
+                        </h3>
+
+                        <div class="space-y-4 mb-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Animal Weight (kg)</label>
+                                    <input type="number" id="animal-weight" value="350" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Production Stage</label>
+                                    <select id="production-stage" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                        <option value="maintenance">Maintenance</option>
+                                        <option value="growth">Growing</option>
+                                        <option value="lactation" selected>Lactating</option>
+                                        <option value="pregnant">Pregnant</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Available Feeds</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                                        <input type="checkbox" checked class="w-5 h-5 text-amber-600 rounded focus:ring-amber-500">
+                                        <div class="flex-1">
+                                            <div class="font-medium">Napier Grass</div>
+                                            <div class="text-xs text-gray-500">Fresh, 12% CP</div>
+                                        </div>
+                                        <div class="text-sm font-medium text-amber-600">$0.05/kg</div>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                                        <input type="checkbox" checked class="w-5 h-5 text-amber-600 rounded focus:ring-amber-500">
+                                        <div class="flex-1">
+                                            <div class="font-medium">Dairy Meal</div>
+                                            <div class="text-xs text-gray-500">Commercial, 18% CP</div>
+                                        </div>
+                                        <div class="text-sm font-medium text-amber-600">$0.45/kg</div>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                                        <input type="checkbox" class="w-5 h-5 text-amber-600 rounded focus:ring-amber-500">
+                                        <div class="flex-1">
+                                            <div class="font-medium">Maize Silage</div>
+                                            <div class="text-xs text-gray-500">Fermented, 8% CP</div>
+                                        </div>
+                                        <div class="text-sm font-medium text-amber-600">$0.12/kg</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button onclick="calculateRation()" class="w-full py-4 bg-gradient-to-r from-amber-600 to-amber-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                                Calculate Optimal Ration
+                            </button>
+                        </div>
+
+                        <!-- Results -->
+                        <div id="ration-results" class="hidden space-y-4">
+                            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
+                                <h4 class="font-semibold mb-3">Daily Ration per Animal</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm">Napier Grass (Fresh)</span>
+                                        <span class="font-bold">40 kg</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm">Dairy Meal</span>
+                                        <span class="font-bold">4 kg</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm">Mineral Supplement</span>
+                                        <span class="font-bold">100 g</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-amber-200 dark:border-amber-800 flex justify-between items-center">
+                                    <span class="font-medium">Daily Cost</span>
+                                    <span class="text-xl font-bold text-amber-600">$2.20</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                    <div class="text-lg font-bold text-green-600">14%</div>
+                                    <div class="text-xs text-gray-500">Protein</div>
+                                </div>
+                                <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                                    <div class="text-lg font-bold text-blue-600">65%</div>
+                                    <div class="text-xs text-gray-500">TDN</div>
+                                </div>
+                                <div class="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+                                    <div class="text-lg font-bold text-purple-600">12kg</div>
+                                    <div class="text-xs text-gray-500">DM Intake</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Efficiency Chart -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-amber-500"></i>
+                            Feed Efficiency Trends
+                        </h3>
+                        
+                        <div class="h-64 mb-6">
+                            <canvas id="feedChart"></canvas>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="glass-card dark:glass-dark rounded-xl p-4">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                        <i data-lucide="milk" class="w-5 h-5 text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-green-600">1:1.4</div>
+                                        <div class="text-xs text-gray-500">Feed:Gain Ratio</div>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-green-600">↑ 12% improvement</div>
+                            </div>
+
+                            <div class="glass-card dark:glass-dark rounded-xl p-4">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                                        <i data-lucide="dollar-sign" class="w-5 h-5 text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-blue-600">$1.85</div>
+                                        <div class="text-xs text-gray-500">Cost/kg Gain</div>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-blue-600">↓ 8% vs. last month</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="lightbulb" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                                <div>
+                                    <div class="font-medium text-sm mb-1">AI Recommendation</div>
+                                    <div class="text-xs text-gray-600 dark:text-gray-400">Based on current maize prices, consider increasing silage inclusion by 15% to reduce feed costs while maintaining production levels.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breeding Management -->
+        <section id="breeding" class="py-16 relative bg-gradient-to-b from-transparent to-amber-50/30 dark:to-amber-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">AI Breeding Management</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">Optimize reproduction cycles with heat detection, breeding calendars, and genetic matching</p>
+                </div>
+
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Breeding Timeline -->
+                        <div class="lg:col-span-2">
+                            <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                                <i data-lucide="calendar-heart" class="w-5 h-5 text-pink-500"></i>
+                                Upcoming Breeding Events
+                            </h3>
+
+                            <div class="breeding-timeline space-y-6">
+                                <div class="flex gap-4 relative">
+                                    <div class="w-12 h-12 rounded-full bg-pink-500 text-white flex items-center justify-center font-bold z-10 flex-shrink-0">
+                                        <i data-lucide="flame" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex-1 glass-card dark:glass-dark rounded-xl p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="font-bold">Heat Detection - Boran #5</h4>
+                                                <p class="text-sm text-gray-500">Expected within 48 hours</p>
+                                            </div>
+                                            <span class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-xs font-bold">High Probability</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Behavioral indicators: Restlessness, mounting behavior, decreased appetite. Prepare for AI or natural service.</p>
+                                        <div class="flex gap-2">
+                                            <button class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-lg text-xs font-medium">Log Heat</button>
+                                            <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg text-xs font-medium">Schedule AI</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 relative">
+                                    <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold z-10 flex-shrink-0">
+                                        <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex-1 glass-card dark:glass-dark rounded-xl p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="font-bold">Pregnancy Check - Sahiwal #12</h4>
+                                                <p class="text-sm text-gray-500">Day 90 post-AI</p>
+                                            </div>
+                                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold">Scheduled</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Ultrasound confirmation recommended. If confirmed pregnant, adjust nutrition to late gestation diet.</p>
+                                        <div class="flex gap-2">
+                                            <button class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">Confirm</button>
+                                            <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg text-xs font-medium">Reschedule</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-4 relative">
+                                    <div class="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold z-10 flex-shrink-0">
+                                        <i data-lucide="baby" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex-1 glass-card dark:glass-dark rounded-xl p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h4 class="font-bold">Expected Calving - Galla #8</h4>
+                                                <p class="text-sm text-gray-500">In 14 days (March 18)</p>
+                                            </div>
+                                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-bold">Preparation</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Move to calving pen, ensure clean bedding, prepare colostrum reserves. Watch for signs of imminent labor.</p>
+                                        <div class="flex gap-2">
+                                            <button class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg text-xs font-medium">Prep Checklist</button>
+                                            <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg text-xs font-medium">Alert Vet</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Genetic Matching -->
+                        <div>
+                            <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                                <i data-lucide="dna" class="w-5 h-5 text-purple-500"></i>
+                                AI Genetic Matching
+                            </h3>
+
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6 mb-6">
+                                <div class="text-center mb-4">
+                                    <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-3">
+                                        <i data-lucide="sparkles" class="w-10 h-10 text-white"></i>
+                                    </div>
+                                    <h4 class="font-bold">Recommended Bull</h4>
+                                    <p class="text-sm text-gray-500">For Boran #5 (Dam)</p>
+                                </div>
+
+                                <div class="space-y-3 mb-4">
+                                    <div class="flex justify-between items-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                        <span class="text-sm">Bull ID</span>
+                                        <span class="font-bold text-purple-600">KARI-2024-089</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                        <span class="text-sm">Breed</span>
+                                        <span class="font-bold">Boran (Elite)</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                        <span class="text-sm">Genetic Merit</span>
+                                        <span class="font-bold text-green-600">Top 5%</span>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 mb-4">
+                                    <div class="flex justify-between text-sm">
+                                        <span>Milk Production</span>
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span>Growth Rate</span>
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 92%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span>Disease Resistance</span>
+                                        <div class="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 88%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                                    Order Semen Straws
+                                </button>
+                            </div>
+
+                            <div class="glass-card dark:glass-dark rounded-2xl p-4">
+                                <h4 class="font-semibold mb-3 text-sm">Herd Genetics Overview</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-600">Inbreeding Coefficient</span>
+                                        <span class="text-xs font-bold text-green-600">3.2% (Safe)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-600">Genetic Diversity</span>
+                                        <span class="text-xs font-bold text-green-600">High</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-600">Breeding Value</span>
+                                        <span class="text-xs font-bold text-amber-600">+450 kg milk</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Health Monitoring -->
+        <section id="health" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">Predictive Health Monitoring</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                            Early disease detection through behavioral analysis, environmental monitoring, and machine learning pattern recognition.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="glass-card dark:glass-dark rounded-xl p-4 flex items-start gap-4 border-l-4 border-red-500">
+                                <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="thermometer" class="w-6 h-6 text-red-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold mb-1">Mastitis Early Warning</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Somatic cell count trending up in 3 animals. Environmental conditions favorable for bacterial growth.</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-xs font-medium">Test Animals</button>
+                                        <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-medium">Review Hygiene</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-card dark:glass-dark rounded-xl p-4 flex items-start gap-4 border-l-4 border-yellow-500">
+                                <div class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bug" class="w-6 h-6 text-yellow-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold mb-1">Tick-Borne Disease Risk</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Rainy season approaching. Tick populations expected to increase. Vaccination recommended.</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded text-xs font-medium">Schedule Vaccine</button>
+                                        <button class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-medium">Acaricide Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-card dark:glass-dark rounded-xl p-4 flex items-start gap-4 border-l-4 border-green-500">
+                                <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold mb-1">Nutritional Status: Optimal</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Body condition scores within target range. No metabolic disorders detected.</p>
+                                    <div class="flex gap-2">
+                                        <button class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs font-medium">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-400/20 to-amber-400/20 rounded-3xl transform rotate-3"></div>
+                        <div class="relative glass dark:glass-dark rounded-3xl p-6 shadow-2xl">
+                            <h3 class="text-xl font-bold mb-4">Health Score Distribution</h3>
+                            <div class="h-64 mb-4">
+                                <canvas id="healthChart"></canvas>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 text-center">
+                                <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                    <div class="text-2xl font-bold text-green-600">22</div>
+                                    <div class="text-xs text-gray-500">Excellent</div>
+                                </div>
+                                <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl">
+                                    <div class="text-2xl font-bold text-yellow-600">2</div>
+                                    <div class="text-xs text-gray-500">Monitor</div>
+                                </div>
+                                <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl">
+                                    <div class="text-2xl font-bold text-red-600">1</div>
+                                    <div class="text-xs text-gray-500">Critical</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="py-16 relative bg-gradient-to-b from-amber-50/30 dark:from-amber-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">How Livestock Management Works</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">Integrated technology stack for intelligent animal husbandry</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="radio" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">1. Data Collection</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">IoT sensors, wearables, and manual inputs capture animal behavior, health metrics, and environmental conditions.</p>
+                    </div>
+
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="brain" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">2. AI Analysis</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Machine learning models detect anomalies, predict heat cycles, and identify optimal breeding matches.</p>
+                    </div>
+
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="cloud-sun" class="w-8 h-8 text-amber-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">3. Climate Integration</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Real-time weather data adjusts feeding, alerts for heat stress, and predicts disease pressure.</p>
+                    </div>
+
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="smartphone" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">4. Actionable Insights</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Timely alerts and recommendations delivered via app, SMS, or voice calls for immediate action.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-amber-600/10 to-agri-600/10"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Transform Your Livestock Operations</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Join 15,000+ livestock farmers using AI to improve animal health, optimize feeding, and increase profitability.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="openAuthModal()" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                <span>Start Free Trial</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="openChat()" class="px-8 py-4 glass-button rounded-full font-semibold flex items-center justify-center gap-2">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                <span>Talk to Livestock Expert</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Identical to Homepage -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html" class="hover:text-agri-400 transition-colors">Home</a></li>
+                        <li><a href="weather.html" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="crops.html" class="hover:text-agri-400 transition-colors">AI Crop Advisory</a></li>
+                        <li><a href="market.html" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="community.html" class="hover:text-agri-400 transition-colors">Community</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                    Hello! I'm your livestock management assistant. I can help with breed selection, feeding strategies, health monitoring, and breeding schedules. What would you like to know?
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Ask about breeds, feed, or health..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('Best cattle breed for drought?')" class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 rounded-full text-xs whitespace-nowrap hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors">Drought breeds?</button>
+                <button onclick="sendQuickMessage('How much should I feed my dairy cow?')" class="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 rounded-full text-xs whitespace-nowrap hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors">Feed amounts?</button>
+                <button onclick="sendQuickMessage('Signs of heat stress in cattle?')" class="px-3 py-1 bg-red-100 dark:bg-red-900/30 rounded-full text-xs whitespace-nowrap hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors">Heat stress?</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sprout" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" id="auth-title">Welcome Back</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Sign in to manage your livestock</p>
+                </div>
+
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        <span id="auth-submit-text">Sign In</span>
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-agri-600 font-semibold hover:underline ml-1" id="auth-switch-btn">Sign Up</button>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <button class="w-full py-3 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google">
+                        <span class="text-sm font-medium">Continue with Google</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Global State
+        let currentLanguage = 'en';
+        let isDarkMode = false;
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+        let feedChart = null;
+        let healthChart = null;
+
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_knowledge: "Knowledge Tools",
+                nav_community: "Community",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                get_started: "Get Started",
+                weather_intel: "Weather Intelligence",
+                crop_advisory: "AI Crop Advisory",
+                livestock: "Livestock Management",
+                market_intelligence: "Market Intelligence",
+                soil_analysis: "Soil Analysis",
+                ai_powered: "AI-Powered Tools",
+                discussion_forum: "Discussion Forum",
+                knowledge_center: "Knowledge Center",
+                expert_network: "Expert Network",
+                events_training: "Events & Training",
+                text_size: "Text Size",
+                high_contrast: "High Contrast",
+                dyslexic_font: "Dyslexic Friendly",
+                toggle_theme: "Toggle Theme",
+                livestock_badge: "AI-Powered Livestock Intelligence",
+                livestock_title_1: "Intelligent Animal",
+                livestock_title_2: "Husbandry",
+                livestock_subtitle: "Optimize your livestock operations with AI-driven breed selection, precision feeding, health monitoring, and climate adaptation strategies tailored to your farm's unique conditions."
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_knowledge: "Herramientas de Conocimiento",
+                nav_community: "Comunidad",
+                nav_about: "Sobre Nosotros",
+                nav_contact: "Contacto",
+                get_started: "Comenzar",
+                weather_intel: "Inteligencia del Clima",
+                crop_advisory: "Asesoría de Cultivos IA",
+                livestock: "Gestión de Ganado",
+                market_intelligence: "Inteligencia de Mercado",
+                soil_analysis: "Análisis de Suelo",
+                ai_powered: "Herramientas IA",
+                discussion_forum: "Foro de Discusión",
+                knowledge_center: "Centro de Conocimiento",
+                expert_network: "Red de Expertos",
+                events_training: "Eventos y Capacitación",
+                text_size: "Tamaño de Texto",
+                high_contrast: "Alto Contraste",
+                dyslexic_font: "Fuente Disléxica",
+                toggle_theme: "Cambiar Tema",
+                livestock_badge: "Inteligencia Ganadera con IA",
+                livestock_title_1: "Cría Inteligente",
+                livestock_title_2: "de Animales",
+                livestock_subtitle: "Optimice sus operaciones ganaderas con selección de razas impulsada por IA, alimentación de precisión, monitoreo de salud y estrategias de adaptación climática."
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        });
+
+        // Chart Initialization
+        function initCharts() {
+            // Feed Efficiency Chart
+            const feedCtx = document.getElementById('feedChart').getContext('2d');
+            feedChart = new Chart(feedCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Feed Conversion Ratio',
+                        data: [1.8, 1.6, 1.5, 1.45, 1.4, 1.35],
+                        borderColor: '#d97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 1,
+                            max: 2
+                        }
+                    }
+                }
+            });
+
+            // Health Distribution Chart
+            const healthCtx = document.getElementById('healthChart').getContext('2d');
+            healthChart = new Chart(healthCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Excellent', 'Good', 'Monitor', 'Critical'],
+                    datasets: [{
+                        data: [22, 2, 1, 0],
+                        backgroundColor: ['#22c55e', '#84cc16', '#eab308', '#ef4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Core Functions
+        function updateAnimalType() {
+            const type = document.getElementById('animal-type').value;
+            showToast(`Updated recommendations for ${type}`);
+            // In production, this would update breed recommendations
+        }
+
+        function analyzeLivestock() {
+            const location = document.getElementById('farm-location').value;
+            const type = document.getElementById('animal-type').value;
+            const size = document.getElementById('herd-size').value;
+            
+            showToast(`Analyzing ${size} ${type} in ${location}...`);
+            
+            setTimeout(() => {
+                showToast('Analysis complete! Recommendations updated.');
+                document.getElementById('livestock-dashboard').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function showBreedDetails(breed) {
+            const details = {
+                boran: 'Boran cattle are indigenous to East Africa and renowned for their adaptability to harsh conditions. They have excellent heat tolerance, parasite resistance, and can maintain condition on poor quality forage. Ideal for extensive ranching systems.',
+                sahiwal: 'Sahiwal cattle from Pakistan are dual-purpose animals excelling in milk production under tropical conditions. They produce 18-20L/day with low feed input and have exceptional tick resistance.',
+                galla: 'Galla goats are a Kenyan indigenous breed developed for meat production. They reach 35-40kg live weight at 12 months, have high fertility rates, and thrive in arid environments with minimal inputs.'
+            };
+            showToast(details[breed] || 'Breed details loading...');
+        }
+
+        function calculateRation() {
+            const weight = document.getElementById('animal-weight').value;
+            const stage = document.getElementById('production-stage').value;
+            
+            document.getElementById('ration-results').classList.remove('hidden');
+            showToast(`Calculated optimal ration for ${stage} animal weighing ${weight}kg`);
+        }
+
+        function openFeedCalculator() {
+            document.getElementById('feed-optimization').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openBreedingPlanner() {
+            document.getElementById('breeding').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openVetSchedule() {
+            showToast('Veterinary schedule opening...');
+        }
+
+        function refreshData() {
+            const btn = document.querySelector('button[onclick="refreshData()"] i');
+            btn.classList.add('animate-spin');
+            setTimeout(() => {
+                btn.classList.remove('animate-spin');
+                showToast('Data refreshed successfully');
+            }, 1000);
+        }
+
+        function addAnimal() {
+            showToast('Add animal form would open here');
+        }
+
+        // UI Functions (Same as Homepage)
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleMobileDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            dropdown.classList.toggle('hidden');
+            icon.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            document.getElementById('text-size-label').textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text mode enabled' : 'Normal text mode enabled');
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        }
+
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : '';
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+
+        function openChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.add('open');
+            widget.classList.remove('closed');
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendQuickMessage(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+            showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+            
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                    </div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            }
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 flex items-center gap-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function generateAIResponse(input) {
+            const lowerInput = input.toLowerCase();
+            
+            if (lowerInput.includes('drought') || lowerInput.includes('breed')) {
+                return "For drought-prone areas, I recommend:<br><br>• <strong>Boran Cattle</strong> - Can survive 3+ days without water, excellent heat tolerance<br>• <strong>Galla Goats</strong> - Thrive on sparse vegetation, minimal water needs<br>• <strong>Red Maasai Sheep</strong> - Indigenous drought-resistant breed<br><br>Key management practices:<br>- Provide shade structures<br>- Water at dusk/dawn to minimize evaporation<br>- Supplement with drought-tolerant fodder (sorghum, cowpea)<br><br>Would you like specific feeding strategies for dry conditions?";
+            }
+            else if (lowerInput.includes('feed') || lowerInput.includes('dairy') || lowerInput.includes('cow')) {
+                return "For a lactating dairy cow (400-500kg):<br><br><strong>Daily Ration:</strong><br>• Napier grass: 40-50kg fresh (or 15kg dry matter)<br>• Dairy meal: 4-6kg depending on production<br>• Mineral lick: 100-150g ad libitum<br>• Clean water: 80-100 liters/day<br><br><strong>Timing:</strong><br>- Feed forage before concentrates<br>- Split dairy meal into 2-3 portions<br>- Ensure water available 24/7<br><br>Based on current maize prices, consider substituting 20% dairy meal with cassava chips to reduce costs by 15%.";
+            }
+            else if (lowerInput.includes('heat') || lowerInput.includes('stress')) {
+                return "Heat stress signs in cattle:<br><br><strong>Early Signs:</strong><br>- Increased respiration rate (>60 breaths/min)<br>- Reduced feed intake<br>- Seeking shade, standing rather than lying<br>- Excessive salivation<br><br><strong>Severe Signs:</strong><br>- Open mouth breathing<br>- Tongue protruding<br>- Drooling<br>- Staggering<br><br><strong>Immediate Actions:</strong><br>1. Move to shade immediately<br>2. Provide cool water (add ice if possible)<br>3. Wet body with cool water (focus on head/neck)<br>4. Increase air movement (fans)<br>5. Contact vet if temp >40°C<br><br>Would you like cooling system recommendations?";
+            }
+            else {
+                return "I can help you with livestock management:<br><br>• Breed selection for your climate<br>• Feed formulation and optimization<br>• Heat stress prevention<br>• Breeding cycle management<br>• Disease early warning signs<br>• Market timing for sales<br><br>What aspect of your livestock operation would you like to improve?";
+            }
+        }
+
+        // Auth Modal
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            closeAuthModal();
+            showToast(isSignUp ? 'Account created successfully!' : 'Welcome back!');
+        }
+
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            showToast('Successfully subscribed to newsletter!');
+            event.target.reset();
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

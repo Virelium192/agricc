@@ -1,0 +1,2546 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriClimate Connect | AI-Powered Climate-Smart Agriculture</title>
+    <meta name="description" content="Revolutionizing agriculture with AI-driven climate intelligence, crop advisory, livestock management, and global market connections.">
+   
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Liquid Glass Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+       
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+       
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+       
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+       
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+       
+        /* Animated Background */
+        .bg-mesh {
+            background:
+                radial-gradient(at 0% 0%, hsla(120,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(140,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(160,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(100,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+       
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+       
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+       
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-radius: 5px;
+        }
+       
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+       
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+       
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+       
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+       
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+       
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+       
+        .large-text {
+            font-size: 120%;
+        }
+       
+        /* Weather Card Animation */
+        .weather-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+       
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+       
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+       
+        /* Particle Background */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.3);
+            pointer-events: none;
+        }
+       
+        /* AI Tools Specific Styles */
+        .ai-feature-card {
+            background: linear-gradient(135deg, rgba(22,163,74,0.1) 0%, rgba(34,197,94,0.05) 100%);
+            border: 1px solid rgba(34,197,94,0.2);
+            transition: all 0.4s ease;
+        }
+       
+        .ai-feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(34,197,94,0.2);
+            border-color: rgba(34,197,94,0.5);
+        }
+       
+        .code-editor {
+            background: #1e1e1e;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+       
+        .satellite-view {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+       
+        .satellite-grid {
+            background-image: 
+                linear-gradient(rgba(34,197,94,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34,197,94,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+       
+        .drone-path {
+            stroke-dasharray: 5,5;
+            animation: dash 20s linear infinite;
+        }
+       
+        @keyframes dash {
+            to { stroke-dashoffset: -100; }
+        }
+       
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+       
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+       
+        .glow-text {
+            text-shadow: 0 0 20px rgba(34,197,94,0.5);
+        }
+       
+        .neural-network {
+            background-image: radial-gradient(circle at 2px 2px, rgba(34,197,94,0.3) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <!-- Home -->
+                    <a href="#home" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+                   
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="#weather" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="#crops" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="#livestock" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="#market" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="#soil" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="#ai-tools" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="ai_powered">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Top-tier agricultural AI</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="#forum" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="#knowledge-center" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="#experts" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <a href="#events" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="events_training">Events & Training</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Webinars & workshops</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="#about" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_about">About Us</a>
+                    <a href="#contact" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="#home" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+               
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="hidden pl-4 space-y-1">
+                        <a href="#weather" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="#crops" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="#livestock" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="livestock">Livestock Management</a>
+                        <a href="#market" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="#soil" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                        <a href="#ai-tools" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="ai_powered">AI-Powered Tools</a>
+                    </div>
+                </div>
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="#forum" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="#knowledge-center" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="#experts" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="#events" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="events_training">Events & Training</a>
+                    </div>
+                </div>
+                <a href="#about" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_about">About Us</a>
+                <a href="#contact" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+               
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%2316a34a%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+           
+            <!-- Floating Elements -->
+            <div class="absolute top-20 left-10 w-72 h-72 bg-agri-400/20 rounded-full blur-3xl animate-morph"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-morph" style="animation-delay: -4s;"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-8 animate-float">
+                    <span class="w-2 h-2 bg-agri-500 rounded-full animate-pulse"></span>
+                    <span class="text-sm font-medium text-agri-700 dark:text-agri-300" data-translate="hero_badge">Next-Generation Agricultural Intelligence</span>
+                </div>
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                    <span class="block text-earth-800 dark:text-earth-100" data-translate="hero_title_1">AI Powered</span>
+                    <span class="block text-gradient mt-2" data-translate="hero_title_2">Farming Revolution</span>
+                    
+                </h1>
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed" data-translate="hero_subtitle">
+                    Revolutionizing agriculture in a changing climate through intelligent weather prediction,
+                    AI-driven crop advisory, and global market connectivity.
+                </p>
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                    <button onclick="scrollToSection('features')" class="group px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold text-lg shadow-2xl hover:shadow-agri-500/30 transition-all hover:-translate-y-1 flex items-center gap-2">
+                        <span data-translate="explore_platform">Explore Platform</span>
+                        <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                    </button>
+                    <button onclick="openVideoModal()" class="px-8 py-4 glass dark:glass-dark rounded-full font-semibold text-lg hover:bg-white/20 transition-all flex items-center gap-2">
+                        <i data-lucide="play-circle" class="w-5 h-5 text-agri-600"></i>
+                        <span data-translate="watch_demo">Watch Demo</span>
+                    </button>
+                </div>
+                <!-- Live Weather Widget -->
+                <div class="max-w-4xl mx-auto glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center weather-icon shadow-lg">
+                                <i data-lucide="cloud-sun" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="text-lg font-semibold" data-translate="live_weather">Live Weather Intelligence</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400" id="weather-location">Detecting your location...</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-8 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-agri-600" id="weather-temp">--°C</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider" data-translate="temperature">Temperature</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-blue-600" id="weather-humidity">--%</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider" data-translate="humidity">Humidity</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-purple-600" id="weather-wind">--</div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider" data-translate="wind_speed">Wind (km/h)</div>
+                            </div>
+                        </div>
+                        <button onclick="getDetailedWeather()" class="px-6 py-3 bg-agri-100 dark:bg-agri-900/30 rounded-xl text-agri-700 dark:text-agri-300 font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                            <span data-translate="view_forecast">View Forecast</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Stats -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="50000">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-translate="farmers_helped">Farmers Helped</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="120">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-translate="countries">Countries</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="35">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-translate="yield_increase">% Yield Increase</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gradient counter" data-target="98">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-translate="accuracy_rate">% Accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Features Grid Section -->
+        <section id="features" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4" data-translate="features_title">Comprehensive Agricultural Intelligence</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-translate="features_subtitle">
+                        Six interconnected AI systems working together to optimize every aspect of your farming operation
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Weather Intelligence -->
+                    <div class="feature-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 group cursor-pointer" onclick="scrollToSection('weather')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                            <i data-lucide="cloud-sun" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-translate="weather_card_title">Weather Intelligence</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4" data-translate="weather_card_desc">
+                            Real-time hyperlocal forecasts with AI-powered climate risk alerts for droughts, floods, and extreme weather events.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_7day">7-day precision forecast</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_alerts">Extreme weather alerts</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_microclimate">Microclimate analysis</span></li>
+                        </ul>
+                    </div>
+                    <!-- AI Crop Advisory -->
+                    <div class="feature-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 group cursor-pointer" onclick="scrollToSection('crops')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                            <i data-lucide="leaf" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-translate="crop_card_title">AI Crop Advisory</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4" data-translate="crop_card_desc">
+                            Smart recommendations for crop selection, planting schedules, and harvesting based on soil and climate data.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_variety">Variety selection</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_planting">Optimal planting dates</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_pest">Pest prediction</span></li>
+                        </ul>
+                    </div>
+                    <!-- Livestock Management -->
+                    <div class="feature-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 group cursor-pointer" onclick="scrollToSection('livestock')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                            <i data-lucide="beef" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-translate="livestock_card_title">Livestock Management</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4" data-translate="livestock_card_desc">
+                            Breed selection, feed optimization, and health monitoring powered by climate adaptation algorithms.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_breed">Breed recommendations</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_feed">Feed formulation</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_health">Health monitoring</span></li>
+                        </ul>
+                    </div>
+                    <!-- Market Intelligence -->
+                    <div class="feature-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 group cursor-pointer" onclick="scrollToSection('market')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                            <i data-lucide="trending-up" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-translate="market_card_title">Market Intelligence</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4" data-translate="market_card_desc">
+                            Price predictions, demand forecasting, and direct market connections to maximize your profitability.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_price">Price forecasting</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_buyers">Buyer matching</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_trends">Market trends</span></li>
+                        </ul>
+                    </div>
+                    <!-- Soil Analysis -->
+                    <div class="feature-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 group cursor-pointer" onclick="scrollToSection('soil')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                            <i data-lucide="mountain" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-translate="soil_card_title">Soil Analysis</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4" data-translate="soil_card_desc">
+                            Comprehensive soil health assessment with nutrient recommendations and carbon sequestration tracking.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_nutrients">Nutrient mapping</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_ph">pH optimization</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_carbon">Carbon tracking</span></li>
+                        </ul>
+                    </div>
+                    <!-- AI Tools Hub -->
+                    <div class="feature-card glass-card dark:glass-dark rounded-3xl p-8 border border-white/20 hover:border-agri-400/50 group cursor-pointer relative overflow-hidden" onclick="scrollToSection('ai-tools')">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-agri-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-agri-500 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg relative z-10">
+                            <i data-lucide="cpu" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 relative z-10" data-translate="ai_tools_card_title">AI-Powered Tools</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 relative z-10" data-translate="ai_tools_card_desc">
+                            Advanced machine learning tools including computer vision for disease detection and predictive analytics.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 relative z-10">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_vision">Computer vision</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_predictive">Predictive models</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> <span data-translate="feature_chatbot">24/7 AI Assistant</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI-Powered Tools Section - Comprehensive -->
+        <section id="ai-tools" class="py-24 relative bg-gradient-to-b from-transparent to-agri-50/50 dark:to-agri-900/20 neural-network">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-6">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-agri-500"></i>
+                        <span class="text-sm font-medium text-agri-700 dark:text-agri-300">Next-Generation AI</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6 glow-text">AI-Powered Agricultural Revolution</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+                        Harnessing the power of artificial intelligence, machine learning, and advanced robotics to transform every aspect of modern farming. From autonomous drones to predictive climate models, discover how our AI ecosystem is shaping the future of agriculture.
+                    </p>
+                </div>
+
+                <!-- AI Features Grid -->
+                <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                    
+                    <!-- 1. Hyper-Localized Climate Intelligence Engine -->
+                    <div class="ai-feature-card rounded-3xl p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg">
+                                    <i data-lucide="map-pin" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Hyper-Localized Climate Intelligence</h3>
+                                    <p class="text-sm text-agri-600 dark:text-agri-400">Field-level microclimate predictions</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Our AI combines satellite imagery, real-time weather feeds, soil sensors, and historical climate patterns to generate precise, field-level microclimate predictions. Unlike regional forecasts, our system provides hyperlocal insights accurate to within 100 meters.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-white/50 dark:bg-slate-800/50 rounded-xl p-4">
+                                    <div class="text-2xl font-bold text-blue-600">100m</div>
+                                    <div class="text-xs text-gray-500">Spatial Resolution</div>
+                                </div>
+                                <div class="bg-white/50 dark:bg-slate-800/50 rounded-xl p-4">
+                                    <div class="text-2xl font-bold text-blue-600">15min</div>
+                                    <div class="text-xs text-gray-500">Update Frequency</div>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 text-sm">
+                                    <i data-lucide="satellite" class="w-5 h-5 text-blue-500"></i>
+                                    <span>Multi-spectral satellite imagery analysis</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-sm">
+                                    <i data-lucide="thermometer" class="w-5 h-5 text-blue-500"></i>
+                                    <span>IoT soil sensor network integration</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-sm">
+                                    <i data-lucide="brain" class="w-5 h-5 text-blue-500"></i>
+                                    <span>Deep learning weather pattern recognition</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. AI Crop Suitability & Dynamic Switching -->
+                    <div class="ai-feature-card rounded-3xl p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-agri-500/10 rounded-full blur-3xl group-hover:bg-agri-500/20 transition-all"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-agri-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                                    <i data-lucide="shuffle" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Dynamic Crop Switching AI</h3>
+                                    <p class="text-sm text-agri-600 dark:text-agri-400">Predictive crop optimization</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Our predictive engine recommends optimal crops based on soil composition, water availability, climate projections, and market demand trends. Run "what-if" scenarios to test crop switching strategies before climate stress occurs.
+                            </p>
+                            <div class="bg-white/50 dark:bg-slate-800/50 rounded-xl p-4 mb-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium">Current Crop: Maize</span>
+                                    <span class="text-xs text-agri-600 bg-agri-100 dark:bg-agri-900/30 px-2 py-1 rounded">Risk: Medium</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 65%"></div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-agri-600">Recommended: Sorghum</span>
+                                    <span class="text-xs text-agri-600 bg-agri-100 dark:bg-agri-900/30 px-2 py-1 rounded">+23% yield</span>
+                                </div>
+                            </div>
+                            <button class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="calculator" class="w-5 h-5"></i>
+                                Run Crop Simulation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Autonomous Risk Forecasting -->
+                    <div class="ai-feature-card rounded-3xl p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl group-hover:bg-red-500/20 transition-all"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center shadow-lg">
+                                    <i data-lucide="alert-triangle" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Autonomous Risk Forecasting</h3>
+                                    <p class="text-sm text-agri-600 dark:text-agri-400">Early warning system</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Probabilistic AI models predict drought risk, flood probability, pest outbreaks, heat stress, and disease spread. Our early-warning alert system transforms agriculture from reactive to proactive decision-making.
+                            </p>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center justify-between p-3 bg-white/50 dark:bg-slate-800/50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <i data-lucide="droplets" class="w-5 h-5 text-blue-500"></i>
+                                        <span class="text-sm">Drought Risk</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-green-600">Low (12%)</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-white/50 dark:bg-slate-800/50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <i data-lucide="bug" class="w-5 h-5 text-red-500"></i>
+                                        <span class="text-sm">Fall Armyworm</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-orange-600">Medium (45%)</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-white/50 dark:bg-slate-800/50 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <i data-lucide="thermometer-sun" class="w-5 h-5 text-orange-500"></i>
+                                        <span class="text-sm">Heat Stress</span>
+                                    </div>
+                                    <span class="text-sm font-bold text-green-600">Low (8%)</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="flex-1 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-sm font-medium hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors">
+                                    View Alerts
+                                </button>
+                                <button class="flex-1 py-2 bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 rounded-lg text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">
+                                    Set Thresholds
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. AI Irrigation Optimization -->
+                    <div class="ai-feature-card rounded-3xl p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
+                                    <i data-lucide="droplet" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Smart Irrigation AI</h3>
+                                    <p class="text-sm text-agri-600 dark:text-agri-400">Precision water management</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Our water-efficiency algorithm calculates optimal irrigation timing, exact water volume needed, soil moisture thresholds, and evapotranspiration rates. Reduce water usage by up to 60% while maximizing yield.
+                            </p>
+                            <div class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl p-6 text-white mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm opacity-90">Next Irrigation</span>
+                                    <span class="text-2xl font-bold">Today 6:00 AM</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm opacity-90">Water Volume</span>
+                                    <span class="text-2xl font-bold">12.5 mm</span>
+                                </div>
+                                <div class="w-full bg-white/20 rounded-full h-2">
+                                    <div class="bg-white h-2 rounded-full" style="width: 72%"></div>
+                                </div>
+                                <div class="flex justify-between mt-2 text-xs opacity-75">
+                                    <span>Soil Moisture: 72%</span>
+                                    <span>Optimal: 75%</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 text-center">
+                                <div class="bg-white/50 dark:bg-slate-800/50 rounded-lg p-3">
+                                    <div class="text-lg font-bold text-cyan-600">60%</div>
+                                    <div class="text-xs text-gray-500">Water Saved</div>
+                                </div>
+                                <div class="bg-white/50 dark:bg-slate-800/50 rounded-lg p-3">
+                                    <div class="text-lg font-bold text-cyan-600">18%</div>
+                                    <div class="text-xs text-gray-500">Yield Gain</div>
+                                </div>
+                                <div class="bg-white/50 dark:bg-slate-800/50 rounded-lg p-3">
+                                    <div class="text-lg font-bold text-cyan-600">$2.4k</div>
+                                    <div class="text-xs text-gray-500">Cost Saved/Yr</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Advanced AI Features Showcase -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold text-center mb-12">Advanced AI Capabilities</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        
+                        <!-- Computer Vision Diagnostics -->
+                        <div class="glass-card dark:glass-dark rounded-2xl p-6 hover:scale-105 transition-transform cursor-pointer group">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                                <i data-lucide="scan-eye" class="w-7 h-7 text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Computer Vision Diagnostics</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                                Upload photos from your smartphone or drone to instantly detect nutrient deficiencies, pest damage, disease symptoms, and leaf stress indicators using advanced CNN models.
+                            </p>
+                            <div class="flex items-center gap-2 text-xs text-purple-600 dark:text-purple-400">
+                                <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded">98.5% Accuracy</span>
+                                <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded">< 2s Analysis</span>
+                            </div>
+                        </div>
+
+                        <!-- Predictive Yield Modeling -->
+                        <div class="glass-card dark:glass-dark rounded-2xl p-6 hover:scale-105 transition-transform cursor-pointer group">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                                <i data-lucide="trending-up" class="w-7 h-7 text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Predictive Yield Modeling</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                                AI-driven yield prediction based on current crop condition, weather forecasts, soil quality, and historical performance. Supports better financial planning and supply chain forecasting.
+                            </p>
+                            <div class="flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
+                                <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded">±5% Error Rate</span>
+                                <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded">12 Week Forecast</span>
+                            </div>
+                        </div>
+
+                        <!-- Climate Risk Scoring -->
+                        <div class="glass-card dark:glass-dark rounded-2xl p-6 hover:scale-105 transition-transform cursor-pointer group">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                                <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">Climate Risk Scoring</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                                Proprietary AI-generated farm risk index enabling parametric crop insurance, climate-based loan approvals, and microfinance eligibility scoring for financial inclusion.
+                            </p>
+                            <div class="flex items-center gap-2 text-xs text-orange-600 dark:text-orange-400">
+                                <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 rounded">Insurance Ready</span>
+                                <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 rounded">Bank Integration</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Robotics & Automation Section -->
+                <div class="mb-16">
+                    <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 border border-agri-500/30">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 text-sm mb-4">
+                                    <i data-lucide="bot" class="w-4 h-4"></i>
+                                    <span>Robotics & Automation</span>
+                                </div>
+                                <h3 class="text-3xl md:text-4xl font-bold mb-6">Autonomous Farm Management</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                    Program and control autonomous robots, drones, and IoT devices directly from our platform. Our AI generates optimized flight paths, monitors equipment health, and coordinates multi-robot operations.
+                                </p>
+                                
+                                <div class="space-y-4 mb-8">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-lg bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="plane" class="w-5 h-5 text-agri-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Drone Fleet Management</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Coordinate multiple drones for spraying, monitoring, and mapping</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-lg bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="tractor" class="w-5 h-5 text-agri-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Autonomous Tractors</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">GPS-guided precision farming with obstacle detection</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-lg bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide="code" class="w-5 h-5 text-agri-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold">Visual Programming</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">No-code interface for creating custom automation workflows</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button onclick="openCodeEditor()" class="px-6 py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                                    <i data-lucide="terminal" class="w-5 h-5"></i>
+                                    Open Robotics IDE
+                                </button>
+                            </div>
+                            
+                            <!-- Interactive Code Editor Preview -->
+                            <div class="code-editor rounded-2xl p-6 shadow-2xl border border-gray-700">
+                                <div class="flex items-center justify-between mb-4 border-b border-gray-700 pb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
+                                    <span class="text-xs text-gray-400">drone_patrol.py</span>
+                                    <div class="flex items-center gap-2">
+                                        <button class="p-1 hover:bg-gray-700 rounded"><i data-lucide="play" class="w-4 h-4 text-green-400"></i></button>
+                                        <button class="p-1 hover:bg-gray-700 rounded"><i data-lucide="save" class="w-4 h-4 text-gray-400"></i></button>
+                                    </div>
+                                </div>
+                                <pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-purple-400">from</span> agrirobot <span class="text-purple-400">import</span> DroneFleet, FieldMap
+
+<span class="text-gray-500"># Initialize autonomous drone fleet</span>
+fleet = DroneFleet(size=<span class="text-orange-400">4</span>)
+field = FieldMap(<span class="text-green-400">"north_quadrant"</span>)
+
+<span class="text-gray-500"># AI-optimized spray pattern</span>
+<span class="text-purple-400">def</span> <span class="text-blue-400">smart_spray_route</span>():
+    zones = field.identify_stress_areas(
+        threshold=<span class="text-orange-400">0.75</span>,
+        ai_model=<span class="text-green-400">"crop_health_v3"</span>
+    )
+    
+    <span class="text-purple-400">for</span> zone <span class="text-purple-400">in</span> zones:
+        fleet.deploy(
+            task=<span class="text-green-400">"precision_spray"</span>,
+            coordinates=zone.coords,
+            volume=zone.calculate_optimal_volume(),
+            avoid_wind=<span class="text-purple-400">True</span>
+        )
+
+<span class="text-gray-500"># Execute with real-time monitoring</span>
+fleet.execute(smart_spray_route)
+fleet.monitor().on_complete(<span class="text-purple-400">lambda</span>: 
+    report.generate())</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Satellite & Real-Time Monitoring -->
+                <div class="mb-16">
+                    <div class="satellite-view rounded-3xl p-8 md:p-12 border border-agri-500/30 relative overflow-hidden">
+                        <div class="absolute inset-0 satellite-grid opacity-30"></div>
+                        <div class="relative z-10">
+                            <div class="text-center mb-12">
+                                <h3 class="text-3xl md:text-4xl font-bold mb-4 text-white">Satellite & Real-Time Farm View</h3>
+                                <p class="text-gray-300 max-w-3xl mx-auto">
+                                    Access high-resolution satellite imagery, NDVI analysis, and real-time drone feeds. Monitor your farm from anywhere in the world with our comprehensive remote sensing platform.
+                                </p>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="bg-slate-800/80 backdrop-blur rounded-2xl p-6 border border-slate-700">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+                                        <i data-lucide="satellite" class="w-6 h-6 text-blue-400"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-white mb-2">Multi-Spectral Imaging</h4>
+                                    <p class="text-sm text-gray-400">NDVI, EVI, and thermal analysis from Sentinel-2 and Landsat satellites. 10m resolution with 5-day revisit frequency.</p>
+                                </div>
+                                
+                                <div class="bg-slate-800/80 backdrop-blur rounded-2xl p-6 border border-slate-700">
+                                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-4">
+                                        <i data-lucide="video" class="w-6 h-6 text-green-400"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-white mb-2">Live Drone Feeds</h4>
+                                    <p class="text-sm text-gray-400">Real-time video streaming from autonomous drones. AI-powered object detection for livestock monitoring and security.</p>
+                                </div>
+                                
+                                <div class="bg-slate-800/80 backdrop-blur rounded-2xl p-6 border border-slate-700">
+                                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4">
+                                        <i data-lucide="activity" class="w-6 h-6 text-purple-400"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-white mb-2">Change Detection</h4>
+                                    <p class="text-sm text-gray-400">Automated detection of field changes, crop growth stages, and anomaly identification using temporal analysis.</p>
+                                </div>
+                            </div>
+
+                            <!-- Simulated Satellite View -->
+                            <div class="mt-8 bg-slate-900 rounded-2xl p-4 border border-slate-700 relative h-64 overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-green-900/40 to-blue-900/40"></div>
+                                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 800 300">
+                                    <!-- Simulated field boundaries -->
+                                    <path d="M 50 50 L 200 40 L 220 150 L 60 160 Z" fill="rgba(34,197,94,0.3)" stroke="#22c55e" stroke-width="2"/>
+                                    <path d="M 250 30 L 400 20 L 420 140 L 270 150 Z" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-width="2"/>
+                                    <path d="M 450 40 L 600 30 L 620 160 L 470 170 Z" fill="rgba(234,179,8,0.3)" stroke="#eab308" stroke-width="2"/>
+                                    <path d="M 650 50 L 750 45 L 760 150 L 660 155 Z" fill="rgba(34,197,94,0.3)" stroke="#22c55e" stroke-width="2"/>
+                                    
+                                    <!-- Drone path -->
+                                    <path d="M 100 100 Q 400 50 700 120" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" class="drone-path"/>
+                                    
+                                    <!-- Drone icon -->
+                                    <g transform="translate(400, 75)">
+                                        <circle r="8" fill="#3b82f6" class="animate-pulse"/>
+                                        <circle r="15" fill="none" stroke="#3b82f6" stroke-width="1" class="pulse-ring"/>
+                                    </g>
+                                    
+                                    <!-- Hotspots -->
+                                    <circle cx="550" cy="100" r="5" fill="#ef4444" class="animate-pulse"/>
+                                    <text x="560" y="105" fill="#ef4444" font-size="12">Stress Alert</text>
+                                </svg>
+                                
+                                <div class="absolute bottom-4 left-4 flex gap-4">
+                                    <div class="bg-slate-800/90 backdrop-blur px-3 py-2 rounded-lg border border-slate-700">
+                                        <div class="text-xs text-gray-400">Coverage</div>
+                                        <div class="text-sm font-bold text-white">247 acres</div>
+                                    </div>
+                                    <div class="bg-slate-800/90 backdrop-blur px-3 py-2 rounded-lg border border-slate-700">
+                                        <div class="text-xs text-gray-400">Last Update</div>
+                                        <div class="text-sm font-bold text-white">2 mins ago</div>
+                                    </div>
+                                    <div class="bg-slate-800/90 backdrop-blur px-3 py-2 rounded-lg border border-slate-700">
+                                        <div class="text-xs text-gray-400">Active Drones</div>
+                                        <div class="text-sm font-bold text-green-400">3 online</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Twin & Simulation -->
+                <div class="mb-16">
+                    <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div class="order-2 lg:order-1">
+                                <div class="relative">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-agri-400/20 to-blue-400/20 rounded-2xl transform rotate-2"></div>
+                                    <div class="relative bg-slate-900 rounded-2xl p-6 border border-slate-700">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h4 class="text-white font-semibold">Digital Twin Simulation</h4>
+                                            <span class="text-xs text-green-400 flex items-center gap-1">
+                                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                                Live
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- Simulation Controls -->
+                                        <div class="space-y-4 mb-6">
+                                            <div>
+                                                <label class="text-xs text-gray-400 mb-1 block">Climate Scenario</label>
+                                                <select class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                                                    <option>Current Conditions</option>
+                                                    <option>+2°C Warming</option>
+                                                    <option>Drought Scenario</option>
+                                                    <option>Heavy Rainfall</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="text-xs text-gray-400 mb-1 block">Crop Type</label>
+                                                <select class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+                                                    <option>Maize (H614)</option>
+                                                    <option>Sorghum</option>
+                                                    <option>Wheat</option>
+                                                    <option>Beans</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Simulation Results -->
+                                        <div class="space-y-3">
+                                            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
+                                                <span class="text-sm text-gray-300">Predicted Yield</span>
+                                                <span class="text-lg font-bold text-green-400">4.2 t/ha</span>
+                                            </div>
+                                            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
+                                                <span class="text-sm text-gray-300">Water Requirement</span>
+                                                <span class="text-lg font-bold text-blue-400">450 mm</span>
+                                            </div>
+                                            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg">
+                                                <span class="text-sm text-gray-300">Revenue Projection</span>
+                                                <span class="text-lg font-bold text-agri-400">$1,240/ha</span>
+                                            </div>
+                                            <div class="flex justify-between items-center p-3 bg-slate-800 rounded-lg border border-yellow-500/30">
+                                                <span class="text-sm text-gray-300">Risk Level</span>
+                                                <span class="text-sm font-bold text-yellow-400">Medium (42%)</span>
+                                            </div>
+                                        </div>
+
+                                        <button class="w-full mt-4 py-2 bg-agri-600 hover:bg-agri-700 text-white rounded-lg text-sm font-medium transition-colors">
+                                            Run New Simulation
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="order-1 lg:order-2">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm mb-4">
+                                    <i data-lucide="box" class="w-4 h-4"></i>
+                                    <span>Digital Twin Technology</span>
+                                </div>
+                                <h3 class="text-3xl md:text-4xl font-bold mb-6">Virtual Farm Simulation</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                    Create a virtual model of your farm to simulate climate shocks, crop performance, resource optimization, and financial outcomes. Test different scenarios without real-world risk.
+                                </p>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-agri-500 flex-shrink-0 mt-0.5"></i>
+                                        <div>
+                                            <h4 class="font-semibold">Scenario Planning</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Test "what-if" scenarios for climate adaptation strategies</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-agri-500 flex-shrink-0 mt-0.5"></i>
+                                        <div>
+                                            <h4 class="font-semibold">Resource Optimization</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Optimize water, fertilizer, and labor allocation virtually</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-agri-500 flex-shrink-0 mt-0.5"></i>
+                                        <div>
+                                            <h4 class="font-semibold">Financial Forecasting</h4>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Project revenues and costs under different market conditions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Assistant & Voice Interface -->
+                <div class="mb-16">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="glass-card dark:glass-dark rounded-3xl p-8">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                                    <i data-lucide="mic" class="w-7 h-7 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Voice AI Assistant</h3>
+                                    <p class="text-sm text-gray-500">Multilingual voice interface</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6">
+                                Interact with our AI using natural voice commands in your local language. Perfect for hands-free operation while working in the field. Supports Swahili, Hindi, Spanish, French, and 20+ languages.
+                            </p>
+                            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-4 text-white">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center animate-pulse">
+                                        <i data-lucide="mic" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm">"Check irrigation schedule for field three"</span>
+                                </div>
+                                <div class="pl-11 text-sm opacity-90">
+                                    "Field 3 irrigation scheduled for 6:00 AM tomorrow. 12.5mm recommended based on soil moisture levels."
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card dark:glass-dark rounded-3xl p-8">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
+                                    <i data-lucide="network" class="w-7 h-7 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold">Federated Learning</h3>
+                                    <p class="text-sm text-gray-500">Privacy-preserving AI</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6">
+                                Our decentralized AI model learns from anonymized farm data across our global network without exposing individual user data. Improve accuracy globally while preserving your privacy.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center p-3 bg-white/50 dark:bg-slate-800/50 rounded-xl">
+                                    <div class="text-2xl font-bold text-pink-600">50K+</div>
+                                    <div class="text-xs text-gray-500">Contributing Farms</div>
+                                </div>
+                                <div class="text-center p-3 bg-white/50 dark:bg-slate-800/50 rounded-xl">
+                                    <div class="text-2xl font-bold text-pink-600">Zero</div>
+                                    <div class="text-xs text-gray-500">Data Breaches</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carbon Credits & Sustainability -->
+                <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 border border-green-500/30 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-900/10 dark:to-emerald-900/10">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold mb-4">Carbon Credit Optimization</h3>
+                        <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                            Monetize your climate-positive actions. Our AI tracks carbon footprint reduction, calculates eligibility for carbon credits, and connects you with verified carbon markets.
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="text-center p-6 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
+                            <i data-lucide="leaf" class="w-8 h-8 text-green-600 mx-auto mb-3"></i>
+                            <div class="text-3xl font-bold text-green-600 mb-1">2.4</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">tCO2e Sequestered</div>
+                        </div>
+                        <div class="text-center p-6 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
+                            <i data-lucide="dollar-sign" class="w-8 h-8 text-green-600 mx-auto mb-3"></i>
+                            <div class="text-3xl font-bold text-green-600 mb-1">$45</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Per Acre Potential</div>
+                        </div>
+                        <div class="text-center p-6 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-green-600 mx-auto mb-3"></i>
+                            <div class="text-3xl font-bold text-green-600 mb-1">12%</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Soil Carbon Increase</div>
+                        </div>
+                        <div class="text-center p-6 bg-white/60 dark:bg-slate-800/60 rounded-2xl">
+                            <i data-lucide="award" class="w-8 h-8 text-green-600 mx-auto mb-3"></i>
+                            <div class="text-3xl font-bold text-green-600 mb-1">VCS</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Certified Standard</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive Demo Section -->
+        <section id="ai-tools-demo" class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6" data-translate="demo_title">Experience the Future of Farming</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8" data-translate="demo_desc">
+                            Our AI assistant understands natural language and provides personalized recommendations based on your specific location, soil type, and climate conditions.
+                        </p>
+                       
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="message-square" class="w-6 h-6 text-agri-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg" data-translate="demo_feature_1">Natural Language Understanding</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">Ask questions in plain English or your local language</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="image" class="w-6 h-6 text-agri-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg" data-translate="demo_feature_2">Image Recognition</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">Upload photos of pests or diseases for instant diagnosis</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="globe" class="w-6 h-6 text-agri-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg" data-translate="demo_feature_3">Global Knowledge Base</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">Trained on agricultural data from 120+ countries</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openChat()" class="mt-8 px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                            <span data-translate="try_assistant">Try AI Assistant</span>
+                        </button>
+                    </div>
+                    <!-- Chat Demo Interface -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 shadow-2xl border border-white/30">
+                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                                    <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">AgriClimate AI</h4>
+                                    <p class="text-xs text-agri-600 flex items-center gap-1">
+                                        <span class="w-2 h-2 bg-agri-500 rounded-full animate-pulse"></span>
+                                        Online
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+                                <i data-lucide="more-vertical" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="h-96 overflow-y-auto space-y-4 mb-4 pr-2" id="demo-chat-container">
+                            <!-- Bot Message -->
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                                </div>
+                                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%]">
+                                    <p class="text-sm">Hello! I'm your AI farming assistant. I can help you with crop recommendations, weather forecasts, livestock advice, and market insights. What would you like to know today?</p>
+                                </div>
+                            </div>
+                            <!-- User Message -->
+                            <div class="flex gap-3 justify-end">
+                                <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%]">
+                                    <p class="text-sm">What crops should I plant in Nairobi during the rainy season?</p>
+                                </div>
+                            </div>
+                            <!-- Bot Response -->
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                                </div>
+                                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%]">
+                                    <p class="text-sm">Based on Nairobi's highland tropical climate (18-24°C) and the upcoming long rains (March-May), I recommend:</p>
+                                    <ul class="mt-2 space-y-1 text-sm list-disc list-inside">
+                                        <li><strong>Kale (Sukuma Wiki)</strong> - High demand, 45-60 days to harvest</li>
+                                        <li><strong>Maize (H614)</strong> - Drought-resistant variety, 4-5 months</li>
+                                        <li><strong>Beans (Rosecoco)</strong> - Nitrogen-fixing, good for soil health</li>
+                                    </ul>
+                                    <p class="mt-2 text-xs text-gray-500">Would you like specific planting dates and fertilizer recommendations?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="Ask anything about farming..." class="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm">
+                            <button class="p-3 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Community Section -->
+        <section id="community" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4" data-translate="community_title">Global Farming Community</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-translate="community_subtitle">
+                        Connect with millions of farmers, experts, and buyers worldwide
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Discussion Forum -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform cursor-pointer group">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="message-circle" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2" data-translate="forum_title">Discussion Forum</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Join conversations on best practices and innovations</p>
+                        <span class="text-agri-600 font-medium text-sm flex items-center justify-center gap-1">
+                            <span data-translate="join_now">Join Now</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                    <!-- Knowledge Center -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform cursor-pointer group">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="book-open" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2" data-translate="knowledge_title">Knowledge Center</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Access guides, tutorials, and research papers</p>
+                        <span class="text-agri-600 font-medium text-sm flex items-center justify-center gap-1">
+                            <span data-translate="explore">Explore</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                    <!-- Expert Network -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform cursor-pointer group">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="users" class="w-8 h-8 text-orange-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2" data-translate="experts_title">Expert Network</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Consult with agronomists and veterinarians</p>
+                        <span class="text-agri-600 font-medium text-sm flex items-center justify-center gap-1">
+                            <span data-translate="connect">Connect</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                    <!-- Events -->
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform cursor-pointer group">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform">
+                            <i data-lucide="calendar" class="w-8 h-8 text-red-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2" data-translate="events_title">Events & Training</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Webinars, workshops, and field demonstrations</p>
+                        <span class="text-agri-600 font-medium text-sm flex items-center justify-center gap-1">
+                            <span data-translate="view_events">View Events</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+                <!-- Live Community Stats -->
+                <div class="mt-12 glass dark:glass-dark rounded-2xl p-8 flex flex-wrap justify-center gap-8 md:gap-16">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-agri-600">2.4M+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400" data-translate="community_members">Community Members</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600">15K+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400" data-translate="daily_discussions">Daily Discussions</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600">500+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400" data-translate="certified_experts">Certified Experts</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-orange-600">50+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400" data-translate="weekly_events">Weekly Events</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Impact Section -->
+        <section id="about" class="py-24 relative bg-gradient-to-b from-agri-50/50 dark:from-agri-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1 relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-agri-400/20 to-blue-400/20 rounded-3xl transform rotate-3"></div>
+                        <div class="relative glass dark:glass-dark rounded-3xl p-8 shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&auto=format&fit=crop&q=80" alt="Farmer using tablet in field" class="rounded-2xl w-full h-64 object-cover mb-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-agri-50 dark:bg-agri-900/30 rounded-xl p-4">
+                                    <div class="text-2xl font-bold text-agri-600">40%</div>
+                                    <div class="text-xs text-gray-600 dark:text-gray-400">Increase in Crop Yields</div>
+                                </div>
+                                <div class="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-4">
+                                    <div class="text-2xl font-bold text-blue-600">60%</div>
+                                    <div class="text-xs text-gray-600 dark:text-gray-400">Reduction in Water Use</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6" data-translate="impact_title">Transforming Agriculture Worldwide</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-6" data-translate="impact_desc">
+                            AgriClimate Connect combines cutting-edge AI with deep agricultural expertise to help farmers adapt to climate change and thrive in an uncertain world.
+                        </p>
+                       
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-agri-500 flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300" data-translate="impact_1">Real-time climate adaptation strategies</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-agri-500 flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300" data-translate="impact_2">Direct market access eliminating middlemen</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-agri-500 flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300" data-translate="impact_3">Sustainable farming practices guidance</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-agri-500 flex items-center justify-center">
+                                    <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300" data-translate="impact_4">Financial inclusion through data-driven credit</span>
+                            </div>
+                        </div>
+                        <button onclick="scrollToSection('contact')" class="px-8 py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="partner_with_us">
+                            Partner With Us
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4" data-translate="contact_title">Get In Touch</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300" data-translate="contact_subtitle">
+                        Have questions? Our team is here to help you get started
+                    </p>
+                </div>
+                <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 shadow-2xl border border-white/30">
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2" data-translate="form_name">Full Name</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2" data-translate="form_email">Email Address</label>
+                                <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500 transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2" data-translate="form_subject">Subject</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500 transition-all">
+                                <option value="general">General Inquiry</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="support">Technical Support</option>
+                                <option value="demo">Request Demo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2" data-translate="form_message">Message</label>
+                            <textarea rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500 transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                            <span data-translate="send_message">Send Message</span>
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+       
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#features" class="hover:text-agri-400 transition-colors">Features</a></li>
+                        <li><a href="#weather" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="#market" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="#community" class="hover:text-agri-400 transition-colors">Community</a></li>
+                        <li><a href="#about" class="hover:text-agri-400 transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+       
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                    Hello! I'm your AI farming assistant. How can I help you today? I can provide advice on crops, livestock, weather, or market prices.
+                </div>
+            </div>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('What crops should I plant this season?')" class="px-3 py-1 bg-agri-100 dark:bg-agri-900/30 rounded-full text-xs whitespace-nowrap hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors">Crop advice</button>
+                <button onclick="sendQuickMessage('Weather forecast for tomorrow')" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full text-xs whitespace-nowrap hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">Weather</button>
+                <button onclick="sendQuickMessage('Current market prices')" class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full text-xs whitespace-nowrap hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors">Market prices</button>
+            </div>
+        </div>
+    </div>
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+               
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sprout" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" id="auth-title">Welcome Back</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Sign in to access your personalized dashboard</p>
+                </div>
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        <span id="auth-submit-text">Sign In</span>
+                    </button>
+                </form>
+                <div class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-agri-600 font-semibold hover:underline ml-1" id="auth-switch-btn">Sign Up</button>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <button class="w-full py-3 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google">
+                        <span class="text-sm font-medium">Continue with Google</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Code Editor Modal -->
+    <div id="code-editor-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeCodeEditor()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl p-6">
+            <div class="bg-slate-900 rounded-3xl shadow-2xl border border-slate-700 overflow-hidden">
+                <div class="flex items-center justify-between p-4 border-b border-slate-700 bg-slate-800">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="terminal" class="w-5 h-5 text-agri-400"></i>
+                        <span class="text-white font-semibold">AgriBot IDE - Robotics Programming Environment</span>
+                    </div>
+                    <button onclick="closeCodeEditor()" class="p-2 hover:bg-slate-700 rounded-lg transition-colors">
+                        <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-3 h-[500px]">
+                    <div class="col-span-2 p-4 overflow-auto">
+                        <pre class="text-sm text-gray-300"><code><span class="text-purple-400">from</span> agrirobot <span class="text-purple-400">import</span> DroneFleet, FieldMap, AutonomousTractor
+<span class="text-purple-400">from</span> ai_models <span class="text-purple-400">import</span> CropHealthAnalyzer, YieldPredictor
+
+<span class="text-gray-500"># Initialize farm equipment</span>
+drones = DroneFleet(size=<span class="text-orange-400">4</span>, model=<span class="text-green-400">"AgriDrone-X1"</span>)
+tractor = AutonomousTractor(equipment=<span class="text-green-400">"precision_planter"</span>)
+field = FieldMap(<span class="text-green-400">"farm_north_sector"</span>)
+
+<span class="text-gray-500"># AI-powered crop analysis</span>
+analyzer = CropHealthAnalyzer(model=<span class="text-green-400">"resnet50_agri_v2"</span>)
+predictor = YieldPredictor(horizon_weeks=<span class="text-orange-400">12</span>)
+
+<span class="text-purple-400">async def</span> <span class="text-blue-400">autonomous_farm_cycle</span>():
+    <span class="text-gray-500"># Morning survey</span>
+    health_map = <span class="text-purple-400">await</span> drones.scan_field(
+        altitude=<span class="text-orange-400">50</span>,  <span class="text-gray-500"># meters</span>
+        resolution=<span class="text-green-400">"high"</span>,
+        multispectral=<span class="text-purple-400">True</span>
+    )
+    
+    <span class="text-gray-500"># AI analysis</span>
+    stress_areas = analyzer.identify_stress(health_map)
+    yield_forecast = predictor.forecast(health_map, weather_data)
+    
+    <span class="text-gray-500"># Autonomous response</span>
+    <span class="text-purple-400">for</span> zone <span class="text-purple-400">in</span> stress_areas:
+        <span class="text-purple-400">if</span> zone.stress_level > <span class="text-orange-400">0.7</span>:
+            drones.deploy(
+                task=<span class="text-green-400">"targeted_irrigation"</span>,
+                coords=zone.coordinates,
+                volume=zone.water_requirement_ml
+            )
+    
+    <span class="text-gray-500"># Precision planting</span>
+    <span class="text-purple-400">await</span> tractor.execute(
+        pattern=<span class="text-green-400">"optimal_spacing"</span>,
+        crop_type=<span class="text-green-400">"maize_hybrid_614"</span>,
+        density=plants_per_hectare(<span class="text-orange-400">75000</span>)
+    )
+
+<span class="text-gray-500"># Run with real-time monitoring</span>
+monitor = FarmMonitor()
+monitor.run(autonomous_farm_cycle)</code></pre>
+                    </div>
+                    <div class="bg-slate-800 p-4 border-l border-slate-700">
+                        <h4 class="text-white font-semibold mb-4">Device Status</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span class="text-sm text-gray-300">Drone 1</span>
+                                </div>
+                                <span class="text-xs text-green-400">Online</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span class="text-sm text-gray-300">Drone 2</span>
+                                </div>
+                                <span class="text-xs text-green-400">Online</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                    <span class="text-sm text-gray-300">Drone 3</span>
+                                </div>
+                                <span class="text-xs text-yellow-400">Charging</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span class="text-sm text-gray-300">Tractor Alpha</span>
+                                </div>
+                                <span class="text-xs text-green-400">Active</span>
+                            </div>
+                        </div>
+                        <button class="w-full mt-6 py-3 bg-agri-600 hover:bg-agri-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                            Deploy to Farm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        // Global State
+        let currentLanguage = 'en';
+        let isDarkMode = false;
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_knowledge: "Knowledge Tools",
+                nav_community: "Community",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                get_started: "Get Started",
+                weather_intel: "Weather Intelligence",
+                crop_advisory: "AI Crop Advisory",
+                livestock: "Livestock Management",
+                market_intelligence: "Market Intelligence",
+                soil_analysis: "Soil Analysis",
+                ai_powered: "AI-Powered Tools",
+                discussion_forum: "Discussion Forum",
+                knowledge_center: "Knowledge Center",
+                expert_network: "Expert Network",
+                events_training: "Events & Training",
+                text_size: "Text Size",
+                high_contrast: "High Contrast",
+                dyslexic_font: "Dyslexic Friendly",
+                toggle_theme: "Toggle Theme",
+                hero_badge: "AI-Powered Climate Resilience",
+                hero_title_1: "Empowering Farmers",
+                hero_title_2: "With Knowledge Tools",
+                hero_title_3: "For Success",
+                hero_subtitle: "Revolutionizing agriculture in a changing climate through intelligent weather prediction, AI-driven crop advisory, and global market connectivity.",
+                explore_platform: "Explore Platform",
+                watch_demo: "Watch Demo",
+                live_weather: "Live Weather Intelligence",
+                temperature: "Temperature",
+                humidity: "Humidity",
+                wind_speed: "Wind (km/h)",
+                view_forecast: "View Forecast",
+                farmers_helped: "Farmers Helped",
+                countries: "Countries",
+                yield_increase: "% Yield Increase",
+                accuracy_rate: "% Accuracy",
+                features_title: "Comprehensive Agricultural Intelligence",
+                features_subtitle: "Six interconnected AI systems working together to optimize every aspect of your farming operation",
+                weather_card_title: "Weather Intelligence",
+                weather_card_desc: "Real-time hyperlocal forecasts with AI-powered climate risk alerts for droughts, floods, and extreme weather events.",
+                feature_7day: "7-day precision forecast",
+                feature_alerts: "Extreme weather alerts",
+                feature_microclimate: "Microclimate analysis",
+                crop_card_title: "AI Crop Advisory",
+                crop_card_desc: "Smart recommendations for crop selection, planting schedules, and harvesting based on soil and climate data.",
+                feature_variety: "Variety selection",
+                feature_planting: "Optimal planting dates",
+                feature_pest: "Pest prediction",
+                livestock_card_title: "Livestock Management",
+                livestock_card_desc: "Breed selection, feed optimization, and health monitoring powered by climate adaptation algorithms.",
+                feature_breed: "Breed recommendations",
+                feature_feed: "Feed formulation",
+                feature_health: "Health monitoring",
+                market_card_title: "Market Intelligence",
+                market_card_desc: "Price predictions, demand forecasting, and direct market connections to maximize your profitability.",
+                feature_price: "Price forecasting",
+                feature_buyers: "Buyer matching",
+                feature_trends: "Market trends",
+                soil_card_title: "Soil Analysis",
+                soil_card_desc: "Comprehensive soil health assessment with nutrient recommendations and carbon sequestration tracking.",
+                feature_nutrients: "Nutrient mapping",
+                feature_ph: "pH optimization",
+                feature_carbon: "Carbon tracking",
+                ai_tools_card_title: "AI-Powered Tools",
+                ai_tools_card_desc: "Advanced machine learning tools including computer vision for disease detection and predictive analytics.",
+                feature_vision: "Computer vision",
+                feature_predictive: "Predictive models",
+                feature_chatbot: "24/7 AI Assistant",
+                demo_title: "Experience the Future of Farming",
+                demo_desc: "Our AI assistant understands natural language and provides personalized recommendations based on your specific location, soil type, and climate conditions.",
+                demo_feature_1: "Natural Language Understanding",
+                demo_feature_2: "Image Recognition",
+                demo_feature_3: "Global Knowledge Base",
+                try_assistant: "Try AI Assistant",
+                community_title: "Global Farming Community",
+                community_subtitle: "Connect with millions of farmers, experts, and buyers worldwide",
+                forum_title: "Discussion Forum",
+                knowledge_title: "Knowledge Center",
+                experts_title: "Expert Network",
+                events_title: "Events & Training",
+                join_now: "Join Now",
+                explore: "Explore",
+                connect: "Connect",
+                view_events: "View Events",
+                community_members: "Community Members",
+                daily_discussions: "Daily Discussions",
+                certified_experts: "Certified Experts",
+                weekly_events: "Weekly Events",
+                impact_title: "Transforming Agriculture Worldwide",
+                impact_desc: "AgriClimate Connect combines cutting-edge AI with deep agricultural expertise to help farmers adapt to climate change and thrive in an uncertain world.",
+                impact_1: "Real-time climate adaptation strategies",
+                impact_2: "Direct market access eliminating middlemen",
+                impact_3: "Sustainable farming practices guidance",
+                impact_4: "Financial inclusion through data-driven credit",
+                partner_with_us: "Partner With Us",
+                contact_title: "Get In Touch",
+                contact_subtitle: "Have questions? Our team is here to help you get started",
+                form_name: "Full Name",
+                form_email: "Email Address",
+                form_subject: "Subject",
+                form_message: "Message",
+                send_message: "Send Message"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_knowledge: "Herramientas de Conocimiento",
+                nav_community: "Comunidad",
+                nav_about: "Sobre Nosotros",
+                nav_contact: "Contacto",
+                get_started: "Comenzar",
+                weather_intel: "Inteligencia del Clima",
+                crop_advisory: "Asesoría de Cultivos IA",
+                livestock: "Gestión de Ganado",
+                market_intelligence: "Inteligencia de Mercado",
+                soil_analysis: "Análisis de Suelo",
+                ai_powered: "Herramientas IA",
+                discussion_forum: "Foro de Discusión",
+                knowledge_center: "Centro de Conocimiento",
+                expert_network: "Red de Expertos",
+                events_training: "Eventos y Capacitación",
+                text_size: "Tamaño de Texto",
+                high_contrast: "Alto Contraste",
+                dyslexic_font: "Fuente Disléxica",
+                toggle_theme: "Cambiar Tema",
+                hero_badge: "Resiliencia Climática con IA",
+                hero_title_1: "Empoderando a los Agricultores",
+                hero_title_2: "Con Herramientas de Conocimiento",
+                hero_title_3: "Para el Éxito",
+                hero_subtitle: "Revolucionando la agricultura en un clima cambiante mediante predicción meteorológica inteligente, asesoramiento de cultivos impulsado por IA y conectividad de mercado global.",
+                explore_platform: "Explorar Plataforma",
+                watch_demo: "Ver Demo",
+                live_weather: "Inteligencia Meteorológica en Vivo",
+                temperature: "Temperatura",
+                humidity: "Humedad",
+                wind_speed: "Viento (km/h)",
+                view_forecast: "Ver Pronóstico",
+                farmers_helped: "Agricultores Ayudados",
+                countries: "Países",
+                yield_increase: "% Aumento de Rendimiento",
+                accuracy_rate: "% Precisión",
+                features_title: "Inteligencia Agrícola Integral",
+                features_subtitle: "Seis sistemas de IA interconectados trabajando juntos para optimizar cada aspecto de su operación agrícola",
+                weather_card_title: "Inteligencia del Clima",
+                weather_card_desc: "Pronósticos hiperlocales en tiempo real con alertas de riesgo climático impulsadas por IA para sequías, inundaciones y eventos climáticos extremos.",
+                feature_7day: "Pronóstico de precisión de 7 días",
+                feature_alerts: "Alertas de clima extremo",
+                feature_microclimate: "Análisis de microclima",
+                crop_card_title: "Asesoría de Cultivos IA",
+                crop_card_desc: "Recomendaciones inteligentes para selección de cultivos, calendarios de siembra y cosecha basados en datos de suelo y clima.",
+                feature_variety: "Selección de variedades",
+                feature_planting: "Fechas óptimas de siembra",
+                feature_pest: "Predicción de plagas",
+                livestock_card_title: "Gestión de Ganado",
+                livestock_card_desc: "Selección de razas, optimización de alimentación y monitoreo de salud impulsados por algoritmos de adaptación climática.",
+                feature_breed: "Recomendaciones de razas",
+                feature_feed: "Formulación de alimentos",
+                feature_health: "Monitoreo de salud",
+                market_card_title: "Inteligencia de Mercado",
+                market_card_desc: "Predicciones de precios, pronósticos de demanda y conexiones directas de mercado para maximizar su rentabilidad.",
+                feature_price: "Pronóstico de precios",
+                feature_buyers: "Coincidencia de compradores",
+                feature_trends: "Tendencias de mercado",
+                soil_card_title: "Análisis de Suelo",
+                soil_card_desc: "Evaluación integral de la salud del suelo con recomendaciones de nutrientes y seguimiento de secuestro de carbono.",
+                feature_nutrients: "Mapeo de nutrientes",
+                feature_ph: "Optimización de pH",
+                feature_carbon: "Seguimiento de carbono",
+                ai_tools_card_title: "Herramientas con IA",
+                ai_tools_card_desc: "Herramientas avanzadas de aprendizaje automático incluyendo visión por computadora para detección de enfermedades y análisis predictivo.",
+                feature_vision: "Visión por computadora",
+                feature_predictive: "Modelos predictivos",
+                feature_chatbot: "Asistente IA 24/7",
+                demo_title: "Experimente el Futuro de la Agricultura",
+                demo_desc: "Nuestro asistente de IA comprende el lenguaje natural y proporciona recomendaciones personalizadas basadas en su ubicación específica, tipo de suelo y condiciones climáticas.",
+                demo_feature_1: "Comprensión del Lenguaje Natural",
+                demo_feature_2: "Reconocimiento de Imágenes",
+                demo_feature_3: "Base de Conocimiento Global",
+                try_assistant: "Probar Asistente IA",
+                community_title: "Comunidad Agrícola Global",
+                community_subtitle: "Conéctese con millones de agricultores, expertos y compradores en todo el mundo",
+                forum_title: "Foro de Discusión",
+                knowledge_title: "Centro de Conocimiento",
+                experts_title: "Red de Expertos",
+                events_title: "Eventos y Capacitación",
+                join_now: "Unirse Ahora",
+                explore: "Explorar",
+                connect: "Conectar",
+                view_events: "Ver Eventos",
+                community_members: "Miembros de la Comunidad",
+                daily_discussions: "Discusiones Diarias",
+                certified_experts: "Expertos Certificados",
+                weekly_events: "Eventos Semanales",
+                impact_title: "Transformando la Agricultura Mundial",
+                impact_desc: "AgriClimate Connect combina IA de vanguardia con profunda experiencia agrícola para ayudar a los agricultores a adaptarse al cambio climático y prosperar en un mundo incierto.",
+                impact_1: "Estrategias de adaptación climática en tiempo real",
+                impact_2: "Acceso directo al mercado eliminando intermediarios",
+                impact_3: "Orientación sobre prácticas agrícolas sostenibles",
+                impact_4: "Inclusión financiera a través de crédito basado en datos",
+                partner_with_us: "Asociarse con Nosotros",
+                contact_title: "Ponerse en Contacto",
+                contact_subtitle: "¿Tiene preguntas? Nuestro equipo está aquí para ayudarle a comenzar",
+                form_name: "Nombre Completo",
+                form_email: "Correo Electrónico",
+                form_subject: "Asunto",
+                form_message: "Mensaje",
+                send_message: "Enviar Mensaje"
+            }
+            // Additional languages can be added here
+        };
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initWeather();
+            initCounters();
+            initParticles();
+           
+            // Check system dark mode preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        });
+        // Weather API Integration
+        async function initWeather() {
+            try {
+                // Get user's location
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        await fetchWeatherData(latitude, longitude);
+                    }, () => {
+                        // Default to Nairobi if location denied
+                        fetchWeatherData(-1.2921, 36.8219);
+                    });
+                } else {
+                    fetchWeatherData(-1.2921, 36.8219);
+                }
+            } catch (error) {
+                console.error('Weather init error:', error);
+            }
+        }
+        async function fetchWeatherData(lat, lon) {
+            try {
+                // Using Open-Meteo API (free, no key required)
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=relativehumidity_2m,windspeed_10m`);
+                const data = await response.json();
+               
+                if (data.current_weather) {
+                    document.getElementById('weather-temp').textContent = `${Math.round(data.current_weather.temperature)}°C`;
+                    document.getElementById('weather-wind').textContent = data.current_weather.windspeed;
+                   
+                    // Get humidity from hourly data (closest hour)
+                    const currentHour = new Date().getHours();
+                    const humidity = data.hourly.relativehumidity_2m[currentHour];
+                    document.getElementById('weather-humidity').textContent = `${humidity}%`;
+                   
+                    // Update location name (reverse geocoding would require another API)
+                    document.getElementById('weather-location').textContent = 'Your Location';
+                }
+            } catch (error) {
+                console.error('Weather fetch error:', error);
+                // Set demo values
+                document.getElementById('weather-temp').textContent = '24°C';
+                document.getElementById('weather-humidity').textContent = '65%';
+                document.getElementById('weather-wind').textContent = '12';
+                document.getElementById('weather-location').textContent = 'Nairobi, Kenya';
+            }
+        }
+        function getDetailedWeather() {
+            showToast('Detailed forecast feature coming soon!');
+        }
+        // Counter Animation
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        animateCounter(counter, target);
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        }
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 30);
+        }
+        // Particle Background
+        function initParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '0';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+           
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+           
+            window.addEventListener('resize', resize);
+            resize();
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+               
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                   
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+               
+                draw() {
+                    ctx.fillStyle = `rgba(34, 197, 94, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+           
+            animate();
+        }
+        // UI Functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('active');
+        }
+        function toggleMobileDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            dropdown.classList.toggle('hidden');
+            icon.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+                document.getElementById('hamburger-btn').classList.remove('active');
+            }
+        }
+        // Dark Mode
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+        // Accessibility Features
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            document.getElementById('text-size-label').textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text mode enabled' : 'Normal text mode enabled');
+        }
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        }
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : '';
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+        // Language Switching
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+           
+            // Update all translated elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+           
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+        function openChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.add('open');
+            widget.classList.remove('closed');
+        }
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        function sendQuickMessage(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            // Show typing indicator
+            showTypingIndicator();
+            // Simulate AI response (in production, this would call your AI API)
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+           
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                    </div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            }
+           
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 flex items-center gap-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+        function generateAIResponse(input) {
+            const lowerInput = input.toLowerCase();
+           
+            if (lowerInput.includes('weather') || lowerInput.includes('rain') || lowerInput.includes('forecast')) {
+                return "Based on current meteorological data, expect moderate rainfall in your region over the next 3 days (65% probability). Temperatures will range between 18-24°C. I recommend postponing any spraying activities and ensuring proper drainage in your fields. Would you like specific crop protection recommendations for this weather pattern?";
+            }
+            else if (lowerInput.includes('crop') || lowerInput.includes('plant') || lowerInput.includes('seed')) {
+                return "For your region's current climate conditions (Highland Tropical), I recommend:\n\n1. **Maize (H614 variety)** - Drought resistant, matures in 4-5 months\n2. **Kale (Sukuma Wiki)** - High market demand, 45-60 days to harvest\n3. **Beans (Rosecoco)** - Nitrogen-fixing properties, improves soil health\n\nSoil moisture levels are optimal for planting within the next 48 hours. Would you like fertilizer recommendations for any specific crop?";
+            }
+            else if (lowerInput.includes('livestock') || lowerInput.includes('animal') || lowerInput.includes('cattle')) {
+                return "For your climate zone, I recommend:\n\n**Breeds:** Boran or Sahiwal cattle (heat tolerant), or Galla goats (drought resistant)\n\n**Feed Strategy:** Current pasture quality is moderate (62% digestibility). Supplement with:\n- 2kg dairy meal per lactating cow daily\n- Mineral lick ad libitum\n- Ensure water intake of 80-100L per cow daily in this heat\n\n**Health Alert:** Monitor for East Coast Fever symptoms due to recent rains. Would you like vaccination schedules?";
+            }
+            else if (lowerInput.includes('market') || lowerInput.includes('price') || lowerInput.includes('sell')) {
+                return "Current Market Intelligence:\n\n**High Demand:**\n- Tomatoes: +23% price increase expected next week\n- Avocados: Export demand rising (Europe/ME markets)\n\n**Optimal Selling Time:**\n- Maize: Wait 2 weeks (prices trending up)\n- Milk: Sell immediately (current peak pricing)\n\n**Buyer Connections:** 3 verified buyers within 15km seeking tomatoes. Shall I facilitate introductions?";
+            }
+            else if (lowerInput.includes('soil') || lowerInput.includes('fertilizer') || lowerInput.includes('nutrient')) {
+                return "Based on regional soil databases and your crop history:\n\n**Soil Health Score:** 7.2/10 (Good)\n\n**Recommendations:**\n- pH: 6.2 (slightly acidic) - Add 200kg/acre agricultural lime\n- Nitrogen: Medium - Apply CAN fertilizer at planting\n- Organic Matter: 3.8% - Incorporate 5 tons/acre compost\n\n**Carbon Credits:** Your soil sequestration potential could generate $45/acre annually. Interested in enrollment?";
+            }
+            else if (lowerInput.includes('drone') || lowerInput.includes('robot') || lowerInput.includes('automation')) {
+                return "Our autonomous fleet status:\n\n**Active Drones:** 3 online, 1 charging\n**Next Mission:** Field 3 survey at 2:00 PM\n**Tractor Alpha:** Currently planting maize in North Sector (78% complete)\n\nWould you like to schedule a new mission or modify current operations? I can also generate Python code for custom automation workflows.";
+            }
+            else if (lowerInput.includes('satellite') || lowerInput.includes('image') || lowerInput.includes('ndvi')) {
+                return "Latest satellite analysis (updated 2 hours ago):\n\n**NDVI Health Index:** 0.78 (Good)\n**Stress Areas Detected:** 2 zones in East Field\n**Growth Stage:** V6 (6-leaf stage for maize)\n**Recommendation:** Increase irrigation in stressed zones by 15%\n\nWould you like me to dispatch drones for detailed inspection of the stressed areas?";
+            }
+            else {
+                return "Thank you for your question! I'm analyzing your farm's specific conditions to provide personalized advice. Could you share:\n\n1. Your specific location/region?\n2. Current crops or livestock?\n3. Farm size?\n\nThis will help me give you precise, actionable recommendations tailored to your operation. Alternatively, you can upload photos of any crop issues for instant diagnosis.";
+            }
+        }
+        // Auth Modal
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            closeAuthModal();
+            showToast(isSignUp ? 'Account created successfully!' : 'Welcome back!');
+        }
+        // Code Editor Modal
+        function openCodeEditor() {
+            document.getElementById('code-editor-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCodeEditor() {
+            document.getElementById('code-editor-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        // Form Submissions
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            showToast('Message sent successfully! We will respond within 24 hours.');
+            event.target.reset();
+        }
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            showToast('Successfully subscribed to newsletter!');
+            event.target.reset();
+        }
+        // Video Modal Placeholder
+        function openVideoModal() {
+            showToast('Demo video loading...');
+        }
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+           
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

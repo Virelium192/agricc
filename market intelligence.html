@@ -1,0 +1,2591 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Intelligence | AgriClimate Connect - AI-Powered Agricultural Market Analytics</title>
+    <meta name="description" content="Real-time global agricultural market intelligence, commodity price tracking, demand forecasting, and AI-powered recommendations for optimal crop and livestock marketing decisions.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        market: {
+                            up: '#22c55e',
+                            down: '#ef4444',
+                            neutral: '#f59e0b',
+                            primary: '#3b82f6',
+                            secondary: '#8b5cf6',
+                            accent: '#06b6d4',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'ticker': 'ticker 30s linear infinite',
+                        'pulse-dot': 'pulse-dot 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        ticker: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        'pulse-dot': {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: 0.5, transform: 'scale(1.2)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Liquid Glass Effects - Identical to Homepage */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+        
+        /* Animated Background */
+        .bg-mesh {
+            background: 
+                radial-gradient(at 0% 0%, hsla(220,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(200,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(180,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(240,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-market {
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 5px;
+        }
+        
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+        
+        .large-text {
+            font-size: 120%;
+        }
+        
+        /* Market Card Animations */
+        .market-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .market-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        /* Price Ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-content:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Price Change Indicators */
+        .price-up {
+            color: #22c55e;
+        }
+        .price-down {
+            color: #ef4444;
+        }
+        
+        /* Heatmap Grid */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 4px;
+        }
+        .heatmap-cell {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        /* Market Depth Visual */
+        .depth-bar {
+            position: relative;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.1);
+        }
+        .depth-fill {
+            position: absolute;
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Live Indicator */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        
+        /* Prediction Confidence */
+        .confidence-bar {
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .confidence-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+        
+        /* News Card */
+        .news-card {
+            transition: all 0.3s ease;
+        }
+        .news-card:hover {
+            transform: translateX(5px);
+        }
+        
+        /* Alert Banner */
+        .alert-banner {
+            animation: slideDown 0.5s ease;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-agri-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- Live Market Ticker -->
+    <div class="fixed top-0 w-full z-[60] bg-slate-900 text-white py-2 overflow-hidden border-b border-slate-700">
+        <div class="ticker-wrap">
+            <div class="ticker-content text-sm font-mono">
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">CORN</span> <span class="price-up">$17.82 ▲0.06%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">WHEAT</span> <span class="price-up">$21.83 ▲4.70%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">DBA</span> <span class="price-up">$25.95 ▲1.92%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">SOYBEAN</span> <span class="price-down">$12.45 ▼1.23%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">COFFEE</span> <span class="price-up">$3.42 ▲2.15%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">COTTON</span> <span class="price-down">$0.78 ▼0.89%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">CATTLE</span> <span class="price-up">$145.30 ▲0.45%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">HOGS</span> <span class="price-down">$67.25 ▼2.10%</span></span>
+                <!-- Duplicate for seamless loop -->
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">CORN</span> <span class="price-up">$17.82 ▲0.06%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">WHEAT</span> <span class="price-up">$21.83 ▲4.70%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">DBA</span> <span class="price-up">$25.95 ▲1.92%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">SOYBEAN</span> <span class="price-down">$12.45 ▼1.23%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">COFFEE</span> <span class="price-up">$3.42 ▲2.15%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">COTTON</span> <span class="price-down">$0.78 ▼0.89%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">CATTLE</span> <span class="price-up">$145.30 ▲0.45%</span></span>
+                <span class="inline-flex items-center gap-2 px-4"><span class="text-gray-400">HOGS</span> <span class="price-down">$67.25 ▼2.10%</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation - Identical to Homepage -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_home">Home</a>
+                    
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-1">
+                            <span data-translate="nav_knowledge">Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather intelligence.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="weather_intel">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="ai crop advisory.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="crop_advisory">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="livestock management.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="livestock">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="market intelligence.html" class="block px-4 py-3 rounded-xl bg-agri-50 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 flex items-center gap-3 border-l-4 border-agri-500">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="market_intelligence">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                            <a href="soil analysis.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="mountain" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="soil_analysis">Soil Analysis</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Nutrient & health insights</div>
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <a href="ai powered tools.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3 bg-agri-50 dark:bg-agri-900/20">
+                                <i data-lucide="cpu" class="w-5 h-5 text-agri-600"></i>
+                                <div>
+                                    <div class="font-medium text-sm text-agri-700 dark:text-agri-400" data-translate="ai_powered">AI-Powered Tools</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Top-tier agricultural AI</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1">
+                            <span data-translate="nav_community">Community</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="discussion forum.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="discussion_forum">Discussion Forum</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Connect with farmers globally</div>
+                                </div>
+                            </a>
+                            <a href="knowledge center.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="book-open" class="w-5 h-5 text-purple-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="knowledge_center">Knowledge Center</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Guides, tutorials & resources</div>
+                                </div>
+                            </a>
+                            <a href="expert network.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="expert_network">Expert Network</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Consult with agronomists</div>
+                                </div>
+                            </a>
+                            <a href="events and training.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm" data-translate="events_training">Events & Training</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Webinars & workshops</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="about us.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_about">About Us</a>
+                    <a href="contact.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" data-translate="nav_contact">Contact</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span data-translate="text_size">Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-agri-100 dark:bg-agri-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span data-translate="high_contrast">High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span data-translate="dyslexic_font">Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                            <button onclick="changeLanguage('hi')" class="w-full px-3 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-orange-500 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">HI</span>
+                                <span class="text-sm">हिन्दी</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-agri-700 dark:text-agri-300 hover:text-agri-800 dark:hover:text-agri-200 flex items-center gap-2">
+                        <span data-translate="get_started">Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_home">Home</a>
+                
+                <!-- Mobile Knowledge Tools -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-knowledge')" class="w-full px-4 py-3 rounded-xl bg-agri-100 dark:bg-agri-900/30 font-medium flex items-center justify-between text-agri-700 dark:text-agri-300">
+                        <span data-translate="nav_knowledge">Knowledge Tools</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-knowledge-icon"></i>
+                    </button>
+                    <div id="mobile-knowledge" class="pl-4 space-y-1">
+                        <a href="weather intelligence.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="weather_intel">Weather Intelligence</a>
+                        <a href="ai crop advisory.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="crop_advisory">AI Crop Advisory</a>
+                        <a href="livestock management.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="livestock">Livestock Management</a>
+                        <a href="market intelligence.html" class="block px-4 py-2 rounded-lg bg-agri-50 dark:bg-agri-900/20 text-agri-700 dark:text-agri-300 text-sm border-l-4 border-agri-500" data-translate="market_intelligence">Market Intelligence</a>
+                        <a href="soil analysis.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="soil_analysis">Soil Analysis</a>
+                        <a href="ai powered tools.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm text-agri-600 font-medium" data-translate="ai_powered">AI-Powered Tools</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Community -->
+                <div class="space-y-1">
+                    <button onclick="toggleMobileDropdown('mobile-community')" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center justify-between">
+                        <span data-translate="nav_community">Community</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="mobile-community-icon"></i>
+                    </button>
+                    <div id="mobile-community" class="hidden pl-4 space-y-1">
+                        <a href="discussion forum.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="discussion_forum">Discussion Forum</a>
+                        <a href="knowledge.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="knowledge_center">Knowledge Center</a>
+                        <a href="expert network.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="expert_network">Expert Network</a>
+                        <a href="events and training.html" class="block px-4 py-2 rounded-lg hover:bg-agri-100 dark:hover:bg-agri-900/30 text-sm" data-translate="events_training">Events & Training</a>
+                    </div>
+                </div>
+
+                <a href="about us.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_about">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium" data-translate="nav_contact">Contact</a>
+                
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span data-translate="toggle_theme">Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-agri-100 dark:hover:bg-agri-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span data-translate="text_size">Text Size</span>
+                    </button>
+                    <div class="px-4 py-2">
+                        <select onchange="changeLanguage(this.value)" class="w-full p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-sm">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-agri-600 to-agri-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" data-translate="get_started">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-28">
+        <!-- Hero Section -->
+        <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-900/20">
+            <!-- Animated Background -->
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-32 left-10 w-32 h-32 bg-blue-400/30 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
+            <div class="absolute bottom-32 right-10 w-48 h-48 bg-cyan-400/20 rounded-full blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-morph"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-8 animate-float">
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        <span class="text-sm font-medium text-green-600 dark:text-green-400">Live Market Data</span>
+                    </span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                    <span class="block text-earth-800 dark:text-earth-100" data-translate="market_title_1">Global Market</span>
+                    <span class="block text-gradient mt-2" data-translate="market_title_2">Intelligence</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed" data-translate="market_subtitle">
+                    Real-time commodity prices, AI-powered demand forecasting, and intelligent market insights to maximize your agricultural profits across global markets.
+                </p>
+
+                <!-- Quick Market Selector -->
+                <div class="max-w-4xl mx-auto glass dark:glass-dark rounded-2xl p-6 shadow-2xl border border-white/30">
+                    <div class="grid md:grid-cols-4 gap-4 mb-4">
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Commodity</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="wheat" class="w-5 h-5 text-gray-400"></i>
+                                <select id="commodity-select" class="flex-1 bg-transparent border-none outline-none text-sm" onchange="updateCommodityData()">
+                                    <option value="corn">Corn/Maize</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="soybean">Soybean</option>
+                                    <option value="coffee">Coffee</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="cattle">Live Cattle</option>
+                                    <option value="sugar">Sugar</option>
+                                    <option value="cocoa">Cocoa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Market Region</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="globe" class="w-5 h-5 text-gray-400"></i>
+                                <select id="region-select" class="flex-1 bg-transparent border-none outline-none text-sm">
+                                    <option value="global">Global Average</option>
+                                    <option value="africa">East Africa</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="asia">Asia Pacific</option>
+                                    <option value="americas">Americas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Timeframe</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-400"></i>
+                                <select id="timeframe-select" class="flex-1 bg-transparent border-none outline-none text-sm" onchange="updateTimeframe()">
+                                    <option value="1D">1 Day</option>
+                                    <option value="1W">1 Week</option>
+                                    <option value="1M" selected>1 Month</option>
+                                    <option value="3M">3 Months</option>
+                                    <option value="1Y">1 Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-xs font-medium text-gray-500 mb-1 uppercase tracking-wider">Your Position</label>
+                            <div class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700">
+                                <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                                <select id="position-select" class="flex-1 bg-transparent border-none outline-none text-sm">
+                                    <option value="seller">Seller/Producer</option>
+                                    <option value="buyer">Buyer/Consumer</option>
+                                    <option value="trader">Trader</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="analyzeMarket()" class="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
+                        <i data-lucide="activity" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                        <span>Get AI Market Analysis</span>
+                    </button>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Real-time Prices</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> AI Forecasting</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Global Markets</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-agri-500"></i> Demand Signals</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Dashboard -->
+        <section id="market-dashboard" class="py-12 -mt-20 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <!-- Dashboard Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                        <div>
+                            <h2 class="text-2xl font-bold flex items-center gap-3">
+                                <i data-lucide="bar-chart-3" class="w-6 h-6 text-blue-500"></i>
+                                <span>Market Intelligence Dashboard</span>
+                                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">Live Updates</span>
+                            </h2>
+                            <p class="text-sm text-gray-500 mt-1">Real-time commodity tracking and AI-powered market predictions</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="refreshMarketData()" class="px-4 py-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors flex items-center gap-2 text-sm font-medium">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                Refresh Data
+                            </button>
+                            <button onclick="exportReport()" class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm font-medium">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                Export Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Key Metrics Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center border-l-4 border-green-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-500 uppercase">Corn/Maize</span>
+                                <span class="text-xs font-bold text-green-600 flex items-center gap-1">
+                                    <i data-lucide="trending-up" class="w-3 h-3"></i> +0.06%
+                                </span>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 dark:text-white">$17.82</div>
+                            <div class="text-xs text-gray-500 mt-1">per bushel</div>
+                            <div class="mt-2 text-xs text-green-600 bg-green-50 dark:bg-green-900/20 py-1 rounded">Bullish Trend</div>
+                        </div>
+                        
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center border-l-4 border-green-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-500 uppercase">Wheat</span>
+                                <span class="text-xs font-bold text-green-600 flex items-center gap-1">
+                                    <i data-lucide="trending-up" class="w-3 h-3"></i> +4.70%
+                                </span>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 dark:text-white">$21.83</div>
+                            <div class="text-xs text-gray-500 mt-1">per bushel</div>
+                            <div class="mt-2 text-xs text-green-600 bg-green-50 dark:bg-green-900/20 py-1 rounded">Strong Buy</div>
+                        </div>
+                        
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center border-l-4 border-green-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-500 uppercase">Agri Index</span>
+                                <span class="text-xs font-bold text-green-600 flex items-center gap-1">
+                                    <i data-lucide="trending-up" class="w-3 h-3"></i> +1.92%
+                                </span>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 dark:text-white">$25.95</div>
+                            <div class="text-xs text-gray-500 mt-1">DBA ETF</div>
+                            <div class="mt-2 text-xs text-blue-600 bg-blue-50 dark:bg-blue-900/20 py-1 rounded">Accumulate</div>
+                        </div>
+                        
+                        <div class="glass-card dark:glass-dark rounded-2xl p-4 text-center border-l-4 border-red-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-gray-500 uppercase">Soybean</span>
+                                <span class="text-xs font-bold text-red-600 flex items-center gap-1">
+                                    <i data-lucide="trending-down" class="w-3 h-3"></i> -1.23%
+                                </span>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 dark:text-white">$12.45</div>
+                            <div class="text-xs text-gray-500 mt-1">per bushel</div>
+                            <div class="mt-2 text-xs text-red-600 bg-red-50 dark:bg-red-900/20 py-1 rounded">Hold/Reduce</div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Grid -->
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Left: Price Chart -->
+                        <div class="lg:col-span-2">
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6 mb-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                                        <i data-lucide="line-chart" class="w-5 h-5 text-blue-500"></i>
+                                        Price Trends & Predictions
+                                    </h3>
+                                    <div class="flex gap-2">
+                                        <button onclick="togglePredictionOverlay()" class="px-3 py-1 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-medium">
+                                            AI Prediction
+                                        </button>
+                                        <select class="px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 text-xs border-none">
+                                            <option>Candlestick</option>
+                                            <option>Line</option>
+                                            <option>Area</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="chart-container" style="height: 350px;">
+                                    <canvas id="mainPriceChart"></canvas>
+                                </div>
+                                <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <div class="flex gap-4 text-sm">
+                                        <span class="flex items-center gap-2">
+                                            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                            Actual Price
+                                        </span>
+                                        <span class="flex items-center gap-2">
+                                            <span class="w-3 h-3 rounded-full bg-purple-500 opacity-50"></span>
+                                            AI Prediction (7-day)
+                                        </span>
+                                    </div>
+                                    <div class="text-xs text-gray-500">
+                                        Last updated: <span id="last-update">Just now</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Market Heatmap -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="layout-grid" class="w-5 h-5 text-orange-500"></i>
+                                    Commodity Performance Heatmap
+                                </h3>
+                                <div class="heatmap-grid" id="market-heatmap">
+                                    <!-- Generated by JS -->
+                                </div>
+                                <div class="flex justify-between items-center mt-4 text-xs text-gray-500">
+                                    <span>← Negative Performance</span>
+                                    <div class="flex gap-1">
+                                        <span class="w-4 h-4 rounded bg-red-500"></span>
+                                        <span class="w-4 h-4 rounded bg-red-400"></span>
+                                        <span class="w-4 h-4 rounded bg-yellow-400"></span>
+                                        <span class="w-4 h-4 rounded bg-green-400"></span>
+                                        <span class="w-4 h-4 rounded bg-green-500"></span>
+                                    </div>
+                                    <span>Positive Performance →</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: AI Insights Panel -->
+                        <div class="space-y-6">
+                            <!-- AI Market Sentiment -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="brain" class="w-5 h-5 text-purple-500"></i>
+                                    AI Market Sentiment
+                                </h4>
+                                
+                                <div class="mb-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">Bullish Sentiment</span>
+                                        <span class="text-sm font-bold text-green-600">68%</span>
+                                    </div>
+                                    <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full" style="width: 68%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-xl border-l-4 border-green-500">
+                                        <i data-lucide="trending-up" class="w-5 h-5 text-green-600"></i>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm text-green-700 dark:text-green-300">Strong Buy Signal</div>
+                                            <div class="text-xs text-gray-500">Wheat - Supply constraints expected</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl border-l-4 border-blue-500">
+                                        <i data-lucide="minus" class="w-5 h-5 text-blue-600"></i>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm text-blue-700 dark:text-blue-300">Hold Position</div>
+                                            <div class="text-xs text-gray-500">Corn - Stable demand outlook</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border-l-4 border-yellow-500">
+                                        <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600"></i>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm text-yellow-700 dark:text-yellow-300">Caution Advised</div>
+                                            <div class="text-xs text-gray-500">Soybean - Export demand weakening</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <div class="text-xs text-gray-500 mb-2">Prediction Confidence</div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="flex-1 confidence-bar">
+                                            <div class="confidence-fill bg-gradient-to-r from-blue-400 to-purple-500" style="width: 87%"></div>
+                                        </div>
+                                        <span class="text-sm font-bold text-purple-600">87%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Demand Forecast -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="globe" class="w-5 h-5 text-cyan-500"></i>
+                                    Regional Demand Forecast
+                                </h4>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm">East Africa</span>
+                                            <span class="text-sm font-bold text-green-600">+12.5%</span>
+                                        </div>
+                                        <div class="depth-bar">
+                                            <div class="depth-fill bg-green-500" style="width: 85%"></div>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">High demand for maize & beans</div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm">European Union</span>
+                                            <span class="text-sm font-bold text-blue-600">+4.2%</span>
+                                        </div>
+                                        <div class="depth-bar">
+                                            <div class="depth-fill bg-blue-500" style="width: 65%"></div>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">Stable wheat demand</div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm">Asia Pacific</span>
+                                            <span class="text-sm font-bold text-yellow-600">-2.1%</span>
+                                        </div>
+                                        <div class="depth-bar">
+                                            <div class="depth-fill bg-yellow-500" style="width: 45%"></div>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">Soybean import slowdown</div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm">Middle East</span>
+                                            <span class="text-sm font-bold text-green-600">+8.7%</span>
+                                        </div>
+                                        <div class="depth-bar">
+                                            <div class="depth-fill bg-green-500" style="width: 72%"></div>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">Rising livestock feed demand</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Market Alerts -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6">
+                                <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="bell" class="w-5 h-5 text-red-500"></i>
+                                    Price Alerts
+                                </h4>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl">
+                                        <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">Wheat price target reached</div>
+                                            <div class="text-xs text-gray-500">$22.00/bushel - Consider selling</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl">
+                                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">Corn volatility increasing</div>
+                                            <div class="text-xs text-gray-500">VIX up 15% - Monitor closely</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                                        <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                                        <div class="flex-1">
+                                            <div class="font-medium text-sm">New buyer from UAE</div>
+                                            <div class="text-xs text-gray-500">Seeking 10,000MT wheat</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="w-full mt-4 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors">
+                                    <i data-lucide="plus" class="w-4 h-4 inline mr-1"></i> Set New Alert
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Recommendations Engine -->
+        <section id="ai-recommendations" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">AI-Powered Market Recommendations</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Machine learning algorithms analyze global supply chains, weather patterns, and economic indicators to optimize your selling and buying decisions
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- For Sellers -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg">
+                                <i data-lucide="trending-up" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold">For Sellers</h3>
+                                <p class="text-gray-500">Maximize your selling price</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4" id="seller-recommendations">
+                            <div class="market-card glass-card dark:glass-dark rounded-2xl p-6 border-2 border-green-400/50 relative overflow-hidden group cursor-pointer">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-green-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                <div class="absolute top-4 right-4">
+                                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-bold">96% Confidence</span>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="wheat" class="w-6 h-6 text-green-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-lg font-bold mb-2">Sell Wheat Now</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                            Prices are at 6-month highs due to supply concerns in major exporting regions. Lock in profits before expected correction.
+                                        </p>
+                                        
+                                        <div class="grid grid-cols-3 gap-3 mb-4">
+                                            <div class="text-center p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-green-600">$21.83</div>
+                                                <div class="text-xs text-gray-500">Current</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-green-600">$20.50</div>
+                                                <div class="text-xs text-gray-500">Predicted</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-green-600">7 days</div>
+                                                <div class="text-xs text-gray-500">Window</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs text-gray-500">Potential gain: $1.33/bushel</span>
+                                            <button class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors">
+                                                Find Buyers
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="market-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-green-400/50 relative overflow-hidden group cursor-pointer">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                <div class="absolute top-4 right-4">
+                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold">82% Confidence</span>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="corn" class="w-6 h-6 text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-lg font-bold mb-2">Hold Corn Position</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                            Stable demand outlook with potential upside from ethanol production increases. Monitor for breakout above $18.50.
+                                        </p>
+                                        
+                                        <div class="grid grid-cols-3 gap-3 mb-4">
+                                            <div class="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-blue-600">$17.82</div>
+                                                <div class="text-xs text-gray-500">Current</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-blue-600">$18.75</div>
+                                                <div class="text-xs text-gray-500">Target</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-blue-600">14 days</div>
+                                                <div class="text-xs text-gray-500">Expected</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs text-gray-500">Set alert at $18.30</span>
+                                            <button class="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
+                                                Set Alert
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- For Buyers -->
+                    <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center shadow-lg">
+                                <i data-lucide="shopping-cart" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold">For Buyers</h3>
+                                <p class="text-gray-500">Optimize procurement costs</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4" id="buyer-recommendations">
+                            <div class="market-card glass-card dark:glass-dark rounded-2xl p-6 border-2 border-blue-400/50 relative overflow-hidden group cursor-pointer">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                <div class="absolute top-4 right-4">
+                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold">91% Confidence</span>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="bean" class="w-6 h-6 text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-lg font-bold mb-2">Buy Soybean Now</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                            Prices near support levels with oversold technical indicators. Excellent entry point for long-term procurement.
+                                        </p>
+                                        
+                                        <div class="grid grid-cols-3 gap-3 mb-4">
+                                            <div class="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-blue-600">$12.45</div>
+                                                <div class="text-xs text-gray-500">Current</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-blue-600">$13.80</div>
+                                                <div class="text-xs text-gray-500">Expected</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-blue-600">21 days</div>
+                                                <div class="text-xs text-gray-500">Recovery</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs text-gray-500">Potential savings: 10.8%</span>
+                                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+                                                Find Suppliers
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="market-card glass-card dark:glass-dark rounded-2xl p-6 border border-white/20 hover:border-blue-400/50 relative overflow-hidden group cursor-pointer">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-400/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                                <div class="absolute top-4 right-4">
+                                    <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-xs font-bold">74% Confidence</span>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="coffee" class="w-6 h-6 text-purple-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-lg font-bold mb-2">Wait on Coffee</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                            Brazilian harvest entering peak season. Expect 8-12% price decline over next 3 weeks before stabilizing.
+                                        </p>
+                                        
+                                        <div class="grid grid-cols-3 gap-3 mb-4">
+                                            <div class="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-purple-600">$3.42</div>
+                                                <div class="text-xs text-gray-500">Current</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-purple-600">$3.05</div>
+                                                <div class="text-xs text-gray-500">Target</div>
+                                            </div>
+                                            <div class="text-center p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                                <div class="text-lg font-bold text-purple-600">21 days</div>
+                                                <div class="text-xs text-gray-500">Wait time</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs text-gray-500">Potential savings: $0.37/lb</span>
+                                            <button class="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors">
+                                                Set Reminder
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Market Overview -->
+        <section id="global-markets" class="py-16 relative bg-gradient-to-b from-blue-50/30 dark:from-blue-900/10 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Global Market Overview</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">Track agricultural commodity markets across major trading hubs</p>
+                </div>
+
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <!-- Market Tabs -->
+                    <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button onclick="switchMarketTab('grains')" class="market-tab active px-4 py-2 rounded-lg text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300" data-tab="grains">
+                            Grains & Oilseeds
+                        </button>
+                        <button onclick="switchMarketTab('livestock')" class="market-tab px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" data-tab="livestock">
+                            Livestock
+                        </button>
+                        <button onclick="switchMarketTab('softs')" class="market-tab px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" data-tab="softs">
+                            Soft Commodities
+                        </button>
+                        <button onclick="switchMarketTab('dairy')" class="market-tab px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" data-tab="dairy">
+                            Dairy
+                        </button>
+                    </div>
+
+                    <!-- Market Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <th class="text-left py-3 px-4 font-semibold">Commodity</th>
+                                    <th class="text-right py-3 px-4 font-semibold">Price</th>
+                                    <th class="text-right py-3 px-4 font-semibold">Change</th>
+                                    <th class="text-right py-3 px-4 font-semibold">Change %</th>
+                                    <th class="text-center py-3 px-4 font-semibold">Trend</th>
+                                    <th class="text-center py-3 px-4 font-semibold">Volume</th>
+                                    <th class="text-center py-3 px-4 font-semibold">AI Signal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="market-table-body">
+                                <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                                                <i data-lucide="wheat" class="w-4 h-4 text-yellow-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Corn</div>
+                                                <div class="text-xs text-gray-500">CBOT</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-right font-bold">$17.82</td>
+                                    <td class="py-4 px-4 text-right text-green-600">+$0.01</td>
+                                    <td class="py-4 px-4 text-right text-green-600">+0.06%</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <div class="w-16 h-8 mx-auto">
+                                            <canvas class="sparkline" data-values="[17.70,17.72,17.68,17.75,17.80,17.82]"></canvas>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-center text-gray-500">245K</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs">HOLD</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                                                <i data-lucide="wheat" class="w-4 h-4 text-amber-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Wheat</div>
+                                                <div class="text-xs text-gray-500">CBOT</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-right font-bold">$21.83</td>
+                                    <td class="py-4 px-4 text-right text-green-600">+$0.98</td>
+                                    <td class="py-4 px-4 text-right text-green-600">+4.70%</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <div class="w-16 h-8 mx-auto">
+                                            <canvas class="sparkline" data-values="[20.85,20.87,20.70,20.68,20.65,21.83]"></canvas>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-center text-gray-500">189K</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs">BUY</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                                                <i data-lucide="bean" class="w-4 h-4 text-green-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Soybean</div>
+                                                <div class="text-xs text-gray-500">CBOT</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-right font-bold">$12.45</td>
+                                    <td class="py-4 px-4 text-right text-red-600">-$0.15</td>
+                                    <td class="py-4 px-4 text-right text-red-600">-1.23%</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <div class="w-16 h-8 mx-auto">
+                                            <canvas class="sparkline" data-values="[12.60,12.58,12.55,12.50,12.48,12.45]"></canvas>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-center text-gray-500">312K</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded text-xs">CAUTION</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                                                <i data-lucide="droplets" class="w-4 h-4 text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Soybean Oil</div>
+                                                <div class="text-xs text-gray-500">CBOT</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-right font-bold">$0.48</td>
+                                    <td class="py-4 px-4 text-right text-green-600">+$0.01</td>
+                                    <td class="py-4 px-4 text-right text-green-600">+2.10%</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <div class="w-16 h-8 mx-auto">
+                                            <canvas class="sparkline" data-values="[0.47,0.47,0.48,0.48,0.48,0.48]"></canvas>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-center text-gray-500">156K</td>
+                                    <td class="py-4 px-4 text-center">
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs">BUY</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market News & Analysis -->
+        <section id="market-news" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- News Feed -->
+                    <div class="lg:col-span-2">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                            <i data-lucide="newspaper" class="w-6 h-6 text-blue-500"></i>
+                            Market News & Analysis
+                        </h3>
+
+                        <div class="space-y-4" id="news-feed">
+                            <div class="news-card glass-card dark:glass-dark rounded-2xl p-6 border-l-4 border-red-500">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-xs font-bold">HIGH IMPACT</span>
+                                            <span class="text-xs text-gray-500">2 hours ago</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2">Drought Conditions Worsen in Argentine Wheat Belt</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                            Extended dry spell threatens 15% of Argentina's wheat production. Global supply concerns pushing prices higher. Brazil and EU may increase exports to fill gap.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                                            <span class="flex items-center gap-1">
+                                                <i data-lucide="tag" class="w-3 h-3"></i> Wheat, Argentina, Weather
+                                            </span>
+                                            <span class="flex items-center gap-1">
+                                                <i data-lucide="clock" class="w-3 h-3"></i> 5 min read
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-card glass-card dark:glass-dark rounded-2xl p-6 border-l-4 border-blue-500">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="ship" class="w-6 h-6 text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-bold">TRADE</span>
+                                            <span class="text-xs text-gray-500">4 hours ago</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2">China Increases US Soybean Purchases</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                            Chinese buyers booked 12 cargoes of US soybeans this week, signaling improved trade relations. Demand recovery expected to support prices through Q2.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                                            <span class="flex items-center gap-1">
+                                                <i data-lucide="tag" class="w-3 h-3"></i> Soybean, China, Trade
+                                            </span>
+                                            <span class="flex items-center gap-1">
+                                                <i data-lucide="clock" class="w-3 h-3"></i> 3 min read
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-card glass-card dark:glass-dark rounded-2xl p-6 border-l-4 border-green-500">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="sprout" class="w-6 h-6 text-green-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs font-bold">PRODUCTION</span>
+                                            <span class="text-xs text-gray-500">6 hours ago</span>
+                                        </div>
+                                        <h4 class="font-bold text-lg mb-2">USDA Report: Corn Stocks Lower Than Expected</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                            Quarterly grain stocks report shows corn inventories 8% below analyst estimates. Strong ethanol demand and export pace tightening supply availability.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-xs text-gray-500">
+                                            <span class="flex items-center gap-1">
+                                                <i data-lucide="tag" class="w-3 h-3"></i> Corn, USDA, Stocks
+                                            </span>
+                                            <span class="flex items-center gap-1">
+                                                <i data-lucide="clock" class="w-3 h-3"></i> 4 min read
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="w-full mt-6 py-3 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors">
+                            Load More News
+                        </button>
+                    </div>
+
+                    <!-- Market Calendar -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-5 h-5 text-orange-500"></i>
+                            Economic Calendar
+                        </h3>
+
+                        <div class="glass-card dark:glass-dark rounded-2xl p-6 space-y-4">
+                            <div class="flex items-start gap-3 pb-4 border-b border-gray-200 dark:border-gray-700">
+                                <div class="w-12 text-center flex-shrink-0">
+                                    <div class="text-xs text-gray-500">MAR</div>
+                                    <div class="text-xl font-bold text-blue-600">05</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-xs">HIGH</span>
+                                    </div>
+                                    <div class="font-medium text-sm">USDA Weekly Export Sales</div>
+                                    <div class="text-xs text-gray-500">8:30 AM ET</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 pb-4 border-b border-gray-200 dark:border-gray-700">
+                                <div class="w-12 text-center flex-shrink-0">
+                                    <div class="text-xs text-gray-500">MAR</div>
+                                    <div class="text-xl font-bold text-blue-600">07</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded text-xs">MEDIUM</span>
+                                    </div>
+                                    <div class="font-medium text-sm">EIA Ethanol Report</div>
+                                    <div class="text-xs text-gray-500">10:30 AM ET</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 pb-4 border-b border-gray-200 dark:border-gray-700">
+                                <div class="w-12 text-center flex-shrink-0">
+                                    <div class="text-xs text-gray-500">MAR</div>
+                                    <div class="text-xl font-bold text-blue-600">10</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-xs">HIGH</span>
+                                    </div>
+                                    <div class="font-medium text-sm">WASDE Report</div>
+                                    <div class="text-xs text-gray-500">12:00 PM ET</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-12 text-center flex-shrink-0">
+                                    <div class="text-xs text-gray-500">MAR</div>
+                                    <div class="text-xl font-bold text-blue-600">14</div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-xs">LOW</span>
+                                    </div>
+                                    <div class="font-medium text-sm">CFTC Commitment of Traders</div>
+                                    <div class="text-xs text-gray-500">3:30 PM ET</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weather Impact -->
+                        <div class="glass-card dark:glass-dark rounded-2xl p-6 mt-6">
+                            <h4 class="font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-cyan-500"></i>
+                                Weather Impact on Markets
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="map-pin" class="w-4 h-4 text-yellow-600"></i>
+                                        <span class="text-sm">US Midwest</span>
+                                    </div>
+                                    <span class="text-xs font-medium text-yellow-600">Dry conditions</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="map-pin" class="w-4 h-4 text-blue-600"></i>
+                                        <span class="text-sm">Brazil</span>
+                                    </div>
+                                    <span class="text-xs font-medium text-blue-600">Favorable rains</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-xl">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="map-pin" class="w-4 h-4 text-red-600"></i>
+                                        <span class="text-sm">Argentina</span>
+                                    </div>
+                                    <span class="text-xs font-medium text-red-600">Severe drought</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Price Prediction Tool -->
+        <section id="prediction-tool" class="py-16 relative bg-gradient-to-b from-transparent to-blue-50/30 dark:to-blue-900/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">AI Price Prediction Tool</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">Forecast commodity prices using machine learning models trained on 10+ years of market data</p>
+                </div>
+
+                <div class="glass dark:glass-dark rounded-3xl p-6 md:p-8 shadow-2xl border border-white/30">
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Input Panel -->
+                        <div class="lg:col-span-1">
+                            <h3 class="text-lg font-semibold mb-6">Prediction Parameters</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Select Commodity</label>
+                                    <select id="predict-commodity" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="wheat">Wheat</option>
+                                        <option value="corn">Corn</option>
+                                        <option value="soybean">Soybean</option>
+                                        <option value="coffee">Coffee</option>
+                                        <option value="cotton">Cotton</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Forecast Horizon</label>
+                                    <select id="predict-horizon" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="7">7 Days</option>
+                                        <option value="30" selected>30 Days</option>
+                                        <option value="90">90 Days</option>
+                                        <option value="180">6 Months</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Scenario Analysis</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                                            <input type="radio" name="scenario" value="base" checked class="w-4 h-4 text-blue-600">
+                                            <div>
+                                                <div class="font-medium text-sm">Base Case</div>
+                                                <div class="text-xs text-gray-500">Normal weather, steady demand</div>
+                                            </div>
+                                        </label>
+                                        <label class="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                                            <input type="radio" name="scenario" value="bull" class="w-4 h-4 text-blue-600">
+                                            <div>
+                                                <div class="font-medium text-sm">Bull Case</div>
+                                                <div class="text-xs text-gray-500">Supply disruption, high demand</div>
+                                            </div>
+                                        </label>
+                                        <label class="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-slate-800/50 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                                            <input type="radio" name="scenario" value="bear" class="w-4 h-4 text-blue-600">
+                                            <div>
+                                                <div class="font-medium text-sm">Bear Case</div>
+                                                <div class="text-xs text-gray-500">Record harvests, weak demand</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button onclick="runPrediction()" class="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="brain" class="w-5 h-5"></i>
+                                    <span>Generate Prediction</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Results Panel -->
+                        <div class="lg:col-span-2">
+                            <div class="glass-card dark:glass-dark rounded-2xl p-6 h-full">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="font-semibold">Price Forecast: Wheat (30 Days)</h4>
+                                    <div class="flex gap-2">
+                                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs">LSTM Model</span>
+                                        <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs">92% Accuracy</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="chart-container" style="height: 300px;">
+                                    <canvas id="predictionChart"></canvas>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-4 mt-6">
+                                    <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                                        <div class="text-xs text-gray-500 mb-1">Predicted Price</div>
+                                        <div class="text-2xl font-bold text-blue-600">$22.45</div>
+                                        <div class="text-xs text-green-600">+2.8%</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
+                                        <div class="text-xs text-gray-500 mb-1">Confidence Interval</div>
+                                        <div class="text-2xl font-bold text-purple-600">±$1.20</div>
+                                        <div class="text-xs text-gray-500">95% confidence</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+                                        <div class="text-xs text-gray-500 mb-1">Model Accuracy</div>
+                                        <div class="text-2xl font-bold text-green-600">92.4%</div>
+                                        <div class="text-xs text-gray-500">30-day backtest</div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border-l-4 border-amber-500">
+                                    <div class="flex items-start gap-3">
+                                        <i data-lucide="lightbulb" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                                        <div>
+                                            <div class="font-medium text-sm mb-1">AI Insight</div>
+                                            <div class="text-xs text-gray-600 dark:text-gray-400">
+                                                Model indicates 78% probability of price appreciation based on current supply tightness and strong export demand. Key risk factor: Weather in Black Sea region.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="py-16 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">How Market Intelligence Works</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">Advanced technology stack for agricultural market analysis</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="database" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">1. Data Aggregation</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Real-time feeds from 50+ global exchanges, weather stations, and satellite imagery sources.</p>
+                    </div>
+
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="brain-circuit" class="w-8 h-8 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">2. AI Processing</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Machine learning models analyze patterns, correlations, and anomalies across millions of data points.</p>
+                    </div>
+
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="git-merge" class="w-8 h-8 text-cyan-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">3. Signal Generation</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Algorithms generate buy/sell/hold signals with confidence scores and risk assessments.</p>
+                    </div>
+
+                    <div class="glass-card dark:glass-dark rounded-2xl p-6 text-center hover:scale-105 transition-transform">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
+                            <i data-lucide="send" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">4. Actionable Alerts</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Timely notifications via app, SMS, email, or WhatsApp for immediate market action.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass dark:glass-dark rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-cyan-600/10"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay Ahead of the Market</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                            Join 25,000+ farmers and traders using AI-powered market intelligence to maximize profits and minimize risk.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="openAuthModal()" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                <span>Start Free Trial</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="openChat()" class="px-8 py-4 glass-button rounded-full font-semibold flex items-center justify-center gap-2">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                <span>Talk to Market Expert</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Identical to Homepage -->
+    <footer class="bg-earth-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center">
+                            <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold">AgriClimate</span>
+                            <span class="text-xs text-agri-400 block">CONNECT</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Empowering farmers worldwide with AI-driven climate intelligence and sustainable agricultural solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-agri-600 transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="index.html" class="hover:text-agri-400 transition-colors">Home</a></li>
+                        <li><a href="weather.html" class="hover:text-agri-400 transition-colors">Weather Intelligence</a></li>
+                        <li><a href="crops.html" class="hover:text-agri-400 transition-colors">AI Crop Advisory</a></li>
+                        <li><a href="market.html" class="hover:text-agri-400 transition-colors">Marketplace</a></li>
+                        <li><a href="community.html" class="hover:text-agri-400 transition-colors">Community</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Resources</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Community Guidelines</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-agri-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-semibold mb-6 text-lg">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe to our newsletter for the latest agricultural insights.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-agri-500 text-sm">
+                        <button type="submit" class="px-4 py-2 bg-agri-600 rounded-lg hover:bg-agri-700 transition-colors">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">
+                    © 2026 AgriClimate Connect. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-full shadow-2xl hover:shadow-agri-500/50 transition-all hover:scale-110 z-40 flex items-center justify-center group" aria-label="Open AI Assistant">
+        <i data-lucide="bot" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+        <span class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center animate-pulse">1</span>
+    </button>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget closed fixed bottom-24 right-6 w-96 h-[500px] glass dark:glass-dark rounded-3xl shadow-2xl border border-white/30 z-40 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-agri-600 to-agri-500 text-white">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">AgriClimate AI</h4>
+                    <p class="text-xs text-agri-100 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                        Online now
+                    </p>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                    Hello! I'm your market intelligence assistant. I can help with commodity price analysis, market trends, trading signals, and optimal timing for buying or selling. What would you like to know?
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-800/80">
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Ask about prices, trends, or trading..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-agri-500 text-sm" onkeypress="handleChatKeypress(event)">
+                <button onclick="sendMessage()" class="p-2 bg-agri-600 text-white rounded-xl hover:bg-agri-700 transition-colors">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex gap-2 mt-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('Should I sell wheat now?')" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full text-xs whitespace-nowrap hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">Sell wheat?</button>
+                <button onclick="sendQuickMessage('What is the corn price forecast?')" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full text-xs whitespace-nowrap hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">Corn forecast?</button>
+                <button onclick="sendQuickMessage('Best time to buy fertilizer?')" class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 rounded-full text-xs whitespace-nowrap hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition-colors">Fertilizer timing?</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass dark:glass-dark rounded-3xl p-8 shadow-2xl border border-white/30 relative">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sprout" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" id="auth-title">Welcome Back</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Sign in to access market intelligence</p>
+                </div>
+
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="name-field" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-agri-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-agri-600 to-agri-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        <span id="auth-submit-text">Sign In</span>
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    <span id="auth-switch-text">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" class="text-agri-600 font-semibold hover:underline ml-1" id="auth-switch-btn">Sign Up</button>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <button class="w-full py-3 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        <img src="https://www.google.com/favicon.ico" class="w-5 h-5" alt="Google">
+                        <span class="text-sm font-medium">Continue with Google</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass dark:glass-dark px-6 py-3 rounded-full shadow-2xl border border-white/30 flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-agri-600"></i>
+        <span id="toast-message" class="text-sm font-medium">Success!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Global State
+        let currentLanguage = 'en';
+        let isDarkMode = false;
+        let isLargeText = false;
+        let isHighContrast = false;
+        let isDyslexicFont = false;
+        let isSignUp = false;
+        let mainPriceChart = null;
+        let predictionChart = null;
+        let showPrediction = false;
+
+        // Real Market Data from API
+        const marketData = {
+            dba: {
+                price: 25.95,
+                change: 1.92,
+                data: [{"Date":"2026-01-20","Close":25.49},{"Date":"2026-01-21","Close":25.55},{"Date":"2026-01-22","Close":25.60},{"Date":"2026-01-23","Close":25.74},{"Date":"2026-01-26","Close":25.76},{"Date":"2026-01-27","Close":25.84},{"Date":"2026-01-28","Close":25.88},{"Date":"2026-01-29","Close":25.87},{"Date":"2026-01-30","Close":25.66},{"Date":"2026-02-02","Close":25.65},{"Date":"2026-02-03","Close":25.75},{"Date":"2026-02-04","Close":25.71},{"Date":"2026-02-05","Close":25.77},{"Date":"2026-02-06","Close":25.77},{"Date":"2026-02-09","Close":25.75},{"Date":"2026-02-10","Close":25.73},{"Date":"2026-02-11","Close":25.82},{"Date":"2026-02-12","Close":25.89},{"Date":"2026-02-13","Close":25.79},{"Date":"2026-02-17","Close":25.71},{"Date":"2026-02-18","Close":25.84},{"Date":"2026-02-19","Close":25.90},{"Date":"2026-02-20","Close":26.03},{"Date":"2026-02-23","Close":25.97},{"Date":"2026-02-24","Close":26.01},{"Date":"2026-02-25","Close":26.12},{"Date":"2026-02-26","Close":26.05},{"Date":"2026-02-27","Close":26.02},{"Date":"2026-03-02","Close":25.99},{"Date":"2026-03-03","Close":25.95}]
+            },
+            corn: {
+                price: 17.82,
+                change: 0.06,
+                data: [{"Date":"2026-01-20","Close":17.18},{"Date":"2026-01-21","Close":17.15},{"Date":"2026-01-22","Close":17.19},{"Date":"2026-01-23","Close":17.42},{"Date":"2026-01-26","Close":17.35},{"Date":"2026-01-27","Close":17.32},{"Date":"2026-01-28","Close":17.43},{"Date":"2026-01-29","Close":17.50},{"Date":"2026-01-30","Close":17.48},{"Date":"2026-02-02","Close":17.28},{"Date":"2026-02-03","Close":17.37},{"Date":"2026-02-04","Close":17.39},{"Date":"2026-02-05","Close":17.60},{"Date":"2026-02-06","Close":17.50},{"Date":"2026-02-09","Close":17.42},{"Date":"2026-02-10","Close":17.46},{"Date":"2026-02-11","Close":17.45},{"Date":"2026-02-12","Close":17.62},{"Date":"2026-02-13","Close":17.65},{"Date":"2026-02-17","Close":17.45},{"Date":"2026-02-18","Close":17.44},{"Date":"2026-02-19","Close":17.49},{"Date":"2026-02-20","Close":17.62},{"Date":"2026-02-23","Close":17.62},{"Date":"2026-02-24","Close":17.59},{"Date":"2026-02-25","Close":17.70},{"Date":"2026-02-26","Close":17.74},{"Date":"2026-02-27","Close":17.89},{"Date":"2026-03-02","Close":17.83},{"Date":"2026-03-03","Close":17.82}]
+            },
+            wheat: {
+                price: 21.83,
+                change: 4.70,
+                data: [{"Date":"2026-01-20","Close":20.11},{"Date":"2026-01-21","Close":20.05},{"Date":"2026-01-22","Close":20.31},{"Date":"2026-01-23","Close":20.75},{"Date":"2026-01-26","Close":20.53},{"Date":"2026-01-27","Close":20.50},{"Date":"2026-01-28","Close":20.88},{"Date":"2026-01-29","Close":21.13},{"Date":"2026-01-30","Close":20.97},{"Date":"2026-02-02","Close":20.57},{"Date":"2026-02-03","Close":20.67},{"Date":"2026-02-04","Close":20.60},{"Date":"2026-02-05","Close":20.87},{"Date":"2026-02-06","Close":20.70},{"Date":"2026-02-09","Close":20.65},{"Date":"2026-02-10","Close":20.67},{"Date":"2026-02-11","Close":20.88},{"Date":"2026-02-12","Close":21.34},{"Date":"2026-02-13","Close":20.98},{"Date":"2026-02-17","Close":20.77},{"Date":"2026-02-18","Close":21.14},{"Date":"2026-02-19","Close":21.82},{"Date":"2026-02-20","Close":22.17},{"Date":"2026-02-23","Close":21.91},{"Date":"2026-02-24","Close":21.87},{"Date":"2026-02-25","Close":21.75},{"Date":"2026-02-26","Close":21.92},{"Date":"2026-02-27","Close":22.57},{"Date":"2026-03-02","Close":21.99},{"Date":"2026-03-03","Close":21.83}]
+            }
+        };
+
+        // Translations
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_knowledge: "Knowledge Tools",
+                nav_community: "Community",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                get_started: "Get Started",
+                weather_intel: "Weather Intelligence",
+                crop_advisory: "AI Crop Advisory",
+                livestock: "Livestock Management",
+                market_intelligence: "Market Intelligence",
+                soil_analysis: "Soil Analysis",
+                ai_powered: "AI-Powered Tools",
+                discussion_forum: "Discussion Forum",
+                knowledge_center: "Knowledge Center",
+                expert_network: "Expert Network",
+                events_training: "Events & Training",
+                text_size: "Text Size",
+                high_contrast: "High Contrast",
+                dyslexic_font: "Dyslexic Friendly",
+                toggle_theme: "Toggle Theme",
+                market_title_1: "Global Market",
+                market_title_2: "Intelligence",
+                market_subtitle: "Real-time commodity prices, AI-powered demand forecasting, and intelligent market insights to maximize your agricultural profits across global markets."
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_knowledge: "Herramientas de Conocimiento",
+                nav_community: "Comunidad",
+                nav_about: "Sobre Nosotros",
+                nav_contact: "Contacto",
+                get_started: "Comenzar",
+                weather_intel: "Inteligencia del Clima",
+                crop_advisory: "Asesoría de Cultivos IA",
+                livestock: "Gestión de Ganado",
+                market_intelligence: "Inteligencia de Mercado",
+                soil_analysis: "Análisis de Suelo",
+                ai_powered: "Herramientas IA",
+                discussion_forum: "Foro de Discusión",
+                knowledge_center: "Centro de Conocimiento",
+                expert_network: "Red de Expertos",
+                events_training: "Eventos y Capacitación",
+                text_size: "Tamaño de Texto",
+                high_contrast: "Alto Contraste",
+                dyslexic_font: "Fuente Disléxica",
+                toggle_theme: "Cambiar Tema",
+                market_title_1: "Inteligencia de",
+                market_title_2: "Mercado Global",
+                market_subtitle: "Precios de commodities en tiempo real, pronósticos de demanda impulsados por IA e información inteligente del mercado para maximizar sus ganancias agrícolas."
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            initHeatmap();
+            initSparklines();
+            updateLastUpdate();
+            
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                toggleDarkMode();
+            }
+        });
+
+        // Chart Initialization
+        function initCharts() {
+            const ctx = document.getElementById('mainPriceChart').getContext('2d');
+            
+            const wheatData = marketData.wheat.data;
+            const labels = wheatData.map(d => d.Date);
+            const prices = wheatData.map(d => d.Close);
+            
+            // Generate prediction data (simple linear projection for demo)
+            const predictionLabels = [...labels];
+            const predictionPrices = [...prices];
+            const lastPrice = prices[prices.length - 1];
+            const lastDate = new Date(labels[labels.length - 1]);
+            
+            for (let i = 1; i <= 7; i++) {
+                const nextDate = new Date(lastDate);
+                nextDate.setDate(nextDate.getDate() + i);
+                predictionLabels.push(nextDate.toISOString().split('T')[0]);
+                predictionPrices.push(lastPrice + (Math.random() * 0.5 - 0.2));
+            }
+
+            mainPriceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: predictionLabels,
+                    datasets: [{
+                        label: 'Actual Price',
+                        data: [...prices, ...Array(7).fill(null)],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    }, {
+                        label: 'AI Prediction',
+                        data: [...Array(prices.length - 1).fill(null), prices[prices.length - 1], ...predictionPrices.slice(-7)],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            titleFont: { size: 13 },
+                            bodyFont: { size: 12 }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { maxTicksLimit: 6, font: { size: 11 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: { font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+
+            // Prediction Chart
+            const predCtx = document.getElementById('predictionChart').getContext('2d');
+            predictionChart = new Chart(predCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30'],
+                    datasets: [{
+                        label: 'Base Case',
+                        data: [21.83, 22.05, 22.18, 22.35, 22.42, 22.38, 22.45],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Bull Case',
+                        data: [21.83, 22.45, 23.12, 23.85, 24.42, 24.95, 25.30],
+                        borderColor: '#22c55e',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        fill: false
+                    }, {
+                        label: 'Bear Case',
+                        data: [21.83, 21.45, 20.95, 20.35, 19.85, 19.40, 18.95],
+                        borderColor: '#ef4444',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 18,
+                            max: 26
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize Heatmap
+        function initHeatmap() {
+            const commodities = [
+                { name: 'Wheat', change: 4.7, color: 'bg-green-500' },
+                { name: 'Corn', change: 0.06, color: 'bg-green-400' },
+                { name: 'DBA', change: 1.92, color: 'bg-green-400' },
+                { name: 'Soybean', change: -1.23, color: 'bg-red-400' },
+                { name: 'Coffee', change: 2.15, color: 'bg-green-500' },
+                { name: 'Cotton', change: -0.89, color: 'bg-red-300' },
+                { name: 'Cattle', change: 0.45, color: 'bg-green-300' },
+                { name: 'Hogs', change: -2.10, color: 'bg-red-500' },
+                { name: 'Sugar', change: 1.45, color: 'bg-green-400' },
+                { name: 'Cocoa', change: 3.20, color: 'bg-green-500' },
+                { name: 'Rice', change: -0.45, color: 'bg-yellow-400' },
+                { name: 'Oats', change: 0.78, color: 'bg-green-300' }
+            ];
+
+            const heatmapContainer = document.getElementById('market-heatmap');
+            commodities.forEach(comm => {
+                const cell = document.createElement('div');
+                cell.className = `heatmap-cell ${comm.color} text-white p-2`;
+                cell.innerHTML = `
+                    <div class="text-xs font-bold">${comm.name}</div>
+                    <div class="text-xs">${comm.change > 0 ? '+' : ''}${comm.change}%</div>
+                `;
+                cell.onclick = () => showToast(`${comm.name}: ${comm.change}% change`);
+                heatmapContainer.appendChild(cell);
+            });
+        }
+
+        // Initialize Sparklines
+        function initSparklines() {
+            document.querySelectorAll('.sparkline').forEach(canvas => {
+                const ctx = canvas.getContext('2d');
+                const values = JSON.parse(canvas.dataset.values);
+                
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: values.map((_, i) => i),
+                        datasets: [{
+                            data: values,
+                            borderColor: '#22c55e',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false, min: Math.min(...values) * 0.99, max: Math.max(...values) * 1.01 }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Core Functions
+        function updateCommodityData() {
+            const commodity = document.getElementById('commodity-select').value;
+            showToast(`Updated data for ${commodity}`);
+            // In production, this would fetch new data
+        }
+
+        function updateTimeframe() {
+            const timeframe = document.getElementById('timeframe-select').value;
+            showToast(`Switched to ${timeframe} view`);
+            // Update chart data based on timeframe
+        }
+
+        function analyzeMarket() {
+            const commodity = document.getElementById('commodity-select').value;
+            const region = document.getElementById('region-select').value;
+            const position = document.getElementById('position-select').value;
+            
+            showToast(`Analyzing ${commodity} market in ${region} for ${position}...`);
+            
+            setTimeout(() => {
+                showToast('Analysis complete! Recommendations updated.');
+                document.getElementById('market-dashboard').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function refreshMarketData() {
+            const btn = document.querySelector('button[onclick="refreshMarketData()"] i');
+            btn.classList.add('animate-spin');
+            setTimeout(() => {
+                btn.classList.remove('animate-spin');
+                updateLastUpdate();
+                showToast('Market data refreshed successfully');
+            }, 1000);
+        }
+
+        function exportReport() {
+            showToast('Generating market report...');
+            setTimeout(() => {
+                showToast('Report downloaded: Market_Intelligence_Report.pdf');
+            }, 1500);
+        }
+
+        function togglePredictionOverlay() {
+            showPrediction = !showPrediction;
+            showToast(showPrediction ? 'AI prediction overlay enabled' : 'AI prediction overlay hidden');
+        }
+
+        function switchMarketTab(tab) {
+            document.querySelectorAll('.market-tab').forEach(t => {
+                t.classList.remove('active', 'bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+                t.classList.add('hover:bg-gray-100', 'dark:hover:bg-gray-800');
+            });
+            event.target.classList.add('active', 'bg-blue-100', 'dark:bg-blue-900/30', 'text-blue-700', 'dark:text-blue-300');
+            event.target.classList.remove('hover:bg-gray-100', 'dark:hover:bg-gray-800');
+            
+            showToast(`Switched to ${tab} markets`);
+            // Update table data based on tab
+        }
+
+        function runPrediction() {
+            const commodity = document.getElementById('predict-commodity').value;
+            const horizon = document.getElementById('predict-horizon').value;
+            const scenario = document.querySelector('input[name="scenario"]:checked').value;
+            
+            showToast(`Running ${commodity} prediction for ${horizon} days (${scenario} case)...`);
+            
+            setTimeout(() => {
+                showToast('Prediction model updated with new parameters');
+                // Update prediction chart
+            }, 1500);
+        }
+
+        function updateLastUpdate() {
+            const now = new Date();
+            document.getElementById('last-update').textContent = now.toLocaleTimeString();
+        }
+
+        // UI Functions (Same as Homepage)
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-btn');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleMobileDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            dropdown.classList.toggle('hidden');
+            icon.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        function toggleTextSize() {
+            isLargeText = !isLargeText;
+            document.body.classList.toggle('large-text', isLargeText);
+            document.getElementById('text-size-label').textContent = isLargeText ? 'Large' : 'Normal';
+            showToast(isLargeText ? 'Large text mode enabled' : 'Normal text mode enabled');
+        }
+
+        function toggleHighContrast() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            showToast(isHighContrast ? 'High contrast mode enabled' : 'High contrast mode disabled');
+        }
+
+        function toggleDyslexicFont() {
+            isDyslexicFont = !isDyslexicFont;
+            document.body.style.fontFamily = isDyslexicFont ? 'Comic Sans MS, cursive, sans-serif' : '';
+            showToast(isDyslexicFont ? 'Dyslexic-friendly font enabled' : 'Standard font restored');
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            showToast(`Language changed to ${lang.toUpperCase()}`);
+        }
+
+        // Chat Functions
+        function toggleChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.toggle('open');
+            widget.classList.toggle('closed');
+        }
+
+        function openChat() {
+            const widget = document.getElementById('chat-widget');
+            widget.classList.add('open');
+            widget.classList.remove('closed');
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendQuickMessage(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+            showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1500);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+            
+            if (sender === 'bot') {
+                messageDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                    </div>
+                    <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="bg-agri-600 text-white rounded-2xl rounded-tr-none p-3 max-w-[80%] text-sm">
+                        ${text}
+                    </div>
+                `;
+            }
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3';
+            typingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-agri-100 dark:bg-agri-900/30 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="bot" class="w-4 h-4 text-agri-600"></i>
+                </div>
+                <div class="glass dark:glass-dark rounded-2xl rounded-tl-none p-3 flex items-center gap-1">
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function generateAIResponse(input) {
+            const lowerInput = input.toLowerCase();
+            
+            if (lowerInput.includes('sell') && lowerInput.includes('wheat')) {
+                return "Based on current market analysis:<br><br><strong>Recommendation: STRONG SELL</strong><br><br>• Wheat at $21.83 is near 6-month highs<br>• RSI indicates overbought conditions (78)<br>• Argentine drought premium may be priced in<br>• Profit-taking likely before weekend<br><br><strong>Action:</strong> Consider selling 50% now, remaining on stop-loss at $21.40<br><br>Would you like specific buyer contacts in your region?";
+            }
+            else if (lowerInput.includes('corn') && (lowerInput.includes('forecast') || lowerInput.includes('price'))) {
+                return "Corn Price Forecast (30-day):<br><br><strong>Current:</strong> $17.82/bushel<br><strong>Predicted:</strong> $18.15-18.45 range<br><strong>Confidence:</strong> 82%<br><br><strong>Key Drivers:</strong><br>• Lower than expected stocks (USDA)<br>• Strong ethanol demand<br>• Export pace ahead of schedule<br>• Weather concerns in Brazil<br><br><strong>Strategy:</strong> Hold current position, scale in on dips below $17.50";
+            }
+            else if (lowerInput.includes('fertilizer') || lowerInput.includes('buy')) {
+                return "Optimal Fertilizer Procurement Timing:<br><br><strong>Current Market:</strong> Nitrogen prices down 12% from peak<br><strong>Recommendation:</strong> WAIT 2-3 weeks<br><br><strong>Rationale:</strong><br>• Natural gas prices declining (major input cost)<br>• Chinese export restrictions easing<br>• Seasonal demand lull before planting<br><br><strong>Target Entry:</strong> Urea below $350/MT<br><strong>Current:</strong> $385/MT<br><br>Set price alert at $360?";
+            }
+            else {
+                return "I can help you with market intelligence:<br><br>• Commodity price analysis & forecasts<br>• Optimal timing for buying/selling<br>• Market trend identification<br>• Risk management strategies<br>• Global supply/demand insights<br>• Weather impact on prices<br><br>What specific market are you interested in?";
+            }
+        }
+
+        // Auth Modal
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('auth-title').textContent = isSignUp ? 'Create Account' : 'Welcome Back';
+            document.getElementById('auth-submit-text').textContent = isSignUp ? 'Sign Up' : 'Sign In';
+            document.getElementById('auth-switch-text').textContent = isSignUp ? 'Already have an account?' : "Don't have an account?";
+            document.getElementById('auth-switch-btn').textContent = isSignUp ? 'Sign In' : 'Sign Up';
+            document.getElementById('name-field').classList.toggle('hidden', !isSignUp);
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            closeAuthModal();
+            showToast(isSignUp ? 'Account created successfully!' : 'Welcome back!');
+        }
+
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            showToast('Successfully subscribed to newsletter!');
+            event.target.reset();
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

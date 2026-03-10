@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center | AgriClimate Connect</title>
+    <meta name="description" content="Get help with AgriClimate Connect - FAQs, tutorials, troubleshooting guides, and expert support for AI-powered agriculture platform.">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        agri: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        earth: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        help: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        morph: {
+                            '0%, 100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Liquid Glass Effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .glass-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* Animated Background */
+        .bg-mesh {
+            background: 
+                radial-gradient(at 0% 0%, hsla(217,60%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(190,60%,60%,0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(160,60%,50%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(200,60%,65%,0.3) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Text Effects */
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-blue {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            border-radius: 5px;
+        }
+        
+        /* Dropdown Animation */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* Chat Widget */
+        .chat-widget {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .chat-widget.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .chat-widget.closed {
+            transform: scale(0);
+            opacity: 0;
+        }
+        
+        /* Loading Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Accessibility */
+        .high-contrast {
+            filter: contrast(150%);
+        }
+        
+        .large-text {
+            font-size: 120%;
+        }
+        
+        /* Feature Card Hover */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        /* Hamburger Menu */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Accordion Styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            max-height: 2000px;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-icon.active {
+            transform: rotate(180deg);
+        }
+        
+        /* Search Highlight */
+        .search-highlight {
+            background: linear-gradient(120deg, #fef08a 0%, #fef08a 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            font-weight: 600;
+        }
+        
+        .dark .search-highlight {
+            background: linear-gradient(120deg, #854d0e 0%, #854d0e 100%);
+            color: #fef9c3;
+        }
+        
+        /* Tab Styles */
+        .tab-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        
+        .tab-btn.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Category Card */
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+        
+        .category-card.active {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, rgba(59,130,246,0.05) 100%);
+        }
+        
+        /* Video Thumbnail */
+        .video-thumb {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-thumb:hover::after {
+            opacity: 1;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .video-thumb:hover .play-button {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* Step Indicator */
+        .step-indicator {
+            position: relative;
+        }
+        
+        .step-indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            transform: translateY(-50%);
+        }
+        
+        .step-indicator:last-child::after {
+            display: none;
+        }
+        
+        /* Progress Bar */
+        .progress-fill {
+            transition: width 0.5s ease;
+        }
+        
+        /* Rating Stars */
+        .star-rating {
+            display: inline-flex;
+            gap: 4px;
+        }
+        
+        .star {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #fbbf24;
+            transform: scale(1.2);
+        }
+        
+        /* Ticket Status */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-open {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-resolved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .dark .status-open {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        
+        .dark .status-in-progress {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        
+        .dark .status-resolved {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+        
+        /* Quick Action Button */
+        .quick-action {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quick-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .quick-action:hover::before {
+            left: 100%;
+        }
+        
+        /* Search Input Focus */
+        .search-input:focus {
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            padding: 6px 12px;
+            background: #1e293b;
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+        
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-4px);
+        }
+        
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        
+        .dark .skeleton {
+            background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
+            background-size: 200% 100%;
+        }
+        
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Notification Toast */
+        .toast {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        /* Modal Overlay */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #86efac; }
+        .code-block .function { color: #60a5fa; }
+        
+        /* Comparison Table */
+        .comparison-table th {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: rgba(37, 99, 235, 0.05);
+        }
+        
+        /* Interactive Demo */
+        .interactive-demo {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .demo-cursor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: #2563eb;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Feedback Form */
+        .feedback-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* Related Articles */
+        .related-article {
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .related-article::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 4px;
+            height: 4px;
+            background: #2563eb;
+            border-radius: 50%;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb-item:not(:last-child)::after {
+            content: '/';
+            margin: 0 0.5rem;
+            color: #9ca3af;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .glass, .glass-dark, .glass-card {
+                background: white !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-earth-50 dark:bg-slate-900 text-earth-800 dark:text-earth-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-help-600 text-white px-4 py-2 rounded-lg z-[100]">
+        Skip to main content
+    </a>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 glass dark:glass-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="sprout" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-gradient">AgriClimate</span>
+                        <span class="text-xs text-agri-600 dark:text-agri-400 font-medium tracking-wider">CONNECT</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors">Home</a>
+                    
+                    <!-- Knowledge Tools Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-1">
+                            <span>Knowledge Tools</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <a href="weather.html" class="block px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">Weather Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Real-time forecasts & alerts</div>
+                                </div>
+                            </a>
+                            <a href="crops.html" class="block px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">AI Crop Advisory</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Smart planting recommendations</div>
+                                </div>
+                            </a>
+                            <a href="livestock.html" class="block px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="beef" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">Livestock Management</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Animal health & feeding</div>
+                                </div>
+                            </a>
+                            <a href="market.html" class="block px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-agri-500"></i>
+                                <div>
+                                    <div class="font-medium text-sm">Market Intelligence</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400">Price predictions & trends</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium bg-help-100 dark:bg-help-900/30 text-help-700 flex items-center gap-1">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                        Help Center
+                    </a>
+
+                    <a href="index.html#about" class="px-4 py-2 rounded-lg text-sm font-medium hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors">About Us</a>
+                </div>
+
+                <!-- Right Side Controls -->
+                <div class="hidden lg:flex items-center gap-3">
+                    <!-- Accessibility Toggle -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors" aria-label="Accessibility Options">
+                            <i data-lucide="accessibility" class="w-5 h-5"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-56 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-3">
+                            <div class="space-y-2">
+                                <button onclick="toggleTextSize()" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="type" class="w-4 h-4"></i>
+                                    <span>Text Size</span>
+                                    <span id="text-size-label" class="ml-auto text-xs bg-help-100 dark:bg-help-900 px-2 py-1 rounded">Normal</span>
+                                </button>
+                                <button onclick="toggleHighContrast()" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="contrast" class="w-4 h-4"></i>
+                                    <span>High Contrast</span>
+                                </button>
+                                <button onclick="toggleDyslexicFont()" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-sm">
+                                    <i data-lucide="font" class="w-4 h-4"></i>
+                                    <span>Dyslexic Friendly</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-1" aria-label="Select Language">
+                            <i data-lucide="globe" class="w-5 h-5"></i>
+                            <span class="text-sm font-medium" id="current-lang">EN</span>
+                        </button>
+                        <div class="dropdown-menu absolute top-full right-0 mt-2 w-48 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 p-2">
+                            <button onclick="changeLanguage('en')" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-900 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">EN</span>
+                                <span class="text-sm">English</span>
+                            </button>
+                            <button onclick="changeLanguage('es')" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-yellow-400 rounded-sm flex items-center justify-center text-[8px] text-red-600 font-bold">ES</span>
+                                <span class="text-sm">Español</span>
+                            </button>
+                            <button onclick="changeLanguage('fr')" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-blue-700 rounded-sm flex items-center justify-center text-[8px] text-white font-bold">FR</span>
+                                <span class="text-sm">Français</span>
+                            </button>
+                            <button onclick="changeLanguage('sw')" class="w-full px-3 py-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors flex items-center gap-2 text-left">
+                                <span class="w-6 h-4 bg-black rounded-sm flex items-center justify-center text-[8px] text-green-500 font-bold">SW</span>
+                                <span class="text-sm">Kiswahili</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors" aria-label="Toggle Dark Mode">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Get Started Button -->
+                    <button onclick="openAuthModal()" class="glass-button px-6 py-2.5 rounded-full text-sm font-semibold text-help-700 dark:text-help-300 hover:text-help-800 dark:hover:text-help-200 flex items-center gap-2">
+                        <span>Get Started</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg hover:bg-help-100 dark:hover:bg-help-900/30 transition-colors hamburger" aria-label="Toggle Menu" id="hamburger-btn">
+                    <div class="w-6 h-5 flex flex-col justify-between">
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line w-full h-0.5 bg-current rounded-full"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden glass dark:glass-dark border-t border-white/10">
+            <div class="px-4 pt-2 pb-6 space-y-2 max-h-[80vh] overflow-y-auto">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 font-medium">Home</a>
+                
+                <a href="#" class="block px-4 py-3 rounded-xl bg-help-100 dark:bg-help-900/30 font-medium text-help-700 flex items-center gap-2">
+                    <i data-lucide="help-circle" class="w-5 h-5"></i>
+                    Help Center
+                </a>
+
+                <a href="index.html#about" class="block px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 font-medium">About Us</a>
+                
+                <!-- Mobile Controls -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                    <button onclick="toggleDarkMode()" class="w-full px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        <span>Toggle Theme</span>
+                    </button>
+                    <button onclick="toggleTextSize()" class="w-full px-4 py-3 rounded-xl hover:bg-help-100 dark:hover:bg-help-900/30 font-medium flex items-center gap-3">
+                        <i data-lucide="type" class="w-5 h-5"></i>
+                        <span>Text Size</span>
+                    </button>
+                </div>
+
+                <button onclick="openAuthModal()" class="w-full mt-4 bg-gradient-to-r from-help-600 to-help-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-20">
+        <!-- Hero Search Section -->
+        <section class="relative py-20 overflow-hidden">
+            <div class="absolute inset-0 bg-mesh dark:opacity-20"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%232563eb%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-10 left-10 w-64 h-64 bg-help-400/20 rounded-full blur-3xl animate-morph"></div>
+            <div class="absolute bottom-10 right-10 w-80 h-80 bg-agri-400/20 rounded-full blur-3xl animate-morph" style="animation-delay: -4s;"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark mb-6 animate-float">
+                    <i data-lucide="life-buoy" class="w-4 h-4 text-help-600"></i>
+                    <span class="text-sm font-medium text-help-700 dark:text-help-300">24/7 Support Available</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                    How can we <span class="text-gradient-blue">help you?</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Search our knowledge base, browse tutorials, or connect with our support team for personalized assistance.
+                </p>
+
+                <!-- Search Box -->
+                <div class="relative max-w-2xl mx-auto mb-8">
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"></i>
+                        <input 
+                            type="text" 
+                            id="help-search" 
+                            placeholder="Search for help articles, tutorials, or FAQs..." 
+                            class="search-input w-full pl-14 pr-4 py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 text-lg focus:outline-none focus:border-help-500 transition-all shadow-lg"
+                            oninput="performSearch(this.value)"
+                            onfocus="showSearchSuggestions()"
+                            onblur="hideSearchSuggestions()"
+                        >
+                        <div class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden md:flex items-center gap-2 text-sm text-gray-400">
+                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">⌘K</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Suggestions Dropdown -->
+                    <div id="search-suggestions" class="hidden absolute top-full left-0 right-0 mt-2 glass dark:glass-dark rounded-2xl shadow-2xl border border-white/20 overflow-hidden z-50">
+                        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Popular Searches</span>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto">
+                            <button onclick="quickSearch('How to set up weather alerts')" class="w-full px-4 py-3 text-left hover:bg-help-50 dark:hover:bg-help-900/20 transition-colors flex items-center gap-3">
+                                <i data-lucide="cloud-sun" class="w-5 h-5 text-help-500"></i>
+                                <span>How to set up weather alerts</span>
+                            </button>
+                            <button onclick="quickSearch('AI crop recommendations not working')" class="w-full px-4 py-3 text-left hover:bg-help-50 dark:hover:bg-help-900/20 transition-colors flex items-center gap-3">
+                                <i data-lucide="leaf" class="w-5 h-5 text-agri-500"></i>
+                                <span>AI crop recommendations not working</span>
+                            </button>
+                            <button onclick="quickSearch('Reset password')" class="w-full px-4 py-3 text-left hover:bg-help-50 dark:hover:bg-help-900/20 transition-colors flex items-center gap-3">
+                                <i data-lucide="key" class="w-5 h-5 text-yellow-500"></i>
+                                <span>Reset password</span>
+                            </button>
+                            <button onclick="quickSearch('Connect with market buyers')" class="w-full px-4 py-3 text-left hover:bg-help-50 dark:hover:bg-help-900/20 transition-colors flex items-center gap-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-purple-500"></i>
+                                <span>Connect with market buyers</span>
+                            </button>
+                            <button onclick="quickSearch('Livestock health monitoring setup')" class="w-full px-4 py-3 text-left hover:bg-help-50 dark:hover:bg-help-900/20 transition-colors flex items-center gap-3">
+                                <i data-lucide="heart-pulse" class="w-5 h-5 text-red-500"></i>
+                                <span>Livestock health monitoring setup</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark">
+                        <i data-lucide="book-open" class="w-4 h-4 text-help-500"></i>
+                        <span>150+ Help Articles</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark">
+                        <i data-lucide="video" class="w-4 h-4 text-help-500"></i>
+                        <span>50+ Video Tutorials</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full glass dark:glass-dark">
+                        <i data-lucide="users" class="w-4 h-4 text-help-500"></i>
+                        <span>2.4M Community Members</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Help Categories -->
+        <section class="py-12 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold text-center mb-8">Browse by Category</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Getting Started -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('getting-started')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="rocket" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Getting Started</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Account setup, platform overview, and basic navigation</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">24 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Weather & Climate -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('weather')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="cloud-sun" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Weather & Climate</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Forecasts, alerts, climate analysis, and weather tools</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">31 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Crop Management -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('crops')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-agri-400 to-agri-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="leaf" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Crop Management</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">AI recommendations, planting guides, pest control</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">42 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Livestock -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('livestock')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="beef" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Livestock</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Animal health, breeding, feed optimization</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">28 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Market & Sales -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('market')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="trending-up" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Market & Sales</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Price tracking, buyer connections, market insights</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">19 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Soil & Analysis -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('soil')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="mountain" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Soil & Analysis</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Soil testing, nutrient management, carbon tracking</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">15 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Community -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('community')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="users" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Community</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Forums, expert network, events, discussions</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">22 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Account & Billing -->
+                    <div class="category-card glass-card dark:glass-dark rounded-2xl p-6 cursor-pointer border-2 border-transparent" onclick="selectCategory('account')">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center mb-4 shadow-lg">
+                            <i data-lucide="settings" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Account & Billing</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Subscription, payments, profile, security</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">18 articles</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-help-600"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Help Content Area -->
+        <section class="py-12 relative bg-white dark:bg-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-4 gap-8">
+                    <!-- Sidebar Navigation -->
+                    <div class="hidden lg:block lg:col-span-1">
+                        <div class="sticky top-24 space-y-6">
+                            <!-- Quick Actions -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-4">
+                                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-500">Quick Actions</h4>
+                                <div class="space-y-2">
+                                    <button onclick="openContactModal()" class="quick-action w-full px-4 py-3 rounded-xl bg-help-600 text-white text-sm font-medium hover:bg-help-700 transition-colors flex items-center gap-2">
+                                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                        Contact Support
+                                    </button>
+                                    <button onclick="openVideoModal()" class="quick-action w-full px-4 py-3 rounded-xl bg-agri-100 dark:bg-agri-900/30 text-agri-700 dark:text-agri-300 text-sm font-medium hover:bg-agri-200 dark:hover:bg-agri-900/50 transition-colors flex items-center gap-2">
+                                        <i data-lucide="play-circle" class="w-4 h-4"></i>
+                                        Video Tutorials
+                                    </button>
+                                    <button onclick="openCommunityModal()" class="quick-action w-full px-4 py-3 rounded-xl bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-medium hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors flex items-center gap-2">
+                                        <i data-lucide="users" class="w-4 h-4"></i>
+                                        Ask Community
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Popular Topics -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-4">
+                                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-500">Popular Topics</h4>
+                                <nav class="space-y-1">
+                                    <a href="#article-1" class="block px-3 py-2 rounded-lg hover:bg-help-50 dark:hover:bg-help-900/20 text-sm transition-colors flex items-center gap-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                                        Getting Started Guide
+                                    </a>
+                                    <a href="#article-2" class="block px-3 py-2 rounded-lg hover:bg-help-50 dark:hover:bg-help-900/20 text-sm transition-colors flex items-center gap-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                                        API Documentation
+                                    </a>
+                                    <a href="#article-3" class="block px-3 py-2 rounded-lg hover:bg-help-50 dark:hover:bg-help-900/20 text-sm transition-colors flex items-center gap-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                                        Troubleshooting FAQ
+                                    </a>
+                                    <a href="#article-4" class="block px-3 py-2 rounded-lg hover:bg-help-50 dark:hover:bg-help-900/20 text-sm transition-colors flex items-center gap-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                                        Mobile App Guide
+                                    </a>
+                                    <a href="#article-5" class="block px-3 py-2 rounded-lg hover:bg-help-50 dark:hover:bg-help-900/20 text-sm transition-colors flex items-center gap-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                                        Data Export Tutorial
+                                    </a>
+                                </nav>
+                            </div>
+
+                            <!-- Support Status -->
+                            <div class="glass-card dark:glass-dark rounded-2xl p-4">
+                                <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider text-gray-500">Support Status</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                                    <span class="text-sm font-medium">All systems operational</span>
+                                </div>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div class="flex justify-between">
+                                        <span>AI Services</span>
+                                        <span class="text-green-600">99.9% uptime</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Weather API</span>
+                                        <span class="text-green-600">100% uptime</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Market Data</span>
+                                        <span class="text-green-600">99.8% uptime</span>
+                                    </div>
+                                </div>
+                                <a href="status.html" class="mt-3 text-xs text-help-600 hover:underline flex items-center gap-1">
+                                    View status page
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="lg:col-span-3">
+                        <!-- Tab Navigation -->
+                        <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+                            <button onclick="switchTab('faqs')" id="tab-faqs" class="tab-btn active px-6 py-3 text-sm font-medium transition-all text-help-600">
+                                FAQs
+                            </button>
+                            <button onclick="switchTab('tutorials')" id="tab-tutorials" class="tab-btn px-6 py-3 text-sm font-medium transition-all text-gray-600 hover:text-help-600">
+                                Tutorials & Guides
+                            </button>
+                            <button onclick="switchTab('troubleshooting')" id="tab-troubleshooting" class="tab-btn px-6 py-3 text-sm font-medium transition-all text-gray-600 hover:text-help-600">
+                                Troubleshooting
+                            </button>
+                            <button onclick="switchTab('api')" id="tab-api" class="tab-btn px-6 py-3 text-sm font-medium transition-all text-gray-600 hover:text-help-600">
+                                API Docs
+                            </button>
+                            <button onclick="switchTab('tickets')" id="tab-tickets" class="tab-btn px-6 py-3 text-sm font-medium transition-all text-gray-600 hover:text-help-600 flex items-center gap-2">
+                                My Tickets
+                                <span class="px-2 py-0.5 bg-help-100 dark:bg-help-900 text-help-700 rounded-full text-xs">3</span>
+                            </button>
+                        </div>
+
+                        <!-- FAQs Tab Content -->
+                        <div id="content-faqs" class="tab-content">
+                            <div class="mb-6 flex items-center justify-between">
+                                <h2 class="text-2xl font-bold">Frequently Asked Questions</h2>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500">Sort by:</span>
+                                    <select class="px-3 py-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-800 text-sm" onchange="sortFAQs(this.value)">
+                                        <option value="popular">Most Popular</option>
+                                        <option value="recent">Recently Updated</option>
+                                        <option value="az">A-Z</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- FAQ Categories -->
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <button onclick="filterFAQs('all')" class="faq-filter active px-4 py-2 rounded-full text-sm font-medium bg-help-600 text-white transition-all">All</button>
+                                <button onclick="filterFAQs('account')" class="faq-filter px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-help-100 dark:hover:bg-help-900/30 transition-all">Account</button>
+                                <button onclick="filterFAQs('billing')" class="faq-filter px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-help-100 dark:hover:bg-help-900/30 transition-all">Billing</button>
+                                <button onclick="filterFAQs('technical')" class="faq-filter px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-help-100 dark:hover:bg-help-900/30 transition-all">Technical</button>
+                                <button onclick="filterFAQs('features')" class="faq-filter px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-help-100 dark:hover:bg-help-900/30 transition-all">Features</button>
+                            </div>
+
+                            <!-- FAQ Items -->
+                            <div class="space-y-4" id="faq-container">
+                                <!-- FAQ Item 1 -->
+                                <div class="faq-item glass-card dark:glass-dark rounded-2xl overflow-hidden" data-category="account">
+                                    <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-help-50 dark:hover:bg-help-900/10 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <span class="w-8 h-8 rounded-full bg-help-100 dark:bg-help-900/30 flex items-center justify-center text-help-600 font-semibold text-sm">1</span>
+                                            <span class="font-medium">How do I create an account on AgriClimate Connect?</span>
+                                        </div>
+                                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content px-6 pb-4">
+                                        <div class="pl-12 text-gray-600 dark:text-gray-300 space-y-4">
+                                            <p>Creating an account is simple and takes less than 2 minutes:</p>
+                                            <ol class="list-decimal pl-5 space-y-2">
+                                                <li>Click the "Get Started" button in the top right corner</li>
+                                                <li>Enter your email address and create a password</li>
+                                                <li>Verify your email by clicking the link sent to your inbox</li>
+                                                <li>Complete your profile with basic farm information</li>
+                                                <li>Start exploring the platform features</li>
+                                            </ol>
+                                            <div class="bg-help-50 dark:bg-help-900/20 p-4 rounded-xl mt-4">
+                                                <p class="text-sm"><strong>Tip:</strong> You can also sign up using your Google account for faster registration.</p>
+                                            </div>
+                                            <div class="flex items-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <span class="text-sm text-gray-500">Was this helpful?</span>
+                                                <div class="flex gap-2">
+                                                    <button onclick="rateFAQ(this, 'helpful')" class="px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 text-sm hover:bg-green-200 transition-colors flex items-center gap-1">
+                                                        <i data-lucide="thumbs-up" class="w-4 h-4"></i> Yes
+                                                    </button>
+                                                    <button onclick="rateFAQ(this, 'not-helpful')" class="px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 text-sm hover:bg-red-200 transition-colors flex items-center gap-1">
+                                                        <i data-lucide="thumbs-down" class="w-4 h-4"></i> No
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 2 -->
+                                <div class="faq-item glass-card dark:glass-dark rounded-2xl overflow-hidden" data-category="features">
+                                    <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-help-50 dark:hover:bg-help-900/10 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <span class="w-8 h-8 rounded-full bg-help-100 dark:bg-help-900/30 flex items-center justify-center text-help-600 font-semibold text-sm">2</span>
+                                            <span class="font-medium">How accurate are the AI weather predictions?</span>
+                                        </div>
+                                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content px-6 pb-4">
+                                        <div class="pl-12 text-gray-600 dark:text-gray-300 space-y-4">
+                                            <p>Our AI-powered weather predictions combine multiple data sources to provide industry-leading accuracy:</p>
+                                            <div class="grid md:grid-cols-3 gap-4 my-4">
+                                                <div class="text-center p-4 bg-help-50 dark:bg-help-900/20 rounded-xl">
+                                                    <div class="text-3xl font-bold text-help-600">94%</div>
+                                                    <div class="text-sm text-gray-600">24-hour accuracy</div>
+                                                </div>
+                                                <div class="text-center p-4 bg-help-50 dark:bg-help-900/20 rounded-xl">
+                                                    <div class="text-3xl font-bold text-help-600">89%</div>
+                                                    <div class="text-sm text-gray-600">7-day accuracy</div>
+                                                </div>
+                                                <div class="text-center p-4 bg-help-50 dark:bg-help-900/20 rounded-xl">
+                                                    <div class="text-3xl font-bold text-help-600">82%</div>
+                                                    <div class="text-sm text-gray-600">14-day accuracy</div>
+                                                </div>
+                                            </div>
+                                            <p>We use ensemble forecasting models that combine:</p>
+                                            <ul class="list-disc pl-5 space-y-2">
+                                                <li>Global meteorological data from 5 international agencies</li>
+                                                <li>Local weather station networks</li>
+                                                <li>Satellite imagery and radar data</li>
+                                                <li>Machine learning models trained on 20+ years of historical data</li>
+                                                <li>Microclimate analysis for your specific location</li>
+                                            </ul>
+                                            <div class="flex items-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <span class="text-sm text-gray-500">Was this helpful?</span>
+                                                <div class="flex gap-2">
+                                                    <button onclick="rateFAQ(this, 'helpful')" class="px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 text-sm hover:bg-green-200 transition-colors flex items-center gap-1">
+                                                        <i data-lucide="thumbs-up" class="w-4 h-4"></i> Yes
+                                                    </button>
+                                                    <button onclick="rateFAQ(this, 'not-helpful')" class="px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 text-sm hover:bg-red-200 transition-colors flex items-center gap-1">
+                                                        <i data-lucide="thumbs-down" class="w-4 h-4"></i> No
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 3 -->
+                                <div class="faq-item glass-card dark:glass-dark rounded-2xl overflow-hidden" data-category="billing">
+                                    <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-help-50 dark:hover:bg-help-900/10 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <span class="w-8 h-8 rounded-full bg-help-100 dark:bg-help-900/30 flex items-center justify-center text-help-600 font-semibold text-sm">3</span>
+                                            <span class="font-medium">What payment methods do you accept?</span>
+                                        </div>
+                                        <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-gray-400 transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content px-6 pb-4">
+                                        <div class="pl-12 text-gray-600 dark:text-gray-300 space-y-4">
+                                            <p>We support multiple payment methods to ensure accessibility for farmers worldwide:</p>
+                                            <div class="grid md:grid-cols-2 gap-4">
+                                                <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                                                    <i data-lucide="credit-card" class="w-6 h-6 text-help-600"></i>
+                                                    <div>
+                                                        <div class="font-medium">Credit/Debit Cards</div>
+                                                        <div class="text-xs text-gray-500">Visa, Mastercard, Amex</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                                                    <i data-lucide="smartphone" class="w-6 h-6 text-green-600"></i>
+                                                    <div>
+                                                        <div class="font-medium">Mobile Money</div>
+                                                        <div class="text-xs text-gray-500">M-Pesa, MTN, Airtel</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                                                    <i data-lucide="landmark" class="w-6 h-6 text-blue-600"></i>
+                                                    <div>
+                                                        <div class="font-medium">Bank Transfer</div>
+                                                        <div class="text-xs text-gray-500">ACH, Wire, SEPA</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                                                    <i data-lucide="wallet" class="w-6 h-6 text-purple-600"></i>
+                                                    <div>
+                                                        <div class="font-medium">Digital Wallets</div>
+                                                        <div class="text-xs text-gray-500">PayPal, Apple Pay</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm">All transactions are secured with 256-bit SSL encryption. We never store your full card details on our servers.</p>
+                                            <div class="flex items-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                                <span class="text-sm text-gray-500">Was this helpful?</span>
+                                                <div class="flex gap-2">
+                                                    <button onclick="rateFAQ(this, 'helpful')" class="px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 text-sm hover:bg-green-200 transition-colors flex items-center gap-1">
+                                                        <i data-lucide="thumbs-up" class="w-4 h-4"></i> Yes
+                                                    </button>
+                                                    <button onclick="rateFAQ(this, 'not-helpful')" class="px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 text-sm hover:bg-red-200 transition-colors flex items-center gap-1">
+                                                        <i data-lucide="thumbs-down" class="w-4 h-4"></i> No
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 4 -->
+                                <div class="faq-item glass-card dark:glass-dark rounded-2xl overflow-hidden" data-category="technical">
+                                    <button onclick="toggleAccordion(this)" class="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-help-50 dark:hover:bg-help-900/10 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <span class="w-8 h-8 rounded-full bg-help-100 dark:bg-help-900/30 flex items-center justify-center text-help-600 font-semibold
